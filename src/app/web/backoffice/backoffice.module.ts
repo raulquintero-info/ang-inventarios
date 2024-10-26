@@ -4,6 +4,7 @@ import { NavbarBackComponent } from './components/navbar-back/navbar-back.compon
 import { RouterModule } from '@angular/router';
 import { DashboardBackComponent } from './dashboard-back/dashboard-back.component';
 import { BackofficeRoutingModule } from './backoffice-routing.module';
+import { ProductosModule } from './opt/productos/productos.module';
 
 
 
@@ -16,6 +17,7 @@ import { BackofficeRoutingModule } from './backoffice-routing.module';
     CommonModule,
     RouterModule,
     BackofficeRoutingModule,
+    ProductosModule
   ],
   exports:[
     DashboardBackComponent,

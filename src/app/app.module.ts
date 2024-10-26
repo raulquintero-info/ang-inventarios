@@ -9,6 +9,8 @@ import { LandingPageComponent } from './web/landing-page/landing-page.component'
 import { AuthModule } from './core/auth/auth.module';
 import { SharedModule } from './shared/shared.module';
 import { AuthInterceptorProviders } from './core/interceptors/auth.interceptor';
+import { NgxSpinnerModule } from 'ngx-spinner';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -19,9 +21,11 @@ import { AuthInterceptorProviders } from './core/interceptors/auth.interceptor';
     BrowserModule,
     AppRoutingModule,
     NgbModule,
+    NgxSpinnerModule,
     AuthModule,
     SharedModule,
     BackofficeModule,
+    BrowserAnimationsModule,
   ],
   providers: [
     AuthInterceptorProviders,
