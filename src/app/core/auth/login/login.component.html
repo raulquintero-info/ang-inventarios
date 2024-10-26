@@ -1,0 +1,68 @@
+<div class='box'>
+  <div class='box-form'>
+    <div class='box-login-tab'></div>
+    <div class='box-login-title'>
+      <div class='i i-login'></div>
+      <h2>INFOTEC</h2>
+
+    </div>
+    <div class='box-login'>
+
+      <div class='fieldset-body' id='login_form'>
+        <button (click)="openLoginInfo();" class='b b-form i i-more' title='Mais Informações'></button>
+        <form [formGroup]="loginForm">
+          <p class='field'>
+            <label for='username'>E-MAIL</label>
+            <input type='text' formControlName="username" id='username' autocomplete="off" name='usename'
+              title='Email' />
+            <span class="text-danger fs-6 fst-italic" *ngIf="username.invalid && (username.dirty || username.touched)">
+              <span *ngIf="username.errors?.['email']">
+                - el Email debe ser un correo valido
+              </span>
+              <span *ngIf="username.errors?.['required']">
+                - Email no puede estar vacío
+              </span>
+            </span>
+          </p>
+          <p class='field'>
+            <label for='pass'>PASSWORD</label>
+            <input type='password' formControlName="password" id='pass' name='pass' title='Password' />
+            <span class="text-danger fs-6 fst-italic" *ngIf="password.invalid && (password.dirty || password.touched)">
+
+              <span *ngIf="password.errors?.['required']">
+                - Password no puede estar vacío
+              </span>
+            </span>
+          </p>
+
+          <!-- <label class='checkbox'>
+            <input type='checkbox' value='TRUE' title='Keep me Signed in' /> Keep me Signed in
+          </label> -->
+
+          <div *ngIf="isLoading" class="validando">
+
+            <span class="spinner-border text-light"
+              style="width: 9rem; height: 9rem; position: relative; top:47px; left: 85px" role="status"></span>
+            <span style="position:relative; top:10px; left:-24px;color: white">Validando...</span>
+          </div>
+          <input type='submit' id='do_login' (click)="onLogin()" value='INGRESAR' title='Ingresar' />
+          <!-- <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> -->
+
+        </form>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="!isLoading" class='box-info' [style.left]="infoSize">
+    <button (click)="closeLoginInfo();" class='b b-info i i-left' title='Back to Sign In'></button>
+    <h3>Necesitas Ayuda?</h3>
+    <div class='line-wh'></div>
+    <div *ngIf="error" class="alert alert-danger" role="alert">
+      {{errorMessage}}
+    </div>
+    <button onclick="" *ngIf="!error" class='b-support' title='Forgot Password?'> Olvidaste tu Contraseña?</button>
+  </div>
+</div>
+
+
+<div class='icon-credits'>Portal de accesso a <a href="http://www.freepik.com" title="Freepik">INFOTEC</a></div>
+<div class="bg"></div>

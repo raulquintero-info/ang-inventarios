@@ -1,0 +1,108 @@
+/* You can add global styles to this file, and also import other style files */
+@import "~bootstrap-icons/font/bootstrap-icons.css";
+@import "./assets/css/loaders.css";
+
+body{
+    height: 100%;
+    margin: 0px;
+
+}
+
+.clickable{
+  cursor: pointer;
+}
+
+.round-bar-beige{
+  /* background: linear-gradient(180deg, rgba(217,205,186,1) 35%, rgba(199,168,118,1) 100%); */
+  color:black;
+}
+.bg-gris{
+  background-color: #d9dadf;
+}
+.arrow-up{
+  width: 39px;
+  height: 12px;
+  background-image: url('/assets/buttons/arrow_up.png');
+  cursor: pointer
+}
+.arrow-down{
+  width: 39px;
+  height: 12px;
+  background-image: url('/assets/buttons/arrow_down.png');
+  cursor: pointer
+}
+
+ th{
+
+  background-color: #631231;
+}
+.tbl-data{
+  font: normal 12px / 13px tahoma, arial, verdana, sans-serif;
+
+}
+.table>:not(caption)>*>th {
+
+  background-color: #631231;
+  color: white;
+}
+.tbl-verde>:not(caption)>*>th {
+
+  background-color: #205b4f;
+  color: white;
+}
+
+.btn-guinda{
+  background-color: #631231;
+  color: white
+}
+.btn-guinda:hover{
+  background-color: #740c34;
+  color: white
+}
+
+.btn-verde{
+  background-color: #205b4f;
+  color: white
+}
+.btn-verde:hover{
+  background-color: #388677;
+  color: white
+}
+
+.btn-end-right{
+  position: relative;
+  top: 8px;
+  right: 23px;
+  border-top-left-radius: 0px;
+  border-bottom-left-radius: 0px;
+}
+
+
+.bg-rojo-light{
+  background-color: #ffaeb6;
+  color: black
+}
+.bg-amarillo-light{
+  background-color: #ffe28d;
+  color: black
+}
+
+
+
+/* modals */
+
+.my-modal {
+  text-align: left;
+  .modal-title{
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
+    background-color: #631231;
+    color: white;
+    padding: 6px;
+  }
+  .modal-dialog {
+      max-width: 650px;
+  }
+}
+
+

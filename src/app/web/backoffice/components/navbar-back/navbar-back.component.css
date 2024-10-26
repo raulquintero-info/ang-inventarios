@@ -1,0 +1,53 @@
+
+.navbar{
+  height: 42px;
+  border-top: 1px solid #afb0b4;
+}
+
+.brand-logo{
+  height: 30px;
+}
+.brand-title{
+  /* font-weight: bold; */
+  font-size: 1.4rem;
+}
+
+.sub-bar{
+  display:none;;
+  height:30px;
+  background-color: rgb(240, 240, 240);
+  font-size:small;
+  text-align: right;
+  top:40px;
+  z-index: 1;
+  background-color: gray;
+}
+.sub-menu{
+  cursor: pointer;
+  padding:7px;
+  border-left: 1px solid #00000029;
+  color:#fff
+}
+.sub-menu:hover{
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+  background-color:#d5c09f;
+  color:#523715
+}
+
+.btn-gris{
+  background-color: #d9dadf;
+  border-radius: 0px;
+  border-right: 1px solid gray;
+  color: rgb(58, 57, 57);
+}
+.bg-menu{
+  background-color: #d9dadf;
+  border-bottom: 1px solid #afb0b4;
+  color: gray;
+}
+.dropdown-menu.show {
+  border-radius: 0px;
+  background-color: #efeff0;
+  top: 36px;
+  left: -1px;
+}
