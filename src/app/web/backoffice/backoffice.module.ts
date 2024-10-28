@@ -5,6 +5,7 @@ import { RouterModule } from '@angular/router';
 import { DashboardBackComponent } from './dashboard-back/dashboard-back.component';
 import { BackofficeRoutingModule } from './backoffice-routing.module';
 import { ProductosModule } from './opt/productos/productos.module';
+import { MproductosModule } from '../components/mproductos/mproductos.module';
 
 
 
@@ -17,7 +18,8 @@ import { ProductosModule } from './opt/productos/productos.module';
     CommonModule,
     RouterModule,
     BackofficeRoutingModule,
-    ProductosModule
+    ProductosModule,
+    MproductosModule
   ],
   exports:[
     DashboardBackComponent,

@@ -13,9 +13,21 @@ body{
 }
 
 .round-bar-beige{
-  /* background: linear-gradient(180deg, rgba(217,205,186,1) 35%, rgba(199,168,118,1) 100%); */
+  background: linear-gradient(180deg, rgba(217,205,186,1) 35%, #d9c29d);
   color:black;
 }
+
+/* navigation */
+.page-link{
+  color: #631231 !important;
+}
+
+.bg-guinda{
+  background-color: #631231 !important;
+  border: 1px solid #7e143d !important;
+  color: white !important;
+}
+
 .bg-gris{
   background-color: #d9dadf;
 }

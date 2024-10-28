@@ -1,5 +1,5 @@
 import { Component, OnInit, inject } from '@angular/core';
-import { NgxSpinnerService } from 'ngx-spinner';
+import { CurrentWindowSize } from './core/services/current-window-size.service';
 
 @Component({
   selector: 'app-root',
@@ -9,18 +9,20 @@ import { NgxSpinnerService } from 'ngx-spinner';
 export class AppComponent implements OnInit {
   title = 'ang-inventarios';
 
-  private spinner = inject(NgxSpinnerService);
-
+  private currentWindowSize = inject(CurrentWindowSize);
   ngOnInit(): void {
 
-    this.spinner.show();
 
-    setTimeout(() => {
-      /** spinner ends after 5 seconds */
-      this.spinner.hide();
-    }, 2000);
 
   }
 
+
+
+
+  // para determinar la altura de la ventana del navegador y propagarla por toda la aplicacion
+  onResize(event: any){
+    this.currentWindowSize.setHeight(event.target.innerHeight);
+    // console.log(event.target.innerHeight)
+  }
 
 }

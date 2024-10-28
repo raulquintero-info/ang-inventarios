@@ -1,0 +1,26 @@
+<table class="table table-striped">
+  <!-- <thead>
+    <tr>
+      <th scope="col" style="width: 50px">#</th>
+    <th scope="col" >Nombre</th>
+    <th scope="col" style="width: 200px">Precio de compra</th>
+    <th scope="col" style="width: 100px">Unidida</th>
+    <th class="text-center" style="width: 100px" scope="col">Minimo</th>
+    <th class="text-center" style="width: 100px">Existencia</th>
+    <th class="text-center" style="width: 100px" scope="col">Máximo</th>
+    </tr>
+  </thead> -->
+  <tbody>
+    <tr *ngFor="let item of items;" (click)="singleClick(item.id - 1)" (dblclick)="doubleClick( )"
+      class="clickable">
+      <td scope="row" style="width: 50px">{{ item.id }}</td>
+      <td>{{ item.nombre }}</td>
+      <td style="width: 200px">{{ item.precio | currency }}</td>
+      <td style="width: 100px">{{ item.unidad.nombre| titlecase }}</td>
+      <td style="width: 100px" class="text-center">{{ item.minimo}}</td>
+      <td style="width: 100px" class="text-center" [ngClass]="{'bg-danger text-light': item.existencia<1}"><strong>{{
+          item.existencia}}</strong></td>
+      <td class="text-center" style="width: 100px">{{ item.maximo}}</td>
+    </tr>
+  </tbody>
+</table>

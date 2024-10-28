@@ -1,0 +1,16 @@
+{
+  "items":[
+    {"id": 1, "nombre": "cuaderno scribe cuadriculado 100 hojas", "precio": 0, "minimo": 0, "maximo":0, "cantidad": 0 , "unidad": {"id": 1, "name": "pza"}},
+    {"id": 2, "nombre": "lapiz dixon ticonderoga", "precio": 0, "minimo": 0, "maximo":0,  "cantidad": 0 , "unidad": {"id": 1, "name": "pza"}},
+    {"id": 3, "nombre": "lapiz de cera", "precio": 0, "minimo": 0, "maximo":0,  "cantidad": 0 , "unidad": {"id": 1, "name": "pza"}},
+    {"id": 4, "nombre": "pluma bic azul punto medio", "precio": 0, "minimo": 0, "maximo":0,  "cantidad": 0 , "unidad": {"id": 1, "name": "pza"}},
+    {"id": 5, "nombre": "pluma bic azul punto fino", "precio": 0, "minimo": 0, "maximo":0,  "cantidad": 0 , "unidad": {"id": 1, "name": "pza"}},
+    {"id": 6, "nombre": "pluma papermate azul punto medio", "precio": 0, "minimo": 0, "maximo":0,  "cantidad": 0 , "unidad": {"id": 1, "name": "pza"}},
+    {"id": 7, "nombre": "pluma papermate negra punto medio", "precio": 0, "minimo": 0, "maximo":0,  "cantidad": 0 , "unidad": {"id": 1, "name": "pza"}},
+    {"id": 8, "nombre": "tijeras baco infantil", "precio": 0, "minimo": 0, "maximo":0,  "cantidad": 0 , "unidad": {"id": 1, "name": "pza"}},
+    {"id": 9, "nombre": "borrador chico", "precio": 0, "minimo": 0, "maximo":0,  "cantidad": 0 , "unidad": {"id": 1, "name": "pza"}},
+    {"id": 10, "nombre": "borrador grande", "precio": 0, "minimo": 0, "maximo":0,  "cantidad": 0 , "unidad": {"id": 1, "name": "pza"}},
+    {"id": 11, "nombre": "corrector liquido bic 125 ml", "precio": 0, "minimo": 0, "maximo":0,  "cantidad": 0 , "unidad": {"id": 1, "name": "pza"}},
+    {"id": 12, "nombre": "cartulina blanca", "precio": 0, "minimo": 0, "maximo":0, "cantidad": 0 , "unidad": {"id": 1, "name": "pza"}}
+  ]
+}

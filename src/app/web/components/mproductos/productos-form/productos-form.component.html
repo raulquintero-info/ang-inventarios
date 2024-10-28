@@ -1,0 +1,65 @@
+<div class="m-3">
+
+  <div><h2>Agregar / Editar</h2></div>
+  <div class="input-group mb-3">
+    <span class="input-group-text" id="nombre">Nombre Producto</span>
+  <input type="text" class="form-control" placeholder="nombre del producto" aria-label="Username" aria-describedby="basic-addon1">
+</div>
+
+<div class="input-group mb-3">
+  <span class="input-group-text" id="existencia">Existencia</span>
+<input type="text" class="form-control" placeholder="0" aria-label="Username" aria-describedby="basic-addon1">
+</div>
+
+<div class="input-group mb-3">
+  <span class="input-group-text" id="predioCompra">Precio de compra</span>
+<input type="text" class="form-control" placeholder="0.00" aria-label="Username" aria-describedby="basic-addon1">
+</div>
+<div class="input-group mb-3">
+  <span class="input-group-text" id="status">Status</span>
+<input type="text" class="form-control" placeholder="ej Activo/Inactivo" aria-label="Username" aria-describedby="basic-addon1">
+</div>
+<div class="input-group mb-3">
+  <span class="input-group-text" id="cretaedAt">Fecha de Registro</span>
+<input type="text" class="form-control" placeholder="10-08-2023" aria-label="Username" aria-describedby="basic-addon1">
+</div>
+
+Alarmas
+<div class="input-group mb-3">
+  <span class="input-group-text" id="minimo">Minimo</span>
+<input type="text" class="form-control" placeholder="0" aria-label="Username" aria-describedby="basic-addon1">
+</div>
+
+<div class="input-group mb-3">
+  <span class="input-group-text" id="maximo">Maximo</span>
+<input type="text" class="form-control" placeholder="10" aria-label="Username" aria-describedby="basic-addon1">
+</div>
+
+Tipo de Producto
+<select class="form-select form-select-sm mb-3" aria-label=".form-select-sm example">
+  <option value="1" selected>Plumas</option>
+  <option value="2">Cuadernos</option>
+  <option value="3">Lapices</option>
+</select>
+Color
+<select class="form-select form-select-sm mb-3" aria-label=".form-select-sm example">
+  <option selected>Seleccione un un color</option>
+  <option value="1" >Rojo</option>
+  <option value="2">Azul</option>
+  <option value="3">Negro</option>
+  <option value="3">Verde</option>
+</select>
+Punto
+<select class="form-select form-select-sm mb-3" aria-label=".form-select-sm example">
+  <option selected>Seleccione un punto</option>
+  <option value="2">Fino</option>
+  <option value="3">Medio</option>
+</select>
+
+<div class="col-auto text-end mt-3">
+  <button type="submit" class="btn btn-secondary" (click)="activeModal.close('Close click')">Cancelar</button>
+
+  <button type="submit" class="btn btn-primary ms-2" (click)="onGenerar()">Grabar</button>
+</div>
+
+</div>

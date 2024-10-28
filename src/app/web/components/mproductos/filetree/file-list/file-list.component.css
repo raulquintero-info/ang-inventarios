@@ -1,0 +1,10 @@
+table {
+  font: normal 12px / 12px tahoma, arial, verdana, sans-serif;
+}
+.table{
+
+  margin-bottom: 0px;
+}
+.table>:not(caption)>*>* {
+  padding: .2rem .2rem;
+}

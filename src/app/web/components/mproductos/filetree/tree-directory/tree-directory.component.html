@@ -1,0 +1,72 @@
+<i class="bi bi-folder2"></i> Root<br>
+
+<!-- <ul id="tree">
+  <li *ngFor="let categoria of categorias; let x=index">
+    <input type="checkbox" *ngIf="categoria.isFolder;" />
+    <span id="p{{categoria.id}}" (click)="onCategory(categoria.id)" aria-label="nj" class="clickable btn-azul">{{categoria.nombre}} - {{categoria.id}}</span>
+    <ul>
+
+        <li *ngFor="let sub of categoria.children; let j=index">
+          <input type="checkbox" *ngIf="sub.isFolder;" />
+          <span id="p{{sub.id}}" (click)="onCategory(sub.id)" aria-label="nj" class="clickable btn-azul">{{sub.nombre}} - {{sub.id}}</span>
+          <ng-template id="p{{sub.id}}" (click)="onCategory(sub.nombre,sub.id)" aria-label="nj" class="clickable btn-azul">{{sub.nombre}} - {{sub.id}}</ng-template>
+        <ul>
+
+            <li  *ngFor="let final of sub.children; let i=index">
+                <input  type="checkbox" *ngIf="final.children.length>0;" />
+                <span id="p{{final.id}}" (click)="onCategory(final.id)" class="clickable btn-azul">{{final.nombre}} - {{final.id}}</span>
+            </li>
+
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul> -->
+
+<ul id="tree">
+
+  <li *ngFor="let final of categorias">
+    <input type="checkbox"  />
+    <span id="p{{final.id}}" (click)="onCategory(final.id)" class="clickable btn-azul">{{final.nombre}} - {{final.id}}</span>
+
+      <app-tree-directory [categorias]="final.children" (categoryId)="onCategory($event)" *ngIf="final.children"></app-tree-directory>
+  </li>
+</ul>
+
+
+
+
+  <!-- <li>
+    <input type="checkbox" />
+    <span>Papeleria</span>
+    <ul>
+      <li>
+        <input type="checkbox" />
+        <span>Oficina</span>
+        <ul>
+          <li><span class="clickable" >Plumas</span></li>
+          <li><span class="clickable">Cuadernos</span></li>
+        </ul>
+      </li>
+      <li>
+        <input type="checkbox" />
+        <span class="clickbale">this is a long folder name</span>
+        <ul>
+          <li><span class="clickbale ">this is a long file name</span></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <input type="checkbox"/>
+    <span>folder11</span>
+    <ul>
+
+      <li><input type="checkbox"/><span class="clickbale">file111</span></li>
+      <li><span class="clickbale">file112</span></li>
+    </ul>
+  </li>
+  <li>
+    <input type="checkbox"/>
+    <span class="selected">this is a long folder name</span>
+  </li> -->

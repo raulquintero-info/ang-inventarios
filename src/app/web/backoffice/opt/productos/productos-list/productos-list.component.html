@@ -1,1 +1,206 @@
-<p>productos-list works!</p>
+<div class="fullscreen">
+
+  <div class="fullscreen-sidebar">
+    <div
+      style="border: 1px solid #d9dadf;position: relative; top:0px;  height: 100% ; bottom:80px;background-color:  white;">
+      <div class="toolbox-category ps-2">Categorias
+
+      </div>
+
+      <div style="background-color:#d9dadf; border-right: 1px solid #bdb8b8; text-align:right">
+        <div class="btn-group1 p-1 me-3" *ngIf="!categoryIdSelected; else toolboxactive">
+          <button class="btn btn-toolbox-disabled disabled "  aria-current="page" ><i
+              class="bi bi-folder-plus "></i></button>
+          <button class="btn btn-toolbox-disabled ms-1 disabled"  aria-current="page" ><i
+              class="bi bi-folder-minus"></i></button>
+        </div>
+        <ng-template #toolboxactive style="background-color:#5465b8; border-right: 1px solid #bdb8b8; text-align:right">
+          <div #toolboxactive class="btn-group1 p-1 me-3">
+            <button class="btn btn-toolbox " popovertarget="crear-popover" aria-current="page" ><i class="bi bi-folder-plus "></i></button>
+            <button class="btn btn-toolbox ms-1" popovertarget="eliminar-popover" aria-current="page" ><i class="bi bi-folder-minus"></i></button>
+          </div>
+
+        </ng-template>
+      </div>
+
+      <div class="directory ms-2" style="border-right: 1px solid #bdb8b8">
+        <ngx-spinner bdColor = "rgba(0, 0, 0, 0.8)" size = "default" color = "#fff" type = "pacman" [fullScreen] = "true"><p style="color: white" > Loading... </p></ngx-spinner>
+
+          <app-tree-directory [categorias]="categorias" (categoryId)="onCategory($event)"></app-tree-directory>
+          <div popover id="crear-popover">Nombre de la categoria: <input type="text"> <button class="btn btn-sm btn-verde ms-2">Grabar</button></div>
+          <div popover id="eliminar-popover">Esta seguro? Desea Eliminar la Categoria?  <button class="btn btn-sm btn-danger ms-2">Eliminar</button></div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <div class="fullscreen-content">
+    <div class="main-header">
+
+      <div class=" ps-2 round-bar-beige" style="background-color:#d9cdba; border-top: 4px solid #cbb392;border-bottom: 1px solid #bbab90;
+        color: black; border-left: 1px solid #bcaa92;">
+
+        <div class="d-flex">
+          <div class="flex-grow-1">
+
+            <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+              <ol class="breadcrumb" style="margin-bottom:0;">
+                <li class="breadcrumb-item  ">Root</li>
+                <li class="breadcrumb-item " aria-current="page">Papeleria</li>
+                <li class="breadcrumb-item " aria-current="page">Oficina</li>
+                <li class="breadcrumb-item " aria-current="page">{{categoriaTitulo | titlecase}}</li>
+
+              </ol>
+            </nav>
+
+          </div>
+          <div class="me-3">
+            <button class="btn btn-gray btn-sm" style="border-radius: 0px;border-right: 1px solid #cda977"><i
+                class="i i-folder-plus"></i></button>
+            <button class="btn btn-gray btn-sm" style="border-radius: 0px; border-right: 1px solid #cda977"><i
+                class="i i-folder-plus"></i></button>
+            <!-- <button class="btn btn-secondary btn-sm ms-1" style="border-radius: 0px"><i class="i i-folder-plus"></i> Producto</button> -->
+          </div>
+        </div>
+
+      </div>
+
+      <div class="input-group " style="    border-left: 1px solid #bdb8b8;">
+        <input type="text" class="not-radius form-control mt-2 mb-1 ms-1" placeholder=">> Producto a Buscar"
+          aria-label="Producto a buscar" aria-describedby="button-addon2">
+        <button class="btn btn-outline-secondary mt-2 mb-1 me-1 not-radius" type="button" id="button-addon2"><i
+            class="bi bi-search"></i> Buscar</button>
+        <button class="btn btn-success      ms-1 mt-2 mb-1 me-1 not-radius" type="button" (click)="onAgregarProducto()"
+          id="button-addon2"><i class="bi bi-plus-square"></i> Agregar Item
+        </button>
+
+        <!-- Combo Box -Exportar- -->
+        <div class="dropdown me-2" style="position:relative; top:8px; ">
+          <button class="btn btn-secondary dropdown-toggle not-radius" type="button" id="dropdownMenuButton1"
+            data-bs-toggle="dropdown" aria-expanded="false">
+            Exportar a:
+          </button>
+          <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+            <li><a class="dropdown-item" href="#">PDF</a></li>
+            <li><a class="dropdown-item" href="#">CSV</a></li>
+          </ul>
+        </div>
+
+      </div>
+
+      <div class="me-3">
+        <table class="table table-striped ">
+          <thead>
+            <tr>
+              <th scope="col" style="width: 50px">#</th>
+              <th scope="col">Nombre</th>
+              <th scope="col" style="width: 200px">Precio de compra</th>
+              <th scope="col" style="width: 100px">Unidida</th>
+              <th class="text-center" style="width: 100px" scope="col">Minimo</th>
+              <th class="text-center" style="width: 100px">Existencia</th>
+              <th class="text-center" style="width: 100px" scope="col">Máximo</th>
+            </tr>
+          </thead>
+        </table>
+      </div>
+
+      <div class="container-table" [ngStyle]="{'height':windowSize}">
+
+
+        <app-file-list [items]="items" (categoryId)="singleClick($event)"  (itemId)="doubleClick($event)"></app-file-list>
+
+      </div>
+
+      <div class="paginator bottom-fixed">
+        <div class="d-flex justify-content-between p-2">
+          <nav aria-label="Page navigation example">
+          <ul class="pagination">
+            <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+            <li class="page-item active"><a class="page-link bg-guinda text-light" href="#">1</a></li>
+            <li class="page-item"><a class="page-link" href="#">2</a></li>
+            <li class="page-item"><a class="page-link" href="#">3</a></li>
+            <li class="page-item"><a class="page-link" href="#">Next</a></li>
+          </ul>
+        </nav>
+        </div>
+
+      </div>
+    </div>
+
+    <div *ngIf="itemSelected" style="border-top: 1px solid #bdb8b8; border-left: 1px solid #bdb8b8;">
+      <div class="horizontal-bar">
+      </div>
+      <!-- <i class="arrow-down" (click)="maximize()" style="position: absolute; top:863px; left: 50dvw;z-index: 100;" > </i> -->
+      <div class="pe-2 d-flex round-bar-beige" style="background-color: #d9cdba; border-bottom: 1px solid #bdb8b8;">
+        <i class="arrow-up" *ngIf="!isMaximized" (click)="maximize()" style="position: relative; top:-13px; left: 40dvw;z-index: 100;"> </i>
+        <i class="arrow-down" *ngIf="isMaximized" (click)="minimize()" style="position: relative; top:-13px; left: 40dvw;z-index: 100;"> </i>
+
+        <div class="flex-grow-1 ms-1"><span style="font-size: 1.5rem">{{itemSelected.nombre | titlecase}}</span></div>
+        <div class="mt-1 me-2 clickable" *ngIf="windowSize=='45dvh'" (click)="maximize()"><i
+            class="bi bi-caret-down-fill text-end"></i> </div>
+      </div>
+
+      <div style="height: 27dvh; overflow-y: scroll; background-color: #fffbf4">
+
+        <div class="mt-1 ms-2">
+          <!-- <h3>{{itemSelected.nombre | titlecase}} <button class="btn btn-verde btn-sm" (click)="doubleClick( )"><i
+                class="bi bi-pencil-square"></i></button></h3> -->
+        </div>
+        <table class="m-3" style="min-width:500px">
+          <tr>
+            <td>
+              <div class="mb-2">Id: <input type="text" readonly disabled value="{{ itemSelected.id}}"></div>
+              <div class="mb-2">item: <input type="text" readonly disabled value="{{ itemSelected.nombre}}"></div>
+              <div class="mb-2">Cantidad: <input type="text" readonly disabled value="{{itemSelected.cantidad}}"></div>
+              <div class="mb-2">Precio de compra: <input type="text" readonly disabled value="{{itemSelected.precio}}">
+              </div>
+              <!-- <div>Unidad: <input type="text" readonly disabled  value="{{itemSelected.unidad.nombre}}"></div> -->
+            <td class="ps-3 mb-3" style="vertical-align: top;">Status: <input type="text" readonly disabled
+                value="Activo">
+              <div class="mb-2">Fecha de Registro: <input type="text" readonly disabled value="08/jul/2023"></div>
+              <div class="mb-2">Minimo: <input type="text" readonly disabled value="{{itemSelected.minimo}}"></div>
+              <div class="mb-2"><strong> Existencia:</strong> <input type="text" readonly disabled
+                  value="{{itemSelected.existencia}}" [ngClass]="{'bg-danger text-light': itemSelected.existencia<1}">
+              </div>
+              <div class="mb-2">Maximo: <input type="text" readonly disabled value="{{itemSelected.maximo}}"></div>
+            </td>
+            <td style="vertical-align: top;" class="ps-3">
+              <table class="table table-hover table-striped tbl-data">
+                <thead>
+                  <tr>
+                    <th scope="col">Almacen</th>
+                    <th class="text-center">Existencia</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr class="clickable">
+                    <td scope="row">Principal</td>
+                    <td>120</td>
+                  </tr>
+                  <tr class="clickable">
+                    <td scope="row">Del Sol</td>
+                    <td>20</td>
+                  </tr>
+                  <tr class="clickable">
+                    <td scope="row">Miramontes</td>
+                    <td>320</td>
+                  </tr>
+                </tbody>
+              </table>
+
+            </td>
+            <td style="vertical-align: top;" class="ps-3">
+              <div style="font-weight: bold;">Ventas x Mes</div><br>
+              <img src="/assets/graficas/grafica1.png" alt="" srcset="" style="height: 80px; width: 250px">
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+
+
+</div>
