@@ -1,4 +1,50 @@
-<i class="bi bi-folder2"></i> Root<br>
+
+<ul id="tree">
+  <li *ngFor="let final of categorias">
+    <input type="checkbox"  />
+    <span id="p{{final.idCategoria}}"  (click)="onCategory(final.idCategoria)" class="clickable btn-azul">{{final.nombreCategoria}} <!-- - {{final.idCategoria}} --></span>
+      <app-tree-directory [categorias]="final.subcategorias" (categoryId)="onCategory($event)" *ngIf="final.subcategorias"></app-tree-directory>
+  </li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 <!-- <ul id="tree">
   <li *ngFor="let categoria of categorias; let x=index">
@@ -22,17 +68,6 @@
     </ul>
   </li>
 </ul> -->
-
-<ul id="tree">
-
-  <li *ngFor="let final of categorias">
-    <input type="checkbox"  />
-    <span id="p{{final.id}}" (click)="onCategory(final.id)" class="clickable btn-azul">{{final.nombre}} - {{final.id}}</span>
-
-      <app-tree-directory [categorias]="final.children" (categoryId)="onCategory($event)" *ngIf="final.children"></app-tree-directory>
-  </li>
-</ul>
-
 
 
 

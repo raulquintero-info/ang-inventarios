@@ -7,6 +7,11 @@ import { CATEGORIAS } from 'src/app/data/categorias';
 import { PRODUCTOS } from 'src/app/data/productos';
 import { CurrentWindowSize } from 'src/app/core/services/current-window-size.service';
 import { ProductosFormComponent } from 'src/app/web/components/mproductos/productos-form/productos-form.component';
+import { offset } from '@popperjs/core';
+import { ItemsService } from 'src/app/core/services/items.service';
+import { CategoriesService } from 'src/app/core/services/categories.service';
+import { Categoria } from 'src/app/core/interfaces/categoria.interface';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-productos-list',
@@ -15,16 +20,22 @@ import { ProductosFormComponent } from 'src/app/web/components/mproductos/produc
 })
 export class ProductosListComponent {
   displayStyle: string = 'none';
-  offsetProductos = 111;
-  windowSize: string = window.innerHeight - this.offsetProductos + 'px';
+  displayStyleNewCategory: string = 'none';
+  displayStyleNewItem: string = 'none';
+  offsetByMenu: number = 222;
+  offset: number = 222;
+  windowPDetalleHeight = 300;
+  windowPTablaHeight: string = window.innerHeight - this.offset + 'px';
   itemSelected: Item | null = {} as Item;
   allProducts = ITEMS;
   items: Item[] = ITEMS;
+  categoriaNueva: Categoria = {nombreCategoria: ''} as Categoria;
   categorias: any[] = [];
   categoryIdSelected: number = 0;
   categoriaTitulo: string = '';
   isMaximized = false;
   preventSingleClick = false;
+  windowHeight: number = 0;
   timer: any;
   // delay: Number = 0;
 
@@ -32,9 +43,13 @@ export class ProductosListComponent {
   pageSize = 25;
   collectionSize = ITEMS.length;
 
+
+
   private spinner = inject(NgxSpinnerService);
   private modalService = inject(NgbModal);
   private currentWindowSize = inject(CurrentWindowSize);
+  private itemsService = inject(ItemsService);
+  private categoriesService = inject(CategoriesService);
 
   constructor() {
   }
@@ -42,33 +57,59 @@ export class ProductosListComponent {
 
   ngOnInit() {
     this.categorias = CATEGORIAS;
-    // console.log(this.categorias.lenght)
-    this.windowSize = window.innerHeight - this.offsetProductos + 'px';
-    this.currentWindowSize.height.subscribe(
-      height => { this.windowSize = height - this.offsetProductos - this.offsetProductos + 'px'; console.log(this.offsetProductos, this.windowSize) }
+    this.getCategories();
 
+    // console.log(this.categorias.lenght)
+    this.windowPTablaHeight = window.innerHeight - this.offset + 'px';
+    this.currentWindowSize.height.subscribe(
+      height => {
+        this.windowHeight = height;
+        this.setWindowSize();
+        console.log(this.offset, this.windowPTablaHeight)
+      }
+
+    )
+
+
+  }
+
+  getCategories(){
+    this.categoriesService.getAll().subscribe(
+      cat=>{ this.categorias = cat
+      console.log(this.categorias)
+      }
     )
   }
 
   onAgregarProducto() {
-    // const modalRefEditar = this.modalService.open(MyModalComponent);
-    // modalRefEditar.componentInstance.name = 'editModal';
+    const modalRefEditar = this.modalService.open(ProductosFormComponent);
+    modalRefEditar.componentInstance.name = 'editModal';
     window.scrollTo(0, 0);
   }
 
+  openModalNewCategory(){
+    this.displayStyleNewCategory = 'block'
+  }
+
+  closeModalNewCategory(){
+    this.displayStyleNewCategory = 'none'
+  }
+
   onCategory(categoryId: number) {
-    this.categoryIdSelected = categoryId;
     this.items=[];
+    this.categoryIdSelected = categoryId;
+    if (categoryId==0){
+      this.items = ITEMS;
+      return
+    }
+    this.categoryIdSelected = categoryId;
+    if(!categoryId) return
     let temp = PRODUCTOS.filter((x: any)=>{
       if(x.id==categoryId)
       return x;
     })
     this.items = temp[0].content;
     // this.categoriaTitulo = categoria;
-
-
-
-
 
     // this.items = PRODUCTOS;
   }
@@ -108,20 +149,108 @@ export class ProductosListComponent {
     modalRefEditar.componentInstance.name = 'editModal';
 
   }
+
+  onDeleteCategory(){
+      Swal.fire({
+       title: 'Eliminar Categoria',
+       text: 'Desea Continuar?',
+       // icon: 'warning',
+       showCancelButton: true,
+       confirmButtonColor: '#641330',
+       cancelButtonColor: '#949597',
+       confirmButtonText: 'Si, Eliminar!'
+
+     }).then( (result:any)=> {
+       if (result.isConfirmed) {
+         console.log('eliminar registro');
+         this.categoriesService.delete(this.categoryIdSelected).subscribe({
+          next: resp=>{
+            this.categoryIdSelected = 0;
+            this.getCategories();
+            const Toast = Swal.mixin({
+              toast: true,
+              position: "bottom-end",
+              showConfirmButton: false,
+              timer: 3000,
+              timerProgressBar: true,
+              didOpen: (toast) => {
+                toast.onmouseenter = Swal.stopTimer;
+                toast.onmouseleave = Swal.resumeTimer;
+              }
+            });
+            Toast.fire({
+              icon: "success",
+              title: "Categoria Eliminada"
+            });
+          },
+          error: error=>{
+            alert('error');
+          }
+         })
+        //  this.deleteRow(id)
+       }
+
+
+     })
+  }
+
+  onNewCategory(){
+    if(this.categoriaNueva.nombreCategoria.length==0){
+      const Toast = Swal.mixin({
+        toast: true,
+        position: "bottom-end",
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+          toast.onmouseenter = Swal.stopTimer;
+          toast.onmouseleave = Swal.resumeTimer;
+        }
+      });
+      Toast.fire({
+        icon: "error",
+        title: "El campo categoria no puede estar vacio"
+      });
+
+
+      return
+    }
+
+
+    this.categoriaNueva.parentId = this.categoryIdSelected;
+    console.log(this.categoriaNueva);
+    this.categoriesService.createOrUpdate(this.categoriaNueva).subscribe({
+      next: resp=>{
+        this.getCategories();
+        this.closeModalNewCategory();
+        this.categoriaNueva.nombreCategoria ='';
+      },
+      error: error=>{
+        alert('error al crear categoria nueva');
+      }
+    })
+  }
+
+  setWindowSize(){
+    this.windowPTablaHeight =  this.windowHeight - this.offset + 'px';
+  }
+
   maximize() {
-    if (this.windowSize.length < 5) return;
+    if (this.windowPTablaHeight.length < 5) return;
     let temp: number = 0;
-    this.offsetProductos = 300;
-    temp = Number(this.windowSize.substring(3, 0));
-    this.windowSize = temp - this.offsetProductos + 'px';
     this.isMaximized = true;
+    temp = Number(this.windowPTablaHeight.substring(3, 0));
+    this.offset = this.offset + this.windowPDetalleHeight;
+    this.setWindowSize();
+    console.log('maximize')
   }
 
   minimize() {
     let temp: number = 0;
-    this.offsetProductos = -300;
-    temp = Number(this.windowSize.substring(3, 0));
-    this.windowSize = temp - this.offsetProductos + 'px';
+    temp = Number(this.windowPTablaHeight.substring(3, 0));
+    this.offset = this.offset - this.windowPDetalleHeight;
+    this.setWindowSize();
     this.isMaximized = false;
+    console.log('minimize')
   }
 }

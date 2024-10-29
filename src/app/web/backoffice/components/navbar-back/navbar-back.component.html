@@ -32,7 +32,7 @@
           <a class="nav-link btn-gris dropdown-toggle" href="#" id="navbarDropdownMenuLink"
             data-bs-toggle="dropdown">Entradas</a>
           <ul class="dropdown-menu">
-            <li><a [routerLink]="'/'" class="dropdown-item">Ordenes de Compra &raquo;</a></li>
+            <li><a [routerLink]="'/entradas/ordenes-de-compra'" class="dropdown-item">Ordenes de Compra &raquo;</a></li>
             <li><a [routerLink]="'/'" class="dropdown-item">Proveedores <i
                   class="bi bi-bookmark-fill text-warning"></i> </a> </li>
             <li><a [routerLink]="'/'" class="dropdown-item">Almacenes &raquo;</a></li>
@@ -66,7 +66,15 @@
         </li> -->
 
 
+        <li ngbDropdown  class="nav-item dropdown">
+            <button type="button" class="btn btn-gris" id="dropdownBasic1" ngbDropdownToggle>
+              <i class="bi bi-building-fill-check"></i> {{almacenSelected.nombre | titlecase}}
+            </button>
+            <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+              <button ngbDropdownItem *ngFor="let almacen of almacenes" (click)="onAlmacen(almacen)" >{{almacen.nombre | titlecase}}</button>
 
+            </div>
+          </li>
 
 
 

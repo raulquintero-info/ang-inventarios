@@ -90,7 +90,7 @@ export const CATEGORIAS: any []=  [
               "children": []
             },
             {
-              "id":13,
+              "id":12,
               "nombre":"tijeras",
               "parent": 10,
               "isFolder": false,

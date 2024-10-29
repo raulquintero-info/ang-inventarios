@@ -6,6 +6,8 @@ import { DashboardBackComponent } from './dashboard-back/dashboard-back.componen
 import { BackofficeRoutingModule } from './backoffice-routing.module';
 import { ProductosModule } from './opt/productos/productos.module';
 import { MproductosModule } from '../components/mproductos/mproductos.module';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { EntradasRoutingModule } from './opt/entradas/entradas-routing.module';
 
 
 
@@ -17,6 +19,8 @@ import { MproductosModule } from '../components/mproductos/mproductos.module';
   imports: [
     CommonModule,
     RouterModule,
+    NgbModule,
+    EntradasRoutingModule,
     BackofficeRoutingModule,
     ProductosModule,
     MproductosModule

@@ -1,6 +1,7 @@
-<table class="table table-striped">
-  <!-- <thead>
-    <tr>
+<div oncontextmenu="return false;">
+  <table class="table table-striped table-hover">
+    <!-- <thead>
+      <tr>
       <th scope="col" style="width: 50px">#</th>
     <th scope="col" >Nombre</th>
     <th scope="col" style="width: 200px">Precio de compra</th>
@@ -11,10 +12,10 @@
     </tr>
   </thead> -->
   <tbody>
-    <tr *ngFor="let item of items;" (click)="singleClick(item.id - 1)" (dblclick)="doubleClick( )"
+    <tr *ngFor="let item of items;" (click)="singleClick(item.id - 1)" (dblclick)="doubleClick( )" (mouseup)="detectRightMouseClick($event,item.id)"
       class="clickable">
       <td scope="row" style="width: 50px">{{ item.id }}</td>
-      <td>{{ item.nombre }}</td>
+      <td id="row{{item.id - 1}}">{{ item.nombre }}</td>
       <td style="width: 200px">{{ item.precio | currency }}</td>
       <td style="width: 100px">{{ item.unidad.nombre| titlecase }}</td>
       <td style="width: 100px" class="text-center">{{ item.minimo}}</td>
@@ -24,3 +25,13 @@
     </tr>
   </tbody>
 </table>
+</div>
+
+<div id="contextmenu" class="contextmenu" [ngStyle]="rightPanelStyle"
+    (clickOutside)="closeContextMenu()" (mouseleave)="closeContextMenu()">
+    <ul class="menu">
+        <li (click)="singleClick(selectedItemId-1)"><a><i class="bi bi-eye"></i> View</a></li>
+        <li (click)="doubleClick()" class="activem"><a><i class="bi bi-pencil-square"></i> Edit</a></li>
+        <li (click)="doubleClick()"><a><i class="bi bi-trash"></i> Delete</a></li>
+    </ul>
+</div>
