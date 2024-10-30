@@ -19,7 +19,6 @@ export class AppComponent  {
   // para determinar la altura de la ventana del navegador y propagarla por toda la aplicacion
   onResize(event: any){
     this.currentWindowSize.setHeight(event.target.innerHeight);
-    console.log('>>>',event.target.innerHeight)
   }
 
 }

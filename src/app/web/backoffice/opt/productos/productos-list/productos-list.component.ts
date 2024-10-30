@@ -30,14 +30,17 @@ export class ProductosListComponent {
   allProducts = ITEMS;
   items: Item[] = ITEMS;
   categoriaNueva: Categoria = {nombreCategoria: ''} as Categoria;
-  categorias: any[] = [];
-  categoryIdSelected: number = 0;
+  categorias: Categoria[] = [];
+  categoryIdSelected: number| null = null;
   categoriaTitulo: string = '';
   isMaximized = false;
   preventSingleClick = false;
   windowHeight: number = 0;
   timer: any;
   // delay: Number = 0;
+
+  // contextMenu
+  rightPanelStyle: any ={ 'display': 'none' };
 
   page = 1;
   pageSize = 25;
@@ -95,7 +98,7 @@ export class ProductosListComponent {
     this.displayStyleNewCategory = 'none'
   }
 
-  onCategory(categoryId: number) {
+  onCategory(categoryId: number|null) {
     this.items=[];
     this.categoryIdSelected = categoryId;
     if (categoryId==0){
@@ -253,4 +256,32 @@ export class ProductosListComponent {
     this.isMaximized = false;
     console.log('minimize')
   }
+
+  // contextMenu
+
+
+  detectRightMouseClick(rightPanelStyle: any, x:null) {
+
+    console.log('array',rightPanelStyle)
+    this.rightPanelStyle = rightPanelStyle;
+
+    if (rightPanelStyle.id) {
+      this.rightPanelStyle = rightPanelStyle;
+      return false;
+    }
+    return true;
+  }
+
+  closeContextMenu() {
+
+    setTimeout(() => {
+      this.onCloseContextMenuMouse();
+    }, 600)
+  }
+
+  onCloseContextMenuMouse() {
+      this.rightPanelStyle = { 'display': 'none' };
+
+  }
+
 }

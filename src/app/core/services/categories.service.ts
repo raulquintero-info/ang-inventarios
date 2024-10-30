@@ -19,7 +19,7 @@ export class CategoriesService {
 
   getAll():Observable<any>{return this.http.get(this.url)};
   createOrUpdate(categoryName: Categoria):Observable<any>{return this.http.post(this.url, categoryName)}
-  delete(id: number):Observable<any>{return this.http.delete(this.url + '/'+ id)}
+  delete(id: number|null):Observable<any>{return this.http.delete(this.url + '/'+ id)}
 
 
 

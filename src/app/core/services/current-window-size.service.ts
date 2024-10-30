@@ -17,7 +17,6 @@ export class CurrentWindowSize {
 
   setHeight(height: number){
     this.windowHeight.next(height);
-    console.log('height', height);
   }
 
 

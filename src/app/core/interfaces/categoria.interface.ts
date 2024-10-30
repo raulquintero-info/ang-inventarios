@@ -1,7 +1,8 @@
 export interface Categoria{
-  idCategoria: number;
+  idCategoria: number|null;
   nombreCategoria: string;
-  parentId: number;
+  parentId: number|null;
   descripcionCategoria: string;
   folder: boolean;
+  subcategorias: Categoria
 }

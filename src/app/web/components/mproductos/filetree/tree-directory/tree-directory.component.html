@@ -2,8 +2,11 @@
 <ul id="tree">
   <li *ngFor="let final of categorias">
     <input type="checkbox"  />
-    <span id="p{{final.idCategoria}}"  (click)="onCategory(final.idCategoria)" class="clickable btn-azul">{{final.nombreCategoria}} <!-- - {{final.idCategoria}} --></span>
-      <app-tree-directory [categorias]="final.subcategorias" (categoryId)="onCategory($event)" *ngIf="final.subcategorias"></app-tree-directory>
+    <span id="p{{final.idCategoria}}"  (click)="onCategory(final.idCategoria)"
+
+      (mouseup)="detectRightMouseClick($event, final.idCategoria-1)"
+        class="clickable btn-azul">{{final.nombreCategoria}} <!-- - {{final.idCategoria}} --></span>
+      <app-tree-directory [categorias]="final.subcategorias" (categoryId)="onCategory($event)"  (mouseup)="detectRightMouseClick($event,final.idCategoria-1)" *ngIf="final.subcategorias"></app-tree-directory>
   </li>
 </ul>
 

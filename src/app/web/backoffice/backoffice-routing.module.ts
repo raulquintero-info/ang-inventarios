@@ -13,11 +13,14 @@ const routes: Routes = [
     children: [
 
       {path: "dashboard", component: DashboardBackComponent},
-
-      // {
-      //   path: 'recepcion',
-      //   loadChildren: ()=>import('./menus/recepcion/recepcion.module').then(m => m.RecepcionModule)
-      // },
+      {
+        path: 'entradas',
+        loadChildren: ()=>import('./opt/entradas/entradas.module').then(m => m.EntradasModule)
+      },
+      {
+        path: 'almacenes',
+        loadChildren: ()=>import('./opt/almacenes/almacenes.module').then(m => m.AlmacenesModule)
+      },
 
 
     ]

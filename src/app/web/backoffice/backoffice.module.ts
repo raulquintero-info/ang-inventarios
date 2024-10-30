@@ -20,7 +20,6 @@ import { EntradasRoutingModule } from './opt/entradas/entradas-routing.module';
     CommonModule,
     RouterModule,
     NgbModule,
-    EntradasRoutingModule,
     BackofficeRoutingModule,
     ProductosModule,
     MproductosModule

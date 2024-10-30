@@ -22,9 +22,10 @@
             data-bs-toggle="dropdown">Productos</a>
           <ul class="dropdown-menu">
             <li><a [routerLink]="'/productos'" class="dropdown-item">Lista de Productos &raquo;</a></li>
-            <li><a [routerLink]="'/'" class="dropdown-item">Agregar Producto <i
-                  class="bi bi-bookmark-fill text-warning"></i> </a> </li>
+            
             <li><a [routerLink]="'/'" class="dropdown-item">Productos Inactivos &raquo;</a></li>
+            <li><a [routerLink]="'/'" class="dropdown-item"> Marcas&raquo;</a></li>
+            <li><a [routerLink]="'/'" class="dropdown-item"> Unidades de Medida&raquo;</a></li>
           </ul>
         </li>
 
@@ -33,11 +34,22 @@
             data-bs-toggle="dropdown">Entradas</a>
           <ul class="dropdown-menu">
             <li><a [routerLink]="'/entradas/ordenes-de-compra'" class="dropdown-item">Ordenes de Compra &raquo;</a></li>
-            <li><a [routerLink]="'/'" class="dropdown-item">Proveedores <i
+            <li><a [routerLink]="'/entradas/proveedores'" class="dropdown-item">Proveedores <i
                   class="bi bi-bookmark-fill text-warning"></i> </a> </li>
-            <li><a [routerLink]="'/'" class="dropdown-item">Almacenes &raquo;</a></li>
+            <li><a [routerLink]="'/entradas/devoluciones'" class="dropdown-item">Devoluciones &raquo;</a></li>
           </ul>
         </li>
+
+        <li class="nav-item dropdown">
+          <a class="nav-link btn-gris dropdown-toggle" href="#" id="navbarDropdownMenuLink"
+            data-bs-toggle="dropdown">Almacenes</a>
+          <ul class="dropdown-menu">
+            <li><a [routerLink]="'/almacenes/movimientos'" class="dropdown-item">Movimientos &raquo;</a></li>
+            <li><a [routerLink]="'/almacenes'" class="dropdown-item">Almacenes <i
+                  class="bi bi-bookmark-fill text-warning"></i> </a> </li>
+          </ul>
+        </li>
+
         <li class="nav-item dropdown">
           <a class="nav-link btn-gris dropdown-toggle" href="#" id="navbarDropdownMenuLink"
             data-bs-toggle="dropdown">Salidas</a>
@@ -68,15 +80,25 @@
 
         <li ngbDropdown  class="nav-item dropdown">
             <button type="button" class="btn btn-gris" id="dropdownBasic1" ngbDropdownToggle>
-              <i class="bi bi-building-fill-check"></i> {{almacenSelected.nombre | titlecase}}
+              <i class="bi bi-building-fill-check"></i> {{almacenSelected.nombreAlmacen | titlecase}}
             </button>
             <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-              <button ngbDropdownItem *ngFor="let almacen of almacenes" (click)="onAlmacen(almacen)" >{{almacen.nombre | titlecase}}</button>
+              <button ngbDropdownItem *ngFor="let almacen of almacenes" (click)="onAlmacen(almacen)" >{{almacen.nombreAlmacen | titlecase}}</button>
 
             </div>
           </li>
 
+          <li ngbDropdown  class="nav-item dropdown">
+            <button type="button" class="btn btn-gris" id="dropdownBasic1" ngbDropdownToggle>
+              <i class="bi bi-gear"></i>
+            </button>
+            <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+              <!-- <button ngbDropdownItem *ngFor="let almacen of almacenes" (click)="onAlmacen(almacen)" >{{almacen.nombre | titlecase}}</button> -->
+              <button ngbDropdownItem  >Usuarios</button>
+              <button ngbDropdownItem  >Roles</button>
 
+            </div>
+          </li>
 
         <li class="nav-item dropdown   ">
           <a class="nav-link btn-gris  dropdown-toggle" href="#" id="navbarDropdownMenuLink"

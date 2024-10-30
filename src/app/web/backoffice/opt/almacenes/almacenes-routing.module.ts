@@ -1,20 +1,13 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { OrdenesCompraComponent } from './ordenes-compra/ordenes-compra.component';
-import { EntradasProveedoresComponent } from './entradas-proveedores/entradas-proveedores.component';
-
-
-
-
-
+import { AlmacenesListComponent } from './almacenes-list/almacenes-list.component';
 
 const routes: Routes = [
   {
     path: '',
     children: [
-      {path: "ordenes-de-compra", component: OrdenesCompraComponent},
-      {path: 'proveedores', component: EntradasProveedoresComponent},
 
+      {path: "", component: AlmacenesListComponent},
       // {
       //   path: 'recepcion',
       //   loadChildren: ()=>import('./menus/recepcion/recepcion.module').then(m => m.RecepcionModule)
@@ -29,5 +22,5 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class EntradasRoutingModule { }
+export class AlmacenesRoutingModule { }
 

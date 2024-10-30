@@ -25,14 +25,22 @@
         <ngx-spinner bdColor = "rgba(0, 0, 0, 0.8)" size = "default" color = "#fff" type = "pacman" [fullScreen] = "true"><p style="color: white" > Loading... </p></ngx-spinner>
 
 
-        <span class="clickable" (click)="onCategory(0)"><i class="bi bi-folder2"></i> Root1</span><br>
+        <span class="clickable" (click)="onCategory(null)"><i class="bi bi-folder2"></i> Root1</span><br>
         <!-- TODO: arbol de categorias -->
-        <app-tree-directory [categorias]="categorias" (categoryId)="onCategory($event)"></app-tree-directory>
+
+        <app-tree-directory oncontextmenu="return false;" [categorias]="categorias"
+          (categoryId)="onCategory($event)"
+          (contextMenuCategory)="detectRightMouseClick($event, null)">
+
+
+        </app-tree-directory>
         <div popover id="crear-popover">Nombre de la categoria: <input type="text"> <button class="btn btn-sm btn-verde ms-2">Grabar</button></div>
         <div popover id="eliminar-popover">Esta seguro? Desea Eliminar la Categoria?  <button class="btn btn-sm btn-danger ms-2">Eliminar</button></div>
         <!-- {{offset}} - {{offsetByMenu}} - {{windowPDetalleHeight}} -  {{windowPTablaHeight}} -->
       </div>
-
+      <pre>
+        {{rightPanelStyle|json}}
+      </pre>
     </div>
 
   </div>
@@ -75,7 +83,7 @@
         <button class="btn btn-outline-secondary mt-2 mb-1 me-1 not-radius" type="button" id="button-addon2"><i
             class="bi bi-search"></i> Buscar</button>
         <button class="btn btn-success      ms-1 mt-2 mb-1 me-1 not-radius" type="button" (click)="onAgregarProducto()"
-          id="button-addon2"><i class="bi bi-plus-square"></i> Agregar Item
+          id="button-addon2"><i class="bi bi-plus-square"></i> Agregar Producto
         </button>
 
         <!-- Combo Box -Exportar- -->
@@ -145,7 +153,7 @@
         <i class="arrow-up" *ngIf="!isMaximized" (click)="maximize()" style="position: relative; top:-13px; left: 40dvw;z-index: 100;"> </i>
         <i class="arrow-down" *ngIf="isMaximized" (click)="minimize()" style="position: relative; top:-13px; left: 40dvw;z-index: 100;"> </i>
 
-        <div class="flex-grow-1 ms-1"><span style="font-size: 1.5rem;margin-left: -40px;">Detalle</span></div>
+        <div class="flex-grow-1 ms-1"><span style="font-size: 1.1rem;margin-left: -40px;">Detalle</span></div>
         <!-- <div class="mt-1 me-2 clickable" *ngIf="windowSize=='45dvh'" (click)="maximize()"><i class="bi bi-caret-down-fill text-end"></i> </div> -->
       </div>
 
@@ -235,5 +243,11 @@
     </div>
   </div>
 
-
+  <!-- context Menu -->
+  <div id="contextmenu" class="contextmenu" [ngStyle]="rightPanelStyle" (clickOutside)="closeContextMenu()" (mouseleave)="onCloseContextMenuMouse()">
+    <ul class="menu">
+        <li  class="activem"><a><i class="bi bi-pencil-square"></i> Edit</a></li>
+        <li ><a><i class="bi bi-trash"></i> Delete</a></li>
+    </ul>
+</div>
 
