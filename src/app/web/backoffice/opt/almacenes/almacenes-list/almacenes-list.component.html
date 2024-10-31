@@ -18,38 +18,42 @@
 
   </div>
   <div class="row">
-    <div class="col-md-6">
+    <div class="col-md-8">
       <table class="table table-responsive table-striped table-hover tbl-data">
         <thead>
           <tr>
             <th scope="col">#</th>
+            <th style="width:10px"></th>
             <th scope="col">Almacen</th>
             <th>Direccion</th>
             <th>Telefono</th>
             <th>Responsable</th>
-            <th></th>
+            <th>Opciones</th>
           </tr>
         </thead>
         <tbody>
 
           <tr *ngFor="let item of categorias">
             <td scope="row">{{item.idAlmacen}}</td>
-            <td class="clickable">{{item.nombreAlmacen}}</td>
+            <td style="text-align: right;"><i class="bi bi-house-door" *ngIf="item.idAlmacen==1"></i></td>
+            <td class="clickable">{{item.nombreAlmacen |titlecase}}</td>
             <td>{{ item.direccionAlmacen |titlecase}} </td>
             <td>{{ item.telefonoAlmacen}}</td>
             <td>{{ item.responsableAlmacen | titlecase}}</td>
 
-            <td><i class="bi bi-pencil-square clickable" (click)="onEdit(item)"></i> <i class="bi bi-trash3 clickable ms-2 text-danger" (click)="onDelete(item.idAlmacen)"></i></td>
+            <td>
+              <i class="bi bi-trash3 clickable  text-danger" *ngIf="item.idAlmacen!=1" (click)="onDelete(item.idAlmacen)"></i>
+              <i class="bi bi-pencil-square ms-2 clickable " (click)="onEdit(item)"></i>
+            </td>
           </tr>
         </tbody>
 
       </table>
     </div>
-    <div class="col-md-6 p-3">
+    <div class="col-md-4 p-3">
 
       <div style="border:1px solid gray; min-width: 300px">
-        <div style="background-color: #631231; color: white; padding:4px 4px 4px 4px"> &nbsp; &nbsp;<strong>Agregar o
-            Editar [{{categoria.idAlmacen}}]</strong></div>
+        <div class="title-bg ps-2" ><strong>{{titleForm }} Almacen [{{categoria.idAlmacen}}]</strong></div>
         <form class="  p-3 ">
           <div class="row">
             <input type="hidden" name="idAlmacen" id="idAlmacen" [(ngModel)]="categoria.idAlmacen">
@@ -100,9 +104,9 @@
             </div>
           </div>
 
-          <div class="col-auto mt-3">
-            <button (click)="onReset()" [disabled]="!categoria.nombreAlmacen" class="btn btn-secondary mb-3 me-2 ">Limpiar</button>
-            <button (click)="onSubmit()" [disabled]="!categoria.nombreAlmacen" class="btn btn-guinda mb-3">Agregar o Guardar</button>
+          <div class="col-auto mt-3 text-end">
+            <button (click)="onSubmit()" [disabled]="!categoria.nombreAlmacen" class="btn btn-guinda mb-3 me-2">{{buttonForm}}</button>
+            <button (click)="onReset()" [disabled]="!categoria.nombreAlmacen" class="btn btn-secondary mb-3 me-3 ">Limpiar</button>
           </div>
         </form>
       </div>

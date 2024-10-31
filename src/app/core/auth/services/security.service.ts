@@ -5,24 +5,25 @@ import { BehaviorSubject, Observable, catchError, of, tap, throwError } from 'rx
 import { LoginResponse } from '../interfaces/loginResponse';
 import { environment } from 'src/environments/environment.development';
 import { User } from '../interfaces/user.interface';
-import { Authority } from '../interfaces/authority.interface';
-import { getUserFromLocalStorage, putUserInLocalStorage } from '../../utils/userLocalStorage';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SecurityService {
   urlBase = environment.api + environment.path
-  url     = this.urlBase + "/auth";   // 'http://localhost:8080/api/auth/login'
+  url = this.urlBase + "/auth";   // 'http://localhost:8080/api/auth/login'
 
   currentUserData: BehaviorSubject<User> = new BehaviorSubject<User>({ "username": "no username", "authorities": [{}] } as User);
   currentUserToken: BehaviorSubject<string> = new BehaviorSubject<string>("");
 
   private http = inject(HttpClient);
 
+  get user(): Observable<User> { return this.currentUserData.asObservable(); }
+  get userToken(): Observable<string> { return this.currentUserToken.asObservable(); }
 
-  login(credentials: LoginRequest):Observable<LoginResponse>{
-    return this.http.post<LoginResponse>(this.url+ "/login", credentials).pipe(
+
+  login(credentials: LoginRequest): Observable<LoginResponse> {
+    return this.http.post<LoginResponse>(this.url + "/login", credentials).pipe(
       tap((loginResponse: LoginResponse) => {
         localStorage.setItem('token', loginResponse.accessToken ? loginResponse.accessToken : '');
       }),
@@ -30,13 +31,10 @@ export class SecurityService {
     );
   }
 
-  private handleError(error:HttpErrorResponse){
-    if(error.status == 0){
-      console.error('Se ha producido un error ',error.error);
-    } else {
-      console.error('Backend retorno el codigo de error', error.status, error.error)
-    }
-    return throwError(()=> new Error('Credenciales Invalidas'));
+  private handleError(error: HttpErrorResponse) {
+    if (error.status == 0) { console.error('Se ha producido un error ', error.error); }
+    else { console.error('Backend retorno el codigo de error', error.status, error.error) }
+    return throwError(() => new Error('Credenciales Invalidas'));
   }
 
 
@@ -49,11 +47,7 @@ export class SecurityService {
     if (currentUser) {
       userLogged = JSON.parse(currentUser);
       this.currentUserData.next(userLogged);
-      // this.currentRole.next(userLogged.authorities[0].authority);
-      console.log(userLogged);
-    } else {
-      this.currentUserData.next({} as User);
-    }
+    } else { this.currentUserData.next({} as User); }
 
 
   }
@@ -69,39 +63,24 @@ export class SecurityService {
     );
   }
 
-
-
-  get user(): Observable<User> {
-    return this.currentUserData.asObservable();
-  }
-
-
-  get userToken():  Observable<string> {
-    // return localStorage.getItem('token');
-    return this.currentUserToken.asObservable();
-  }
-
   public getUser(): User {
-    let userStr = localStorage.getItem('user') ;
-      return JSON.parse( userStr! ) as User;
+    let userStr = localStorage.getItem('user');
+    return JSON.parse(userStr!) as User;
   }
 
   public getRole() {
     let user = this.getUser();
-      return user.role
+    return user.role
   }
 
   public getToken() {
     return localStorage.getItem('token');
   }
 
-
-  public logout(){
+  public logout() {
     console.log('clearStorage')
     localStorage.clear();
     this.checkStatus();
-
-    // this.checkStatus().subscribe();
   }
 
 

@@ -7,7 +7,7 @@
   box-shadow: 0 10px 20px rgb(64 64 64 / 5%);
   padding: 5px 0;
   z-index: 1000;
-  width: 165px;
+  width: 210px;
   list-style-type: none;
   box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
   border: 1px solid #631231;
@@ -39,4 +39,8 @@
 }
 .menu > li.trash > a:hover {
   background:#b1b3b6;
+}
+.line{
+  height:1px;
+  background-color: #cccccc99;
 }

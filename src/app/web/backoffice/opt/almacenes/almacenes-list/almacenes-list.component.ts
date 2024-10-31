@@ -1,7 +1,8 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { Almacen } from 'src/app/core/interfaces/almacen.interface';
+import { BaseComponent, cancelColor, confirmColor } from 'src/app/core/kernel/base-component';
 import { AlmacenesService } from 'src/app/core/services/almacenes.service';
-import { ALMACENES } from 'src/app/data/almacenes';
+import { ToastDef } from 'src/app/core/utils/sweetalert/sweetalert';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -9,11 +10,9 @@ import Swal from 'sweetalert2';
   templateUrl: './almacenes-list.component.html',
   styleUrls: ['./almacenes-list.component.css']
 })
-export class AlmacenesListComponent implements OnInit {
-  bottomBarSize = "48px";
-  isMaximized = false;
-  categorias: Almacen[] =[]; // = ALMACENES;
-  categoria: Almacen = {idAlmacen: 0, nombreAlmacen: '', direccionAlmacen: '', responsableAlmacen:'',telefonoAlmacen: '' };
+export class AlmacenesListComponent extends BaseComponent implements OnInit {
+  categorias: Almacen[] = [];
+  categoria: Almacen = { idAlmacen: 0, nombreAlmacen: '', direccionAlmacen: '', responsableAlmacen: '', telefonoAlmacen: '' };
 
 
   private almacenesService = inject(AlmacenesService);
@@ -21,109 +20,62 @@ export class AlmacenesListComponent implements OnInit {
   ngOnInit(): void {
 
     this.getAll();
-    this.categoria = {idAlmacen:0} as Almacen;
+    this.categoria = { idAlmacen: 0 } as Almacen;
 
   }
 
-  getAll(){
+  getAll() {
     this.almacenesService.getAll().subscribe({
-      next: resp=>{
-        this.categorias = resp;
-        console.log('almacenes', this.categorias);
-      },
-      error: error=>{
+      next: resp => { this.categorias = resp; },
+      error: error => {
         //TODO: manejo de errores
       }
     });
   }
 
-
-  onEdit(cat: any){
+  onEdit(cat: any) {
+    this.titleForm = 'Editar';
+    this.buttonForm = 'Actualizar';
     this.categoria = cat;
   }
-  onDelete(id:number){
 
+  onDelete(id: number) {
     Swal.fire({
       title: 'Eliminar Categoria',
       text: 'Desea Continuar?',
-      // icon: 'warning',
+      confirmButtonText: 'Si, Eliminar!',
+      confirmButtonColor: confirmColor,
+      cancelButtonColor: cancelColor,
       showCancelButton: true,
-      confirmButtonColor: '#641330',
-      cancelButtonColor: '#949597',
-      confirmButtonText: 'Si, Eliminar!'
 
-    }).then( (result:any)=> {
+    }).then((result: any) => {
       if (result.isConfirmed) {
-        console.log('eliminar registro');
-
         this.almacenesService.delete(id).subscribe(
-          resp=>{
-            this.onReset();
-            this.getAll();
-            const Toast = Swal.mixin({
-              toast: true,
-              position: "bottom-end",
-              showConfirmButton: false,
-              timer: 3000,
-              timerProgressBar: true,
-              didOpen: (toast) => {
-                toast.onmouseenter = Swal.stopTimer;
-                toast.onmouseleave = Swal.resumeTimer;
-              }
-            });
-            Toast.fire({
-              icon: "success",
-              title: "Almacen Eliminada"
-            });
+          resp => {
+            this.onReset(); this.getAll();
+            ToastDef.fire({ icon: "warning", title: "Almacen Eliminada" });
           }
-
         )
       }
-
-
     })
 
 
   }
-  onReset(){
-    this.categoria = {idAlmacen:0} as Almacen;
+  onReset() {
+    this.categoria = { idAlmacen: 0 } as Almacen;
+    this.titleForm = 'Agregar';
+    this.buttonForm = 'Grabar';
   }
 
-  onSubmit(){
+  onSubmit() {
     this.almacenesService.createOrUpdate(this.categoria).subscribe({
-      next: resp=>{
-        this.onReset();
-        this.getAll();
-        const Toast = Swal.mixin({
-          toast: true,
-          position: "bottom-end",
-          showConfirmButton: false,
-          timer: 3000,
-          timerProgressBar: true,
-          didOpen: (toast) => {
-            toast.onmouseenter = Swal.stopTimer;
-            toast.onmouseleave = Swal.resumeTimer;
-          }
-        });
-        Toast.fire({
-          icon: "success",
-          title: "Registro Grabado"
-        });
+      next: resp => {
+        this.onReset(); this.getAll();
+        ToastDef.fire({ icon: "success", title: "Registro Grabado" });
       },
-      error: error=>{
-        //todo: manejo de errores
-      }
+      error: error => {/* TODO: manejo de errores */ }
     })
   }
 
-  maximize(){
-    this.bottomBarSize="200px";
-    this.isMaximized = true;
 
-  }
-  minimize(){
-    this.bottomBarSize="48px";
-    this.isMaximized = false;
-
-  }
 }

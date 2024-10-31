@@ -4,7 +4,7 @@
     <div class="text-end">
       <ul class="nav nav-tabs">
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" ><strong>Proveedores</strong></a>
+          <a class="nav-link active" aria-current="page" ><strong>Usuarios</strong></a>
         </li>
         <!-- <li class="nav-item">
           <button class=" ms-3 btn btn-verde" [routerLink]="'/entradas/orden-nueva'">Nueva +</button>
@@ -19,51 +19,51 @@
 </div>
 
 <div class="row" style="background-color: white; border-left: 1px solid #dee2e6;">
-    <div class="col-md-6">
+    <div class="col-md-8">
       <table class="table table-responsive table-striped table-hover tbl-data">
         <thead>
           <tr>
             <th scope="col">#</th>
-            <th scope="col">Proveedores</th>
-            <th>Activa</th>
+            <th scope="col">Usuarios</th>
+            <!-- <th>Activa</th> -->
             <th></th>
           </tr>
         </thead>
         <tbody>
 
-          <tr *ngFor="let item of proveedores">
-            <td scope="row">1</td>
-            <td (click)="onCategory(item.id)" class="clickable">{{item.nombre}}</td>
+          <tr *ngFor="let item of usuarios">
+            <td scope="row">{{item.idUsuario}}</td>
+            <td (click)="onCategory(item.idUsuario)" class="clickable">{{item.username}}</td>
 
 
-            <td *ngIf="item.status"><i class="bi bi-check-circle-fill text-success"></i></td>
-            <td *ngIf="!item.status"><i class="bi bi-exclamation-circle-fill text-danger"></i></td>
+            <!-- <td *ngIf="item.status"><i class="bi bi-check-circle-fill text-success"></i></td>
+            <td *ngIf="!item.status"><i class="bi bi-exclamation-circle-fill text-danger"></i></td> -->
             <td><i class="bi bi-pencil-square clickable" (click)="onEdit(item)"></i></td>
           </tr>
         </tbody>
 
       </table>
     </div>
-    <div class="col-md-6 p-3">
+    <div class="col-md-4 ps-3 pe-3">
 
       <div style="border:1px solid gray; min-width: 300px">
         <div style="background-color: #631231; color: white; padding:4px 4px 4px 4px"> &nbsp; &nbsp;<strong>Agregar o
-            Editar</strong></div>
+            Editar Usuario</strong></div>
         <form class="  p-3 ">
           <div class="row">
 
             <div class="col-auto">
-              <label for="staticEmail2" class="visually-hidden">Proveedor</label>
-              <input type="text" readonly class="form-control-plaintext" id="staticCategoria" value="Proveedor">
+              <label for="staticEmail2" class="visually-hidden">Username</label>
+              <input type="text" readonly class="form-control-plaintext" id="staticCategoria" value="Username">
             </div>
             <div class="col-auto">
-              <label for="inputPassword2" class="visually-hidden">Password</label>
-              <input type="text" [(ngModel)]="categoria.nombre" class="form-control" name=nombre id="nombre"
+              <label for="inputPassword2" class="visually-hidden">Usernmae</label>
+              <input type="text" [(ngModel)]="usuario.username" class="form-control" name=nombre id="nombre"
                 placeholder="">
             </div>
           </div>
 
-          <div  class="row">
+          <!-- <div  class="row">
 
             <div class="col-auto">
               <label for="staticEmail2" class="visually-hidden">Folder</label>
@@ -72,12 +72,14 @@
             <div class="col-auto pt-2">
               <input class="form-check-input " type="checkbox" [(ngModel)]="categoria.status" name="status" id="flexCheckDefault">
               <label class="form-check-label" for="flexCheckDefault">
-                <!-- Default checkbox -->
               </label>
             </div>
-        </div>
+        </div> -->
+
+
+
           <div class="col-auto mt-3">
-            <button type="submit" [disabled]="!categoria.nombre" class="btn btn-verde mb-3">Agregar o Guardar</button>
+            <button type="submit" [disabled]="!usuario.username" class="btn btn-verde mb-3">Agregar1 o Guardar</button>
           </div>
         </form>
       </div>

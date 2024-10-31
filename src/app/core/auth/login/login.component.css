@@ -379,3 +379,12 @@ Texto Validando
   border-bottom-right-radius: 6px;
   border-top-right-radius: 6px;
 }
+
+
+
+
+.footer-pleca {
+  background-color: #fff;
+  background-image: url(https://framework-gb.cdn.gob.mx/gobmx/img/pleca.svg);
+  background-repeat: repeat-x;
+}

@@ -16,7 +16,6 @@ export class AuthInterceptor implements HttpInterceptor {
     let authReq = req;
     let ok: string;
     const token = this.loginService.getToken();
-    console.log('token', this.loginService.getToken());
     if (token != null) {
       authReq = authReq.clone({ setHeaders: { Authorization: `Bearer ${token}` } });
     }
@@ -50,8 +49,9 @@ export class AuthInterceptor implements HttpInterceptor {
            ${ok} in ${elapsed} ms.`;
         // this.messenger.add(msg);
         console.log(msg, ok);
-        setTimeout(() => {
-        }, 200);
+
+        // setTimeout(() => {
+        // }, 200);
 
       })
     );

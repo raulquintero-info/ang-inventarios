@@ -13,12 +13,13 @@
 }
 
 .sub-bar{
-  display:none;;
+  display:none;
   height:30px;
-  background-color: rgb(240, 240, 240);
+  background-color: #e9e8e8;
+  color: white;
   font-size:small;
   text-align: right;
-  top:40px;
+  top:42px;
   z-index: 1;
   background-color: gray;
 }

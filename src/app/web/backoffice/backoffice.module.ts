@@ -8,6 +8,7 @@ import { ProductosModule } from './opt/productos/productos.module';
 import { MproductosModule } from '../components/mproductos/mproductos.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { EntradasRoutingModule } from './opt/entradas/entradas-routing.module';
+import { SettingsModule } from './opt/settings/settings.module';
 
 
 
@@ -21,6 +22,7 @@ import { EntradasRoutingModule } from './opt/entradas/entradas-routing.module';
     RouterModule,
     NgbModule,
     BackofficeRoutingModule,
+    SettingsModule,
     ProductosModule,
     MproductosModule
   ],

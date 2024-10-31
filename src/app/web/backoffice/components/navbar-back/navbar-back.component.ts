@@ -22,20 +22,13 @@ export class NavbarBackComponent implements OnInit{
 
   ngOnInit(): void {
 
-    this.getAlmacenes();
+    //obtener datos del usuario logueado
+    this.securityService.currentUserData.subscribe({next: (userData) => {this.user = userData}});
 
-    this.almacenesService.currentAlmacen.subscribe(
-      resp=>{
 
-        this.almacenSelected = resp;
-      }
-    )
-
-    this.securityService.currentUserData.subscribe({
-      next: (userData) => {
-        this.user = userData
-      }
-    });
+    this.almacenesService.currentAlmacen.subscribe(resp=>{this.almacenSelected = resp;});
+    this.almacenesService.almacenesLista.subscribe(resp=>{this.almacenes = resp;});
+    this.almacenesService.getAll().subscribe(resp=>{this.almacenesService.setAlmacenes(resp);});
 
   }
 
@@ -43,6 +36,8 @@ export class NavbarBackComponent implements OnInit{
     this.almacenesService.getAll().subscribe(
       (resp:Almacen[])=>{
         this.almacenes = resp;
+        this.almacenesService.setAlmacenes(resp);
+        console.log('set', resp);
       }
     )
   }

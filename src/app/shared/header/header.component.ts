@@ -25,9 +25,7 @@ export class HeaderComponent implements OnInit {
     })
 
     this.env = environment.production ? 'prod' : 'dev';
-    console.log('environment: ' + this.env);
 
-    console.log('role', this.user);
 
   }
 

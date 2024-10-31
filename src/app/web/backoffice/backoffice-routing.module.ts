@@ -1,8 +1,5 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-
-
-
 import { DashboardBackComponent } from './dashboard-back/dashboard-back.component';
 
 
@@ -21,7 +18,10 @@ const routes: Routes = [
         path: 'almacenes',
         loadChildren: ()=>import('./opt/almacenes/almacenes.module').then(m => m.AlmacenesModule)
       },
-
+      {
+        path: 'settings',
+        loadChildren: ()=>import('./opt/settings/settings.module').then(m => m.SettingsModule)
+      },
 
     ]
   }

@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { LandingPageComponent } from './web/landing-page/landing-page.component';
 import { LoginComponent } from './core/auth/login/login.component';
 import { NotFoundComponent } from './shared/pages/not-found/not-found.component';
+import { CatalogosModule } from './web/backoffice/catalogos/catalogos.module';
 
 const routes: Routes = [
   { path: "", component: LoginComponent},
@@ -17,6 +18,10 @@ const routes: Routes = [
   {
     path: '',
     loadChildren: ()=>import('../app/shared/shared.module').then(m => m.SharedModule)
+  },
+  {
+    path: '',
+    loadChildren: ()=>import('../app/web/backoffice/catalogos/catalogos.module').then(m => m.CatalogosModule)
   },
 
   { path: '**', component: NotFoundComponent },

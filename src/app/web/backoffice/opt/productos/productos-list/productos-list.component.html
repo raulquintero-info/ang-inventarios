@@ -11,31 +11,43 @@
         <!-- <div class="btn-group1 p-1 me-3" *ngIf="!categoryIdSelected;">
           <button class="btn btn-toolbox-disabled disabled "  aria-current="page" ><i class="bi bi-folder-plus "></i></button>
         </div> -->
-          <div #toolboxactive class="btn-group1 p-1 me-3">
-            <button class="btn btn-toolbox " (click)="openModalNewCategory()" ><i class="bi bi-folder-plus "></i></button>
-            <button class="btn btn-toolbox-disabled ms-1 disabled" *ngIf="!categoryIdSelected;" aria-current="page" ><i class="bi bi-folder-x"></i></button>
-            <button class="btn btn-toolbox ms-1" (click)="onDeleteCategory()" *ngIf="categoryIdSelected;" aria-current="page" ><i class="bi bi-folder-x"></i></button>
-            <button class="btn btn-toolbox-disabled disabled ms-1"  *ngIf="!categoryIdSelected;" aria-current="page" ><i class="bi bi-pencil-square"></i></button>
-            <button class="btn btn-toolbox ms-1"  *ngIf="categoryIdSelected;" aria-current="page" ><i class="bi bi-pencil-square"></i></button>
-          </div>
+        <div #toolboxactive class="btn-group1 p-1 me-3">
+          <button class="btn btn-toolbox " (click)="openModalNewCategory()"><i class="bi bi-folder-plus "></i></button>
+          <button class="btn btn-toolbox-disabled ms-1 disabled" *ngIf="!categoryIdSelected;" aria-current="page"><i
+              class="bi bi-folder-minus"></i></button>
+          <button class="btn btn-toolbox ms-1" (click)="onDeleteCategory()" *ngIf="categoryIdSelected;"
+            aria-current="page"><i class="bi bi-folder-minus"></i></button>
+          <button class="btn btn-toolbox-disabled disabled ms-1" *ngIf="!categoryIdSelected;" aria-current="page"><i
+              class="bi bi-pencil-square"></i></button>
+          <button class="btn btn-toolbox ms-1" *ngIf="categoryIdSelected;" aria-current="page"><i
+              class="bi bi-pencil-square"></i></button>
+        </div>
 
       </div>
 
       <div class="directory ms-2" style="border-right: 1px solid #bdb8b8">
-        <ngx-spinner bdColor = "rgba(0, 0, 0, 0.8)" size = "default" color = "#fff" type = "pacman" [fullScreen] = "true"><p style="color: white" > Loading... </p></ngx-spinner>
+        <ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="default" color="#fff" type="pacman" [fullScreen]="true">
+          <p style="color: white"> Loading... </p>
+        </ngx-spinner>
 
 
         <span class="clickable" (click)="onCategory(null)"><i class="bi bi-folder2"></i> Root1</span><br>
         <!-- TODO: arbol de categorias -->
 
-        <app-tree-directory oncontextmenu="return false;" [categorias]="categorias"
-          (categoryId)="onCategory($event)"
-          (contextMenuCategory)="detectRightMouseClick($event, null)">
+        <div style="width: max-content">
+
+          <app-tree-directory style="width:500px" oncontextmenu="return false;" [categorias]="categorias"
+            (categoryId)="onCategory($event)" (contextMenuCategory)="detectRightMouseClick($event, null)">
 
 
-        </app-tree-directory>
-        <div popover id="crear-popover">Nombre de la categoria: <input type="text"> <button class="btn btn-sm btn-verde ms-2">Grabar</button></div>
-        <div popover id="eliminar-popover">Esta seguro? Desea Eliminar la Categoria?  <button class="btn btn-sm btn-danger ms-2">Eliminar</button></div>
+          </app-tree-directory>
+        </div>
+
+
+        <div popover id="crear-popover">Nombre de la categoria: <input type="text"> <button
+            class="btn btn-sm btn-verde ms-2">Grabar</button></div>
+        <div popover id="eliminar-popover">Esta seguro? Desea Eliminar la Categoria? <button
+            class="btn btn-sm btn-danger ms-2">Eliminar</button></div>
         <!-- {{offset}} - {{offsetByMenu}} - {{windowPDetalleHeight}} -  {{windowPTablaHeight}} -->
       </div>
       <pre>
@@ -82,9 +94,9 @@
           aria-label="Producto a buscar" aria-describedby="button-addon2">
         <button class="btn btn-outline-secondary mt-2 mb-1 me-1 not-radius" type="button" id="button-addon2"><i
             class="bi bi-search"></i> Buscar</button>
-        <button class="btn btn-success      ms-1 mt-2 mb-1 me-1 not-radius" type="button" (click)="onAgregarProducto()"
-          id="button-addon2"><i class="bi bi-plus-square"></i> Agregar Producto
-        </button>
+        <button class="btn btn-verde ms-1 mt-2 mb-1 not-radius" (click)="onAgregarProducto()"><i class="bi bi-plus-square"></i> Producto</button>
+        <button class="btn btn-warning ms-1 mt-2 mb-1 not-radius" (click)="onAgregarProducto()"><i class="bi bi-plus-square"></i> Entrada</button>
+        <button class="btn btn-info ms-1 mt-2 mb-1 me-1 not-radius" (click)="onAgregarProducto()"><i class="bi bi-plus-square"></i> Salida</button>
 
         <!-- Combo Box -Exportar- -->
         <div class="dropdown me-2" style="position:relative; top:8px; ">
@@ -120,38 +132,75 @@
       <div class="container-table" [ngStyle]="{'height':windowPTablaHeight}">
 
 
-        <app-file-list [items]="items" (categoryId)="singleClick($event)"  (itemId)="doubleClick($event)"></app-file-list>
+        <app-file-list [items]="items" (categoryId)="singleClick($event)"
+          (itemId)="doubleClick($event)"></app-file-list>
 
       </div>
 
-      <div class="paginator bottom-fixed">
-        <div class="d-flex justify-content-between p-2">
-          <div class="ms-3 btn-group1">
-            <!-- <button class="btn btn-toolbox " ><i class="bi bi-plus-circle"></i> Agregar Item</button>
-            <button class="btn btn-toolbox-disabled  disabled ms-1" ><i class="bi bi-x-circle"></i> Eliminar Item</button> -->
+      <div style="background-color: #d9dadf;">
+        <div class="d-flex ">
+          <div class="ms-3 pt-2 pe-3 text-center"  style="font-size:.8rem; border-right: 1px solid #bdb8b8; width: 130px">
+            Productos
+            <h3>{{items.length}} </h3>
           </div>
-          <nav class="me-3" aria-label="Page navigation example">
-          <ul class="pagination">
-            <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-            <li class="page-item active"><a class="page-link bg-guinda text-light" href="#">1</a></li>
-            <li class="page-item"><a class="page-link" href="#">2</a></li>
-            <li class="page-item"><a class="page-link" href="#">3</a></li>
-            <li class="page-item"><a class="page-link" href="#">Next</a></li>
-          </ul>
-        </nav>
+          <div class="flex-grow-1  pt-2 ps-3">
+            <div style="font-size:.8rem">Filtros</div>
+            <div class="d-flex flex-nowrap ">
 
+              <div class="mb-3" style="font-size:.9rem">
+                Precio $
+                <input type="email" class="" style="width:80px" id="exampleInputEmail1" aria-describedby="emailHelp">
+                a <input type="email" class="" style="width:80px" id="exampleInputEmail1" aria-describedby="emailHelp">
+              </div>
+              <div class="form-check ms-3" style="font-size: .9rem">
+                <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
+                <label class="form-check-label" for="flexCheckChecked">
+                  Eliminados
+                </label>
+              </div>
+              <div class="form-check ms-3" style="font-size: .9rem">
+                <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
+                <label class="form-check-label" for="flexCheckChecked">
+                  Por debajo del limite
+                </label>
+              </div>
+            </div>
+            <!-- <div class="ms-3 btn-group">
+              <button class="btn btn-toolbox " ><i class="bi bi-plus-circle"></i> Agregar Item</button>
+              <button class="btn btn-toolbox-disabled  disabled" ><i class="bi bi-x-circle"></i> Eliminar Item</button>
+            </div> -->
+
+          </div>
+          <div>
+            <div class=" bottom-fixed mt-3 me-3">
+
+              <nav aria-label="Page navigation example">
+                <ul class="pagination">
+                <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+                <li class="page-item active"><a class="page-link bg-guinda text-light" href="#">1</a></li>
+                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                <li class="page-item"><a class="page-link" href="#">Next</a></li>
+              </ul>
+            </nav>
+          </div>
+
+          </div>
         </div>
 
       </div>
     </div>
 
-    <div  style="border-top: 1px solid #bdb8b8; border-left: 1px solid #bdb8b8;">
+    <div style="border-top: 1px solid #999999; border-left: 1px solid #999999;">
       <div class="horizontal-bar">
       </div>
       <!-- <i class="arrow-down" (click)="maximize()" style="position: absolute; top:863px; left: 50dvw;z-index: 100;" > </i> -->
-      <div class="pe-2 ps-1 d-flex round-bar-beige" style="background-color: #d9cdba; border-bottom: 1px solid #bdb8b8;">
-        <i class="arrow-up" *ngIf="!isMaximized" (click)="maximize()" style="position: relative; top:-13px; left: 40dvw;z-index: 100;"> </i>
-        <i class="arrow-down" *ngIf="isMaximized" (click)="minimize()" style="position: relative; top:-13px; left: 40dvw;z-index: 100;"> </i>
+      <div class="pe-2 ps-1 d-flex round-bar-beige"
+        style="background-color: #d9cdba; border-bottom: 1px solid #bdb8b8;">
+        <i class="arrow-up" *ngIf="!isMaximized" (click)="maximize()"
+          style="position: relative; top:-13px; left: 40dvw;z-index: 100;"> </i>
+        <i class="arrow-down" *ngIf="isMaximized" (click)="minimize()"
+          style="position: relative; top:-13px; left: 40dvw;z-index: 100;"> </i>
 
         <div class="flex-grow-1 ms-1"><span style="font-size: 1.1rem;margin-left: -40px;">Detalle</span></div>
         <!-- <div class="mt-1 me-2 clickable" *ngIf="windowSize=='45dvh'" (click)="maximize()"><i class="bi bi-caret-down-fill text-end"></i> </div> -->
@@ -160,9 +209,9 @@
       <div *ngIf="itemSelected" style="height: 27dvh; overflow-y: scroll; background-color: #fffbf4">
 
         <div class="mt-1 ms-2">
-          <h3>{{itemSelected.nombre | titlecase}} <button class="btn btn-verde btn-sm" (click)="doubleClick(itemSelected.id)"><i
-                class="bi bi-pencil-square"></i></button></h3>
-                <!-- Button trigger modal -->
+          <h3>{{itemSelected.nombre | titlecase}} <button class="btn btn-verde btn-sm"
+              (click)="doubleClick(itemSelected.id)"><i class="bi bi-pencil-square"></i></button></h3>
+          <!-- Button trigger modal -->
 
         </div>
         <table class="m-3" style="min-width:500px">
@@ -225,29 +274,35 @@
 
 
 <!-- modals -->
-  <div class="modal " id="exampleModal" tabindex="-1" style="top: 30vh; left: -20vw;" aria-hidden="true" [ngStyle]="{'display':displayStyleNewCategory}">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Categoria Nueva</h5>
-          <!-- <button type="button" class="btn-close " data-bs-dismiss="modal" aria-label="Close"></button> -->
-        </div>
-        <div class="modal-body">
-          Nombre: <input name="nombreCategoria" id="nombreCategoria" type="text" [(ngModel)]="categoriaNueva.nombreCategoria" class="form-control">
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" (click)="closeModalNewCategory()">Cancelar</button>
-          <button type="button" class="btn btn-guinda" (click)="onNewCategory()">Crear</button>
-        </div>
+<div class="modal " id="exampleModal" tabindex="-1" style="top: 30vh; left: -20vw;" aria-hidden="true"
+  [ngStyle]="{'display':displayStyleNewCategory}">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Categoria Nueva</h5>
+        <!-- <button type="button" class="btn-close " data-bs-dismiss="modal" aria-label="Close"></button> -->
+      </div>
+      <div class="modal-body">
+        Nombre:
+        <input name="nombreCategoria" id="nombreCategoria" type="text" (keyup.enter)="onNewCategory()"
+          [(ngModel)]="categoriaNueva.nombreCategoria" class="form-control">
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="closeModalNewCategory()">Cancelar</button>
+        <button type="button" class="btn btn-guinda" (click)="onNewCategory()">Crear</button>
       </div>
     </div>
   </div>
-
-  <!-- context Menu -->
-  <div id="contextmenu" class="contextmenu" [ngStyle]="rightPanelStyle" (clickOutside)="closeContextMenu()" (mouseleave)="onCloseContextMenuMouse()">
-    <ul class="menu">
-        <li  class="activem"><a><i class="bi bi-pencil-square"></i> Edit</a></li>
-        <li ><a><i class="bi bi-trash"></i> Delete</a></li>
-    </ul>
 </div>
 
+<!-- context Menu -->
+<div id="contextmenu" class="contextmenu" [ngStyle]="rightPanelStyle" (clickOutside)="closeContextMenu()"
+  (mouseleave)="onCloseContextMenuMouse()">
+  <ul class="menu">
+    <li><a><i class="bi bi-plus-circle"></i> Agregar Producto</a></li>
+    <div class="line"></div>
+    <li><a><i class="bi bi-folder-plus"></i> Agregar Carpeta</a></li>
+    <li class="activem"><a><i class="bi bi-pencil-square"></i> Edit</a></li>
+    <li><a><i class="bi bi-trash"></i> Delete</a></li>
+  </ul>
+</div>
