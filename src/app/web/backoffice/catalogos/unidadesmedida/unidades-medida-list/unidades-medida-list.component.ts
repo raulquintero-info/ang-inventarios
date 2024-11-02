@@ -11,6 +11,8 @@ import Swal from 'sweetalert2';
   styleUrls: ['./unidades-medida-list.component.css']
 })
 export class UnidadesMedidaListComponent extends BaseComponent implements OnInit {
+  titleForm: string = '';
+  buttonForm: string = '';
   title         = 'Unidades de Medida';
   elements: UnidadMedida [] = [];
   element: UnidadMedida = {unidadMedida: '' } as UnidadMedida;

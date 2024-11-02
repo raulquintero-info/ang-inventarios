@@ -4,6 +4,11 @@
     <div class="text-end">
       <ul class="nav nav-tabs">
         <li class="nav-item"> <a class="nav-link active" aria-current="page"><strong>{{ title | titlecase}}</strong></a> </li>
+        <li>
+          <div class="text-center" *ngIf="spinnerTable">
+          <div class="spinner-border spinner-border-sm ms-3 mt-3"  role="status"></div> {{message}} ...
+        </div>
+      </li>
       </ul>
     </div>
     <div class=" ps-2  pt-2 pb-2" style="background-color:#fff;  border-left: 1px solid #dee2e6; ">
@@ -31,6 +36,8 @@
           </tr>
         </tbody>
       </table>
+
+
     </div>
 
     <div class="col-md-4 ps-3 pe-3">

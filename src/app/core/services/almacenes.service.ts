@@ -29,7 +29,8 @@ export class AlmacenesService {
   get currentAlmacen(): Observable<Almacen> { return this.almacen.asObservable(); }
   get almacenesLista(): Observable<Almacen[]> { return this.almacenes.asObservable(); }
 
-  createOrUpdate(nombre: Almacen): Observable<any> { return (!nombre.idAlmacen) ? this.http.post(this.url, nombre) : this.http.put(this.url + '/' + nombre.idAlmacen, nombre) }
+  createOrUpdate(nombre: Almacen): Observable<any> {
+    return (!nombre.idAlmacen) ? this.http.post(this.url, nombre) : this.http.put(this.url + '/' + nombre.idAlmacen, nombre) }
   delete(id: number): Observable<any> { return this.http.delete(this.url + '/' + id) }
   getAll(): Observable<Almacen[]> {
     return this.http.get(this.url).pipe(

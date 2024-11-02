@@ -11,26 +11,38 @@ import Swal from 'sweetalert2';
   styleUrls: ['./marcas-list.component.css']
 })
 export class MarcasListComponent extends BaseComponent implements OnInit {
-  title         = 'marcas';
-  elements: Marca [] = [];
-  element: Marca = {marca: '' } as Marca;
-  elementSelected: Marca = {idMarca: 0, marca: '' } as Marca;
+  titleForm: string = 'Agregar';
+  buttonForm: string = 'Grabar';
+  message: string = 'Procesando '
+  title                   = 'marcas';
+  elements: Marca []      = [];
+  element: Marca          = {marca: '' } as Marca;
+  elementSelected: Marca  = {idMarca: 0, marca: '' } as Marca;
+  spinnerTable: boolean   = false
 
-  private genericservice = inject(MarcasService);
+
+  private elementService  = inject(MarcasService);
+
+  constructor(){ super(); }
 
   ngOnInit(): void {
     this.getAll();
   }
 
-  updateElements(temp: any){ this.getAll() }
   onRow(id: number){ console.log('elementId', id) }
+  onDelete(id:number){ this.sweetConfirmDelete(this,'',id); }
   onSubmit(element: any){ this.elementSelected = element; }
+  updateElements(temp: any){ this.getAll() }
+  hideSpinner(){ this.spinnerTable = false }
+  showSpinner(){ this.spinnerTable = true }
 
   getAll(){
-    this.genericservice.getAll().subscribe({
-      next: resp=>{ this.elements = resp; },
+    this.showSpinner();
+    this.elementService.getAll().subscribe({
+      next: resp=>{ this.elements = resp; this.hideSpinner()},
       error: error=>{
         /* TODO: manejo de error*/
+        this.hideSpinner();
       }
     })
   }
@@ -42,28 +54,4 @@ export class MarcasListComponent extends BaseComponent implements OnInit {
   }
 
 
-  onDelete(id:number){
-    Swal.fire({
-      title: 'Eliminar Registro',
-      text: 'Desea Continuar?',
-      confirmButtonText: 'Si, Eliminar!',
-      confirmButtonColor: confirmColor,
-      cancelButtonColor: cancelColor,
-      showCancelButton: true,
-    }).then( (result:any)=> {
-      if (result.isConfirmed) {
-        this.genericservice.delete(id).subscribe(
-          resp=>{
-            this.getAll();
-            ToastDef.fire({ icon: "success", title: "Registro Eliminada" });
-          },
-          error=>{
-            this.getAll();
-            //TODO: la respuesta de la api no viene en un json
-            ToastDef.fire({ icon: "error", title: "No se pudo Borrar el Registro  " });
-          }
-        )
-      }
-    });
-  }
 }

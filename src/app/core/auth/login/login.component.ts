@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { SecurityService } from '../services/security.service';
@@ -12,7 +12,7 @@ import { User } from '../interfaces/user.interface';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit{
 
   infoSize: String = '';
   error: boolean = false;
@@ -22,6 +22,16 @@ export class LoginComponent {
   private router = inject(Router);
   private formBuilder = inject(FormBuilder);
   private securityService = inject(SecurityService);
+
+  ngOnInit(): void {
+    this.securityService.currentUser().subscribe(
+      resp=>{
+        console.log('currentUSer',resp)
+        this.router.navigateByUrl("dashboard")
+
+      }
+    )
+  }
 
   loginForm = this.formBuilder.group({
     username:['admin@server.com',[Validators.required, Validators.email]],

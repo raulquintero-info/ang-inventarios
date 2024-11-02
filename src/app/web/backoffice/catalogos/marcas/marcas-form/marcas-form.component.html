@@ -30,7 +30,9 @@
 
 
     <div class="col-auto mt-3 text-end">
-      <button (click)="onSubmit()" [disabled]="!elementSelected.marca" class="btn btn-guinda mb-3 me-2">{{buttonForm}}</button>
+      <button (click)="onSubmit()" [disabled]="!elementSelected.marca" class="btn btn-guinda mb-3 me-2">{{buttonForm}}
+        <div class="spinner-border spinner-border-sm" *ngIf="spinnerForm" role="status"></div>
+      </button>
       <button (click)="onReset()" [disabled]="!elementSelected.marca" class="btn btn-secondary mb-3 me-3 ">Limpiar</button>
     </div>
   </form>

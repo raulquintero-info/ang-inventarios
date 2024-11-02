@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, Output, inject } from '@angular/core';
 import { Marca } from 'src/app/core/interfaces/marca.interface';
+import { BaseComponent } from 'src/app/core/kernel/base-component';
 import { MarcasService } from 'src/app/core/services/marcas.service';
 
 @Component({
@@ -7,7 +8,8 @@ import { MarcasService } from 'src/app/core/services/marcas.service';
   templateUrl: './marcas-form.component.html',
   styleUrls: ['./marcas-form.component.css']
 })
-export class MarcasFormComponent {
+export class MarcasFormComponent extends BaseComponent {
+  spinnerForm: boolean = false;
   @Input() titleForm   ='Agregar';
   @Input() buttonForm  = 'Grabar';
 
@@ -16,14 +18,16 @@ export class MarcasFormComponent {
   @Output() temp: any                 = new EventEmitter<any>();
 
 
-  private marcasService = inject(MarcasService);
+  private elementService = inject(MarcasService);
+
+  getAll(){ this.temp.emit(null); }
+  showSpinner(){ this.spinnerForm = true; }
+  hideSpinner(){ this.spinnerForm = false; }
 
   onSubmit(){
-    console.log('grabando')
-    this.marcasService.createOrUpdate(this.elementSelected).subscribe({
-      next: resp=>{this.temp.emit(1);console.log(resp); this.onReset()},
-      error: error=>{console.log(error)}
-    })
+    console.log('grabando');
+    this.showSpinner();
+    this.sweetConfirmCreateOrUpdate(this,'Crear Marca Nueva',this.elementSelected);
   }
 
   onReset(){
@@ -31,5 +35,6 @@ export class MarcasFormComponent {
     this.titleForm = 'Agregar';
     this.buttonForm ='Grabar';
   }
+
 
 }
