@@ -1,5 +1,5 @@
 <nav class="navbar sticky-top navbar-expand-lg navbar-light bg-menu">
-  <div class="container-fluid ms-3">
+  <div class="container-fluid xms-3">
 
     <a class="navbar-brand" href="/"> <img class="brand-logo" src="/assets/logos/infotec-logo-bar-3.png" alt=""> </a>
     <div class="collapse navbar-collapse" id="navbarNavDropdown">
@@ -21,7 +21,7 @@
           <a class="nav-link btn-gris dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-bs-toggle="dropdown">Entradas</a>
           <ul class="dropdown-menu">
             <li><a [routerLink]="'/entradas/ordenes-de-compra'" class="dropdown-item">Ordenes de Compra &raquo;</a></li>
-            <li><a [routerLink]="'/entradas/proveedores'" class="dropdown-item">Proveedores <i class="bi bi-bookmark-fill text-warning"></i> </a> </li>
+            <li><a [routerLink]="'/catalogos/proveedores'" class="dropdown-item">Proveedores <i class="bi bi-bookmark-fill text-warning"></i> </a> </li>
             <li><a [routerLink]="'/entradas/devoluciones'" class="dropdown-item">Devoluciones &raquo;</a></li>
           </ul>
         </li>
@@ -30,7 +30,7 @@
           <a class="nav-link btn-gris dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-bs-toggle="dropdown">Almacenes</a>
           <ul class="dropdown-menu">
             <li><a [routerLink]="'/almacenes/movimientos'" class="dropdown-item">Movimientos &raquo;</a></li>
-            <li><a [routerLink]="'/almacenes'" class="dropdown-item">Almacenes <i class="bi bi-bookmark-fill text-warning"></i> </a> </li>
+            <li><a [routerLink]="'/catalogos/almacenes'" class="dropdown-item">Almacenes <i class="bi bi-bookmark-fill text-warning"></i> </a> </li>
           </ul>
         </li>
 
@@ -47,7 +47,7 @@
 
 
 
-      <ul class="navbar-nav ms-auto me-4">
+      <ul class="navbar-nav ms-auto ">
 
         <!-- notificaciones -->
         <!-- <li class="nav-item dropdown">
@@ -66,13 +66,14 @@
           <button type="button" class="btn btn-primary" style="margin-top: 1px" id="dropdownBasic1" ngbDropdownToggle> <i class="bi bi-plus-lg"></i> </button>
           <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
             <button ngbDropdownItem [routerLink]="'salidas/usuarios'"><i class="bi bi-plus-circle"></i> Cliente </button>
-            <button ngbDropdownItem [routerLink]="'entradas/proveedores'"><i class="bi bi-plus-circle"></i> Proveedor</button>
-            <button ngbDropdownItem [routerLink]="'almacenes'"><i class="bi bi-plus-circle"></i> Almacen</button>
+            <button ngbDropdownItem [routerLink]="'catalogos/proveedores'"><i class="bi bi-plus-circle"></i> Proveedor</button>
+            <button ngbDropdownItem [routerLink]="'catalogos/almacenes'"><i class="bi bi-plus-circle"></i> Almacen</button>
             <button ngbDropdownItem [routerLink]="''"><i class="bi bi-plus-circle"></i> Entrada</button>
             <button ngbDropdownItem [routerLink]="''"><i class="bi bi-plus-circle"></i> Salida</button>
             <button ngbDropdownItem [routerLink]="'catalogos/marcas'"><i class="bi bi-plus-circle"></i> Marca</button>
             <button ngbDropdownItem [routerLink]="''"><i class="bi bi-plus-circle"></i> Tipo de Producto</button>
             <button ngbDropdownItem [routerLink]="'catalogos/unidades-medida'"><i class="bi bi-plus-circle"></i> Unidad de Medida</button>
+            <button ngbDropdownItem [routerLink]="'catalogos/atributos'"><i class="bi bi-plus-circle"></i> Atributos</button>
           </div>
         </li>
 
@@ -105,6 +106,13 @@
             <li><button class="dropdown-item" (click)="onLogout()"><i class="bi bi-door-closed"></i> Cerrar Sesión</button></li>
           </ul>
         </li>
+
+        <li class="nav-item"  (click)="onLogout()">
+          <a class="nav-link  btn-guinda btn-sm" routerLink="/logout" aria-current="page" href="#">
+            <i class="bi bi-x-lg ps-2 pe-2"></i>
+          </a>
+        </li>
+
       </ul>
 
     </div>

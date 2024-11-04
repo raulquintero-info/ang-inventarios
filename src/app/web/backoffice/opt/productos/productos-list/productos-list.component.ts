@@ -32,6 +32,7 @@ export class ProductosListComponent {
   categoriaNueva: Categoria = {nombreCategoria: ''} as Categoria;
   categorias: Categoria[] = [];
   categoryIdSelected: number| null = null;
+  categorySelected: Categoria = {idCategoria : 0} as Categoria;
   categoriaTitulo: string = '';
   isMaximized = false;
   preventSingleClick = false;
@@ -85,8 +86,8 @@ export class ProductosListComponent {
   }
 
   onAgregarProducto() {
-    const modalRefEditar = this.modalService.open(ProductosFormComponent);
-    modalRefEditar.componentInstance.name = 'editModal';
+    const modalRefEditar = this.modalService.open(ProductosFormComponent, {windowClass:  "generic-modal"});
+    modalRefEditar.componentInstance.categoryIdSelected = this.categoryIdSelected;
     window.scrollTo(0, 0);
   }
 
@@ -101,6 +102,7 @@ export class ProductosListComponent {
   onCategory(categoryId: number|null) {
     this.items=[];
     this.categoryIdSelected = categoryId;
+
     if (categoryId==0){
       this.items = ITEMS;
       return
@@ -148,8 +150,8 @@ export class ProductosListComponent {
     // alert('No es posible mostar el Modal para editar el articulo')
     console.log("No es posible mostar el Modal para editar el articulo");
 
-    const modalRefEditar = this.modalService.open(ProductosFormComponent);
-    modalRefEditar.componentInstance.name = 'editModal';
+    const modalRefEditar = this.modalService.open(ProductosFormComponent, {windowClass:  "generic-modal"});
+    modalRefEditar.componentInstance.categoryIdSelected = this.categoryIdSelected;
 
   }
 

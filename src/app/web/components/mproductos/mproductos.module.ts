@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FileListComponent } from './filetree/file-list/file-list.component';
 import { TreeDirectoryComponent } from './filetree/tree-directory/tree-directory.component';
 import { ProductosFormComponent } from './productos-form/productos-form.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 
@@ -13,7 +14,8 @@ import { ProductosFormComponent } from './productos-form/productos-form.componen
     ProductosFormComponent,
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    ReactiveFormsModule,
   ],
   exports:[
     TreeDirectoryComponent,

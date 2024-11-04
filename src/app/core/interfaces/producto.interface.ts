@@ -1,15 +1,21 @@
+import { Categoria } from "./categoria.interface";
+import { Marca } from "./marca.interface";
+import { Proveedor } from "./proveedor.interface";
+import { UnidadMedida } from "./unidades-medida";
+
 export interface Producto{
-  sku: string;
+  idProducto: number;
   nombreProducto: string;
   descripcionProducto: string;
+  sku: string;
   precio: number,
 	cantidad: number,
-  fecha_creacion: string,
-  fecha_actualizacion: string,
+  fechaCreacion: string,
+  fechaActualizacion: string,
   minimo: number,
   maximo: number,
-  // unidadMedida: UnidadMedida,
-  // marca: Marca,
-  // categoria: Categria,
-  // proveedor: Proveedor
+  unidadMedida: UnidadMedida,
+  proveedor: Proveedor
+  marca: Marca,
+  categoria: Categoria,
 }

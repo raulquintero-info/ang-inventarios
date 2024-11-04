@@ -1,0 +1,69 @@
+<div style="border:1px solid gray; min-width: 300px">
+  <div style="background-color: #631231; color: white; padding:4px 4px 4px 4px"> <strong>{{titleForm | titlecase}}
+    {{ title | titlecase}} [{{elementForm.value.idAlmacen}}]</strong></div>
+  <form class="  p-3 ">
+    <div class="row">
+
+      <!-- <div class="col-auto">
+        <label for="staticEmail2" class="visually-hidden">label</label>
+        <input type="text" readonly class="form-control-plaintext" id="staticCategoria" value="{{ title | titlecase}}">
+      </div>
+      <div class="col-auto">
+        <label for="inputPassword2" class="visually-hidden">label</label>
+        <input type="text" [(ngModel)]="elementSelected.nombreAlmacen" class="form-control" name="{{title}}" id="{{title}}"
+          placeholder="">
+      </div> -->
+      <form [formGroup]="elementForm">
+
+        <div class='field'>
+          <label for='proveedor'>Almacen</label>
+          <input class="form-control" type='text' formControlName="nombreAlmacen" id='Almacen' autocomplete="off" name='Almacen' />
+          <div class="text-danger text-end fs-6 fst-italic" *ngIf="nombreAlmacen.invalid && (nombreAlmacen.dirty || nombreAlmacen.touched)">
+            <span *ngIf="nombreAlmacen.errors?.['required']">
+              - Campo Obligatorio
+            </span>
+          </div>
+        </div>
+        <div class='field'>
+          <label for='proveedor'>Direccion</label>
+          <input class="form-control" type='text' formControlName="direccionAlmacen" id='direccionAlmacen' autocomplete="off" name='direccionAlmacen' />
+          <div class="text-danger text-end fs-6 fst-italic" *ngIf="direccionAlmacen.invalid && (direccionAlmacen.dirty || direccionAlmacen.touched)">
+            <span *ngIf="direccionAlmacen.errors?.['required']">
+              - Campo Obligatorio
+            </span>
+          </div>
+        </div>
+        <div class='field'>
+          <label for='proveedor'>Telefono</label>
+          <input class="form-control" type='text' formControlName="telefonoAlmacen" id='telefonoAlmacen' autocomplete="off" name='telefonoAlmacen' />
+          <div class="text-danger text-end fs-6 fst-italic" *ngIf="telefonoAlmacen.invalid && (telefonoAlmacen.dirty || telefonoAlmacen.touched)">
+            <span *ngIf="telefonoAlmacen.errors?.['required']">
+              - Campo Obligatorio
+            </span>
+          </div>
+        </div>
+        <div class='field'>
+          <label for='proveedor'>Email</label>
+          <input class="form-control" type='text' formControlName="responsableAlmacen" id='responsableAlmacen' autocomplete="off" name='responsableAlmacen' />
+          <div class="text-danger text-end fs-6 fst-italic" *ngIf="responsableAlmacen.invalid && (responsableAlmacen.dirty || responsableAlmacen.touched)">
+            <span *ngIf="responsableAlmacen.errors?.['required']">
+              - Campo Obligatorio
+            </span>
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <div class="col-auto mt-3 text-end">
+      <button (click)="onSubmit()" [disabled]="elementForm.invalid" class="btn btn-guinda mb-3 me-2">{{buttonForm}}
+        <div class="spinner-border spinner-border-sm" *ngIf="spinnerForm" role="status"></div>
+      </button>
+      <button (click)="onReset()" [disabled]="elementForm.invalid" class="btn btn-secondary mb-3 me-3 ">Limpiar</button>
+    </div>
+  </form>
+</div>
+<pre>
+  {{elementForm.value | json}}
+</pre>
+
+<br><br><br><!-- Hover added -->

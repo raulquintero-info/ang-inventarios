@@ -4,6 +4,7 @@
 @import "./assets/css/contextMenu.css";
 @import "./assets/css/buttons.css";
 @import "./assets/css/sweetalert.css";
+@import "./assets/css/modals.css";
 /* @import "./assets/css/treeDirectory.css"; */
 
 
@@ -13,6 +14,9 @@ body{
 
 }
 
+.field{
+  margin-bottom: 10px;
+}
 .clickable{
   cursor: pointer;
 }

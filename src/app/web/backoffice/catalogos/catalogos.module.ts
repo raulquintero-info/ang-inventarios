@@ -3,22 +3,28 @@ import { CommonModule } from '@angular/common';
 import { CatalogosRoutingModule } from './catalogos-routing.module';
 import { FormsModule } from '@angular/forms';
 import { MarcasListComponent } from './marcas/marcas-list/marcas-list.component';
-import { MarcasFormComponent } from './marcas/marcas-form/marcas-form.component';
+import { ComponentsModule } from '../../components/components.module';
 import { UnidadesMedidaListComponent } from './unidadesmedida/unidades-medida-list/unidades-medida-list.component';
-import { UnidadesMedidaFormComponent } from './unidadesmedida/unidades-medida-form/unidades-medida-form.component';
+import { ProveedoresListComponent } from './proveedores/proveedores-list/proveedores-list.component';
+import { AlmacenesListComponent } from './almacenes/almacenes-list/almacenes-list.component';
+import { AtributosListComponent } from './atributos/atributos-list/atributos-list.component';
+import { TiposProductoListComponent } from './tipos-producto/tipos-producto-list/tipos-producto-list.component';
 
 
 
 @NgModule({
   declarations: [
     MarcasListComponent,
-    MarcasFormComponent,
     UnidadesMedidaListComponent,
-    UnidadesMedidaFormComponent,
+    ProveedoresListComponent,
+    AlmacenesListComponent,
+    AtributosListComponent,
+    TiposProductoListComponent,
   ],
   imports: [
     CommonModule,
     CatalogosRoutingModule,
+    ComponentsModule,
     FormsModule,
   ]
 })

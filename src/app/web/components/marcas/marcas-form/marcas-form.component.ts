@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, Output, inject } from '@angular/core';
+import { FormBuilder, Validators } from '@angular/forms';
 import { Marca } from 'src/app/core/interfaces/marca.interface';
 import { BaseComponent } from 'src/app/core/kernel/base-component';
 import { MarcasService } from 'src/app/core/services/marcas.service';
@@ -14,24 +15,37 @@ export class MarcasFormComponent extends BaseComponent {
   @Input() buttonForm  = 'Grabar';
 
   @Input()  title: string             = '';
-  @Input()  elementSelected: Marca    = {} as Marca;
   @Output() temp: any                 = new EventEmitter<any>();
 
 
   private elementService = inject(MarcasService);
+  private formBuilder = inject(FormBuilder);
 
-  getAll(){ this.temp.emit(null); }
+
+  @Input() elementForm = this.formBuilder.group({
+    idMarca:[ 0, [Validators.required]],
+    marca:  [ '', [Validators.required]],
+  })
+
+  get idMarca(){ return this.elementForm.controls.idMarca; }
+  get marca(){ return this.elementForm.controls.marca; }
+
   showSpinner(){ this.spinnerForm = true; }
   hideSpinner(){ this.spinnerForm = false; }
+  getAll(){ this.temp.emit(null); }
 
   onSubmit(){
-    console.log('grabando');
-    this.showSpinner();
-    this.sweetConfirmCreateOrUpdate(this,'Crear Marca Nueva',this.elementSelected);
-  }
+    let titleConfirmDialog = (this.elementForm.value.idMarca ? 'Editar Marca' : 'Crear Marca Nueva');
+    if(this.elementForm.valid){
+      this.sweetConfirmCreateOrUpdate(this, titleConfirmDialog);
+    } else {
+      this.elementForm.markAllAsTouched();
+    }
+   }
 
   onReset(){
-    this.elementSelected = {idMarca:0} as Marca;
+    this.elementForm.get('idMarca')?.setValue(0);
+    this.elementForm.get('marca')?.setValue('');
     this.titleForm = 'Agregar';
     this.buttonForm ='Grabar';
   }

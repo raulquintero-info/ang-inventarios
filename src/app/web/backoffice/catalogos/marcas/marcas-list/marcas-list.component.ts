@@ -1,9 +1,8 @@
 import { Component, OnInit, inject } from '@angular/core';
+import { FormBuilder, Validators } from '@angular/forms';
 import { Marca } from 'src/app/core/interfaces/marca.interface';
-import { BaseComponent, cancelColor, confirmColor } from 'src/app/core/kernel/base-component';
+import { BaseComponent, ToastDef, cancelColor, confirmColor } from 'src/app/core/kernel/base-component';
 import { MarcasService } from 'src/app/core/services/marcas.service';
-import { ToastDef } from 'src/app/core/utils/sweetalert/sweetalert';
-import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-marcas-list',
@@ -17,11 +16,16 @@ export class MarcasListComponent extends BaseComponent implements OnInit {
   title                   = 'marcas';
   elements: Marca []      = [];
   element: Marca          = {marca: '' } as Marca;
-  elementSelected: Marca  = {idMarca: 0, marca: '' } as Marca;
   spinnerTable: boolean   = false
 
 
   private elementService  = inject(MarcasService);
+  private formBuilder = inject(FormBuilder);
+
+  elementForm = this.formBuilder.group({
+    idMarca:[ 0, [Validators.required]],
+    marca:  [ '', [Validators.required]],
+  })
 
   constructor(){ super(); }
 
@@ -29,10 +33,17 @@ export class MarcasListComponent extends BaseComponent implements OnInit {
     this.getAll();
   }
 
+  onEdit(element: Marca){
+    this.titleForm     = 'editar';
+    this.buttonForm    = 'Actualizar';
+    this.elementForm.get('idMarca')?.setValue(element.idMarca);
+    this.elementForm.get('marca')?.setValue(element.marca);
+
+  }
+
   onRow(id: number){ console.log('elementId', id) }
   onDelete(id:number){ this.sweetConfirmDelete(this,'',id); }
-  onSubmit(element: any){ this.elementSelected = element; }
-  updateElements(temp: any){ this.getAll() }
+  updateElements(temp: any){ this.getAll() } //actualiza la lista desde el form
   hideSpinner(){ this.spinnerTable = false }
   showSpinner(){ this.spinnerTable = true }
 
@@ -41,17 +52,13 @@ export class MarcasListComponent extends BaseComponent implements OnInit {
     this.elementService.getAll().subscribe({
       next: resp=>{ this.elements = resp; this.hideSpinner()},
       error: error=>{
-        /* TODO: manejo de error*/
+        ToastDef.fire({ icon: "error", title: "Error al obtener la lista de registros" });
         this.hideSpinner();
       }
     })
   }
 
-  onEdit(element: Marca){
-    this.titleForm     = 'editar';
-    this.buttonForm    = 'Actualizar';
-    this.elementSelected = element;
-  }
+
 
 
 }

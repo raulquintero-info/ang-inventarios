@@ -1,65 +1,118 @@
-<div class="m-3">
-
-  <div class="mb-3"><h2>Agregar / Editar</h2></div>
-  <div class="input-group mb-3">
-    <span class="input-group-text" id="nombre">Nombre Producto</span>
-  <input type="text" class="form-control" placeholder="nombre del producto" aria-label="Username" aria-describedby="basic-addon1">
+<div class="modal-title">
+  <h2>Agregar / Editar [{{categoryIdSelected}}]</h2>
 </div>
+<form [formGroup]="elementForm">
+<div class="row  m-3">
 
-<div class="input-group mb-3">
-  <span class="input-group-text" id="existencia">Existencia</span>
-<input type="text" class="form-control" placeholder="0" aria-label="Username" aria-describedby="basic-addon1">
-</div>
+    <div class="input-group mb-3">
+      <span class="input-group-text" id="nombre">Nombre Producto</span>
+      <input type="text"  formControlName="nombreProducto" name="nombreProducto" id="nombreProducto" class="form-control">
+    </div>
 
-<div class="input-group mb-3">
-  <span class="input-group-text" id="predioCompra">Precio de compra</span>
-<input type="text" class="form-control" placeholder="0.00" aria-label="Username" aria-describedby="basic-addon1">
-</div>
-<div class="input-group mb-3">
-  <span class="input-group-text" id="status">Status</span>
-<input type="text" class="form-control" placeholder="ej Activo/Inactivo" aria-label="Username" aria-describedby="basic-addon1">
-</div>
-<div class="input-group mb-3">
-  <span class="input-group-text" id="cretaedAt">Fecha de Registro</span>
-<input type="text" class="form-control" placeholder="10-08-2023" aria-label="Username" aria-describedby="basic-addon1">
-</div>
+    <div class=" mb-3">
+      <span class="input-group-text" id="nombre">Descripcion del Producto</span>
+      <textarea  formControlName="descripcionProducto" name="descripcionProducto" id="descripcionProducto" class="form-control">
+      </textarea>
+    </div>
 
-Alarmas
-<div class="input-group mb-3">
-  <span class="input-group-text" id="minimo">Minimo</span>
-<input type="text" class="form-control" placeholder="0" aria-label="Username" aria-describedby="basic-addon1">
-</div>
+    <div class="col-md-6">
 
-<div class="input-group mb-3">
-  <span class="input-group-text" id="maximo">Maximo</span>
-<input type="text" class="form-control" placeholder="10" aria-label="Username" aria-describedby="basic-addon1">
-</div>
+      <div class="input-group mb-3">
+        <span class="input-group-text" id="existencia">sku</span>
+        <input type="text"  formControlName="cantidad" class="form-control" placeholder="0" aria-label="cantidad" aria-describedby="sku">
+      </div>
 
-Tipo de Producto
-<select class="form-select form-select-sm mb-3" aria-label=".form-select-sm example">
-  <option value="1" selected>Plumas</option>
-  <option value="2">Cuadernos</option>
-  <option value="3">Lapices</option>
-</select>
-Color
-<select class="form-select form-select-sm mb-3" aria-label=".form-select-sm example">
-  <option selected>Seleccione un un color</option>
-  <option value="1" >Rojo</option>
-  <option value="2">Azul</option>
-  <option value="3">Negro</option>
-  <option value="3">Verde</option>
-</select>
-Punto
-<select class="form-select form-select-sm mb-3" aria-label=".form-select-sm example">
-  <option selected>Seleccione un punto</option>
-  <option value="2">Fino</option>
-  <option value="3">Medio</option>
-</select>
+      <div class="input-group mb-3">
+        <span class="input-group-text" id="precio">Precio de compra $</span>
+        <input type="number"  formControlName="precio" name="precio" class="form-control" placeholder="0.00">
+      </div>
+      <div class="input-group mb-3">
+        <span class="input-group-text" id="status">Cantidad</span>
+        <input type="number"  formControlName="cantidad" class="form-control" aria-label="Username" aria-describedby="basic-addon1">
+      </div>
 
-<div class="col-auto text-end mt-3">
-  <button type="submit" class="btn btn-secondary" (click)="activeModal.close('Close click')">Cancelar</button>
+      <strong>Alarmas</strong>
+      <div class="input-group mb-3">
+        <span class="input-group-text" id="minimo">Minimo</span>
+        <input type="number"  formControlName="minimo" class="form-control" placeholder="0" aria-label="Username" aria-describedby="basic-addon1">
+      </div>
 
-  <button type="submit" class="btn btn-guinda ms-2" (click)="onGenerar()">Grabar</button>
-</div>
+      <div class="input-group mb-3">
+        <span class="input-group-text" id="maximo">Maximo</span>
+        <input type="number"  formControlName="maximo" class="form-control" placeholder="10" aria-label="Username"
+          aria-describedby="basic-addon1">
+      </div>
+
+      Unidad de Medida
+      <div class="flex-grow-1">
+        <select formControlName="unidadMedida" class="form-select form-select-sm mb-3" aria-label=".form-select-sm example">
+          <option *ngFor="let item of unidadesMedida" [value]="item.idUnidadMedida">{{item.unidadMedida}}</option>
+        </select>
+      </div>
+
+      <div class="input-group mb-3">
+        <span class="input-group-text" id="cretaedAt">Fecha de Registro</span>
+        <input type="text"  formControlName="fechaCreacion" class="form-control" placeholder="10-08-2023" aria-label="Username"
+          aria-describedby="basic-addon1">
+      </div>
+
+    </div>
+
+    <div class="col-md-6">
+
+      Proveedor
+      <div class="flex-grow-1">
+        <select  formControlName="proveedor" class="form-select form-select-sm mb-3" aria-label=".form-select-sm example">
+          <option *ngFor="let item of proveedores" [value]="item.idProveedor">{{item.nombreProveedor}}</option>
+
+        </select>
+      </div>
+      Marca
+      <div class="flex-grow-1">
+        <select  formControlName="marca" class="form-select form-select-sm mb-3" aria-label=".form-select-sm example">
+          <option *ngFor="let marca of marcas" [value]="marca.idMarca">{{marca.marca}}</option>
+        </select>
+      </div>
+
+      Tipo de Producto
+      <select  formControlName="tipoProducto" class="form-select form-select-sm mb-3" aria-label=".form-select-sm example">
+        <option *ngFor="let item of tiposProducto" [value]="item.idTipoProducto">{{item.tipoProducto}}</option>
+
+      </select>
+      Color
+      <select   class="form-select form-select-sm mb-3" aria-label=".form-select-sm example">
+        <option selected>Seleccione un un color</option>
+        <option value="1">Rojo</option>
+        <option value="2">Azul</option>
+        <option value="3">Negro</option>
+        <option value="3">Verde</option>
+      </select>
+      Punto
+      <select class="form-select form-select-sm mb-3" aria-label=".form-select-sm example">
+        <option selected>Seleccione un punto</option>
+        <option value="2">Fino</option>
+        <option value="3">Medio</option>
+      </select>
+
+
+      <div class="input-group mb-3">
+        <span  class="input-group-text" id="cretaedAt">Fecha de Actualizacion</span>
+        <input formControlName="fechaActualizacion" type="text" class="form-control" placeholder="10-08-2023" aria-label="Username" >
+      </div>
+
+
+
+
+    </div>
+
+  </div>
+
+</form>
+<div class="modal-footer">
+  <div class="col-auto text-end mt-3">
+    <button type="submit" class="btn btn-secondary" (click)="activeModal.close('Close click')">Cancelar</button>
+
+    <button type="submit" class="btn btn-guinda ms-2" (click)="onGenerar()">Grabar</button>
+  </div>
 
 </div>

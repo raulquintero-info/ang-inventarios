@@ -37,9 +37,8 @@
         <div style="width: max-content">
 
           <app-tree-directory style="width:500px" oncontextmenu="return false;" [categorias]="categorias"
-            (categoryId)="onCategory($event)" (contextMenuCategory)="detectRightMouseClick($event, null)">
-
-
+            (categoryId)="onCategory($event)"
+            (contextMenuCategory)="detectRightMouseClick($event, null)">
           </app-tree-directory>
         </div>
 

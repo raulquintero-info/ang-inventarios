@@ -13,7 +13,6 @@ const routes: Routes = [
     path: '',
     children: [
       {path: "ordenes-de-compra", component: OrdenesCompraComponent},
-      {path: 'proveedores', component: EntradasProveedoresComponent},
 
       // {
       //   path: 'recepcion',

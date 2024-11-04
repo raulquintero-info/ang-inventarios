@@ -28,16 +28,10 @@ export class BaseComponent {
   public sizeMaximized: string = "200px"
   public bottomBarSize: string = this.sizeMinimized;
 
-
-
-  // setTitleForm(text: string){
-  //   this.titleForm = text;
-  // }
-
   maximize() { this.bottomBarSize = this.sizeMaximized; this.isMaximized = true; }
   minimize() { this.bottomBarSize = this.sizeMinimized; this.isMaximized = false; }
 
-  //TODO: cambiar sweetalerts a esta clase
+
 
   public sweetConfirmDelete(
     objeto: any, title: string, id: number,
@@ -58,12 +52,13 @@ export class BaseComponent {
         objeto.elementService.delete(id).subscribe(
           (resp: any) => {
             console.log('resp', resp)
-            objeto.onReset(); objeto.getAll(); objeto.hideSpinner();
-            ToastDef.fire({ icon: "warning", title: "Almacen Eliminada" });
+            objeto.getAll(); objeto.hideSpinner();
+            ToastDef.fire({ icon: "success", title: resp.mensaje });
           },
           (error: any) => {
-            console.log('error', error)
+            console.log('error');
             objeto.hideSpinner()
+            this.handleError(error);
           }
         )
       } else {
@@ -75,9 +70,10 @@ export class BaseComponent {
   }
 
   public sweetConfirmCreateOrUpdate(
-    objeto: any, title: string, element: any,
+    objeto: any, title: string, element: any='',
     confirmCol: string = confirmColor, cancelCol: string = cancelColor
   ) {
+    objeto.showSpinner();
     Swal.fire({
       title: title,
       text: 'Desea Continuar?',
@@ -88,17 +84,19 @@ export class BaseComponent {
 
     }).then((result: any) => {
       if (result.isConfirmed) {
-        objeto.elementService.createOrUpdate(element).subscribe({
+        console.log('data to save', element);
+        objeto.elementService.createOrUpdate(objeto.elementForm.value).subscribe({
           next: (resp: any) => {
             console.log('resp', resp)
             objeto.onReset();
             objeto.getAll();
             objeto.hideSpinner();
-            ToastDef.fire({ icon: "success", title: "Registro Grabado" });
+            ToastDef.fire({ icon: "success", title: resp.mensaje });
           },
           error: (error: any) => {
-            /* TODO: manejo de errores */;
             objeto.hideSpinner();
+            ToastDef.fire({ icon: "error", title: "No ha sido posible grabar la informacion" });
+
           }
         })
       } else {
@@ -107,6 +105,17 @@ export class BaseComponent {
     })
 
   }
+
+
+
+  handleError(error: any){
+    switch(error.status){
+      case 200: ToastDef.fire({ icon: "error", title: error.error.error.message }); console.log(error.error.error.message);break;
+      case 401: ToastDef.fire({ icon: "error", title: error.error + ". Notienes autorizacion para ver este contenido" });break;
+      default: ToastDef.fire({ icon: "error", title: error.status + ". Ha ocurrido un problema" }); break;
+    }
+  }
+
 
 }
 
