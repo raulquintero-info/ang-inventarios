@@ -12,6 +12,7 @@ import { ItemsService } from 'src/app/core/services/items.service';
 import { CategoriesService } from 'src/app/core/services/categories.service';
 import { Categoria } from 'src/app/core/interfaces/categoria.interface';
 import Swal from 'sweetalert2';
+import { ProductosService } from '../../../../../core/services/productos.service';
 
 @Component({
   selector: 'app-productos-list',
@@ -54,6 +55,7 @@ export class ProductosListComponent {
   private currentWindowSize = inject(CurrentWindowSize);
   private itemsService = inject(ItemsService);
   private categoriesService = inject(CategoriesService);
+
 
   constructor() {
   }
@@ -102,6 +104,7 @@ export class ProductosListComponent {
   onCategory(categoryId: number|null) {
     this.items=[];
     this.categoryIdSelected = categoryId;
+
 
     if (categoryId==0){
       this.items = ITEMS;

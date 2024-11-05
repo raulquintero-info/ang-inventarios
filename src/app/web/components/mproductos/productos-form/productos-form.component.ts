@@ -8,7 +8,7 @@ import { TipoProducto } from 'src/app/core/interfaces/tipo-producto.interface';
 import { UnidadMedida } from 'src/app/core/interfaces/unidades-medida';
 import { BaseComponent } from 'src/app/core/kernel/base-component';
 import { MarcasService } from 'src/app/core/services/marcas.service';
-import { ProductosService } from 'src/app/core/services/productos.services';
+import { ProductosService } from 'src/app/core/services/productos.service';
 import { ProveedoresService } from 'src/app/core/services/proveedores.service';
 import { TiposProductoService } from 'src/app/core/services/tiposProducto.service';
 import { UnidadesMedidaService } from 'src/app/core/services/unidades-medida.service';
