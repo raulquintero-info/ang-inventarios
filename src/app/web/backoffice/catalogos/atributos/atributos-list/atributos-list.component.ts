@@ -27,7 +27,7 @@ export class AtributosListComponent extends BaseComponent implements OnInit {
     idAtributo:[ 0, [Validators.required]],
     nombreAtributo:  [ '', [Validators.required]],
     valorAtributo:  [ '', [Validators.required]],
-    productoId:  [ '', [Validators.required]],
+    productoId:  [ 1, [Validators.required]],
   })
 
   get idAtributo(){ return this.elementForm.controls.idAtributo; }

@@ -10,13 +10,11 @@ import { PRODUCTOS } from 'src/app/data/productos';
 })
 export class TreeDirectoryComponent implements OnInit {
   rightPanelStyle: any;
-  selectedCategoryId: number = 0;
 
   @Input() categorias: any [] = [];
   @Output() categoryId = new EventEmitter<number>();
   @Output() contextMenuCategory = new EventEmitter<any>();
 
-  categorySelected: number = 0;
   categoriaTitulo: string = '';
   items: Item[] = [];
   list: any;
@@ -30,16 +28,31 @@ export class TreeDirectoryComponent implements OnInit {
   }
 
   onCategory(id: number) {
+    console.log('onCate', id)
     this.categoryId.emit(id);
-    this.categorySelected = id;
     this.markCategory(id)
 
 
   }
 
+  // contextMenu
+  detectRightMouseClick(properties: any, id: number) {
+
+    if (properties.which === 3) {
+      console.log('detect', id, properties);
+      this.categoryId.emit(id);
+      this.markCategory(id);
+      this.rightPanelStyle = { 'display': 'block', 'position': 'absolute', 'left.px': properties.clientX+50, 'top.px': properties.clientY, id: id };
+      console.log( this.rightPanelStyle)
+      this.contextMenuCategory.emit( this.rightPanelStyle);
+      return false;
+    }
+    return true;
+  }
 
 
   markCategory(id: number){
+
     let element: any = document.getElementsByClassName('active-category')[0];
     if (element) {
       element.classList.remove("active-category");
@@ -52,20 +65,5 @@ export class TreeDirectoryComponent implements OnInit {
       element.classList.remove("btn-azul")
     }
   }
-
-  // contextMenu
-
-  detectRightMouseClick(properties: any, id: number) {
-    console.log('detect', id, properties)
-    if (properties.which === 3) {
-      this.markCategory(properties.id)
-      this.rightPanelStyle = { 'display': 'block', 'position': 'absolute', 'left.px': properties.clientX+50, 'top.px': properties.clientY, id: id };
-      console.log( this.rightPanelStyle)
-      this.contextMenuCategory.emit( this.rightPanelStyle);
-      return false;
-    }
-    return true;
-  }
-
 
 }

@@ -1,12 +1,13 @@
 
 <ul id="tree" style="z-index: 0;">
-  <li *ngFor="let final of categorias">
+  <li *ngFor="let category of categorias">
     <input type="checkbox"  />
-    <span id="p{{final.idCategoria}}"  (click)="onCategory(final.idCategoria)"
-    [ngStyle]="{'font-weight': final.parentId==null ? 'bold' : 'normal'}"
-      (mouseup)="detectRightMouseClick($event, final.idCategoria-1)"
-        class="clickable btn-azul">{{final.idCategoria}}. {{final.nombreCategoria | titlecase}} <!-- - {{final.idCategoria}} --></span>
-      <app-tree-directory [categorias]="final.subcategorias" (categoryId)="onCategory($event)"  (mouseup)="detectRightMouseClick($event,final.idCategoria-1)" *ngIf="final.subcategorias"></app-tree-directory>
+    <span id="p{{category.idCategoria}}"  (click)="onCategory(category.idCategoria)"
+    [ngStyle]="{'font-weight': category.parentId==null ? 'bold' : 'normal'}"
+      (mouseup)="detectRightMouseClick($event, category.idCategoria)"
+        class="clickable btn-azul">{{category.idCategoria}}. {{category.nombreCategoria | titlecase}} <!-- - {{category.idCategoria}} --></span>
+      <app-tree-directory [categorias]="category.subcategorias" (categoryId)="onCategory($event)"  (mouseup)="detectRightMouseClick($event,category.idCategoria)" *ngIf="category.subcategorias"></app-tree-directory>
+      <!-- (mouseup)="detectRightMouseClick($event,category.idCategoria)" -->
   </li>
 </ul>
 
@@ -61,9 +62,9 @@
           <ng-template id="p{{sub.id}}" (click)="onCategory(sub.nombre,sub.id)" aria-label="nj" class="clickable btn-azul">{{sub.nombre}} - {{sub.id}}</ng-template>
         <ul>
 
-            <li  *ngFor="let final of sub.children; let i=index">
-                <input  type="checkbox" *ngIf="final.children.length>0;" />
-                <span id="p{{final.id}}" (click)="onCategory(final.id)" class="clickable btn-azul">{{final.nombre}} - {{final.id}}</span>
+            <li  *ngFor="let category of sub.children; let i=index">
+                <input  type="checkbox" *ngIf="category.children.length>0;" />
+                <span id="p{{category.id}}" (click)="onCategory(category.id)" class="clickable btn-azul">{{category.nombre}} - {{category.id}}</span>
             </li>
 
         </ul>

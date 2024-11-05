@@ -9,6 +9,7 @@ import { ProveedoresListComponent } from './proveedores/proveedores-list/proveed
 import { AlmacenesListComponent } from './almacenes/almacenes-list/almacenes-list.component';
 import { AtributosListComponent } from './atributos/atributos-list/atributos-list.component';
 import { TiposProductoListComponent } from './tipos-producto/tipos-producto-list/tipos-producto-list.component';
+import { RolesListComponent } from './roles/roles-list/roles-list.component';
 
 
 
@@ -20,6 +21,7 @@ import { TiposProductoListComponent } from './tipos-producto/tipos-producto-list
     AlmacenesListComponent,
     AtributosListComponent,
     TiposProductoListComponent,
+    RolesListComponent,
   ],
   imports: [
     CommonModule,

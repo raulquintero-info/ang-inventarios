@@ -6,6 +6,7 @@ import { ProveedoresListComponent } from './proveedores/proveedores-list/proveed
 import { AlmacenesListComponent } from './almacenes/almacenes-list/almacenes-list.component';
 import { AtributosListComponent } from './atributos/atributos-list/atributos-list.component';
 import { TiposProductoListComponent } from './tipos-producto/tipos-producto-list/tipos-producto-list.component';
+import { RolesListComponent } from './roles/roles-list/roles-list.component';
 
 
 const routes: Routes = [
@@ -17,7 +18,8 @@ const routes: Routes = [
       {path: 'proveedores', component: ProveedoresListComponent},
       {path: 'almacenes', component: AlmacenesListComponent},
       {path: 'atributos', component: AtributosListComponent},
-      {path: 'tipos-producto', component: TiposProductoListComponent}
+      {path: 'tipos-producto', component: TiposProductoListComponent},
+      {path: 'roles', component: RolesListComponent},
 
 
     ]

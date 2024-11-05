@@ -8,6 +8,7 @@ import { ProveedorFormComponent } from './proveedores/proveedor-form/proveedor-f
 import { AlmacenFormComponent } from './almacenes/almacen-form/almacen-form.component';
 import { AtributosFormComponent } from './atributos/atributos-form/atributos-form.component';
 import { TipoProductoFormComponent } from './tipos-producto/tipo-producto-form/tipo-producto-form.component';
+import { RolesFormComponent } from './roles/roles-form/roles-form.component';
 
 
 
@@ -19,6 +20,7 @@ import { TipoProductoFormComponent } from './tipos-producto/tipo-producto-form/t
     AlmacenFormComponent,
     AtributosFormComponent,
     TipoProductoFormComponent,
+    RolesFormComponent,
   ],
   imports: [
     CommonModule,
@@ -34,6 +36,7 @@ import { TipoProductoFormComponent } from './tipos-producto/tipo-producto-form/t
     AlmacenFormComponent,
     AtributosFormComponent,
     TipoProductoFormComponent,
+    RolesFormComponent,
 
   ]
 })

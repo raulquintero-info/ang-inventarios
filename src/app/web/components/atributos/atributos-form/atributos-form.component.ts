@@ -26,7 +26,7 @@ export class AtributosFormComponent extends BaseComponent {
     idAtributo:[ 0, [Validators.required]],
     nombreAtributo:  [ '', [Validators.required]],
     valorAtributo:  [ '', [Validators.required]],
-    productoId:  [ '', [Validators.required]],
+    productoId:  [ 1, [Validators.required]],
   })
 
   get idAtributo(){ return this.elementForm.controls.idAtributo; }
@@ -41,10 +41,11 @@ export class AtributosFormComponent extends BaseComponent {
   getAll(){ this.temp.emit(null); }
 
   onReset(){
-    this.elementSelected = {idAtributo:0} as Atributo;
     this.titleForm = 'Agregar';
     this.buttonForm ='Grabar';
     this.elementForm.reset()
+    this.elementForm.get('idAtributo')?.setValue(0);
+    this.elementForm.get('nombreAtributo')?.setValue('');
   }
 
 }
