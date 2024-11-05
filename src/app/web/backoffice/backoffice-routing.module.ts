@@ -11,7 +11,7 @@ const routes: Routes = [
     path: '',
     children: [
 
-      {path: "dashboard", component: DashboardBackComponent, canActivate: [normalGuard, adminGuard] },
+      {path: "dashboard", component: DashboardBackComponent, canActivate: [adminGuard] },
       {
         path: 'entradas',
         loadChildren: ()=>import('./opt/entradas/entradas.module').then(m => m.EntradasModule)
