@@ -38,6 +38,8 @@ export class UnidadesMedidaFormComponent extends BaseComponent {
     this.elementForm.reset();
     this.titleForm = 'Agregar';
     this.buttonForm ='Grabar';
+    this.elementForm.reset();
+    this.elementForm.get('idUnidadMedida')?.setValue(0);
   }
 
 

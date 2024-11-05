@@ -48,6 +48,11 @@ export class MarcasFormComponent extends BaseComponent {
     this.elementForm.get('marca')?.setValue('');
     this.titleForm = 'Agregar';
     this.buttonForm ='Grabar';
+    this.elementForm.reset();
+    this.elementForm.get('idMarca')?.setValue(0);
+
+
+
   }
 
 

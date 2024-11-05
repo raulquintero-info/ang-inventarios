@@ -10,14 +10,14 @@
       </div>
       <div class="col-auto">
         <label for="inputPassword2" class="visually-hidden">label</label>
-        <input type="text" [(ngModel)]="elementSelected.nombreTipoProducto" class="form-control" name="{{title}}" id="{{title}}"
+        <input type="text" [(ngModel)]="elementSelected.tipoProducto" class="form-control" name="{{title}}" id="{{title}}"
           placeholder="">
       </div> -->
       <form [formGroup]="elementForm">
 
         <div class='field'>
           <label for='proveedor'>TipoProducto</label>
-          <input class="form-control" type='text' formControlName="nombreTipoProducto" id='TipoProducto' autocomplete="off" name='TipoProducto' />
+          <input class="form-control" type='text' formControlName="tipoProducto" id='TipoProducto' autocomplete="off" name='TipoProducto' />
           <div class="text-danger text-end fs-6 fst-italic" *ngIf="tipoProducto.invalid && (tipoProducto.dirty || tipoProducto.touched)">
             <span *ngIf="tipoProducto.errors?.['required']">
               - Campo Obligatorio

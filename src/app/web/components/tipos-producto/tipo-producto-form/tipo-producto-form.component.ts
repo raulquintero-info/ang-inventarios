@@ -42,7 +42,9 @@ export class TipoProductoFormComponent extends BaseComponent {
     this.elementSelected = {idTipoProducto:0} as TipoProducto;
     this.titleForm = 'Agregar';
     this.buttonForm ='Grabar';
-    this.elementForm.reset()
+    this.elementForm.reset();
+    this.elementForm.get('idTipoProducto')?.setValue(0);
+
   }
 
 }

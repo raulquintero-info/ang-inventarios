@@ -46,7 +46,8 @@ export class ProveedorFormComponent extends BaseComponent {
     this.elementSelected = {idProveedor:0} as Proveedor;
     this.titleForm = 'Agregar';
     this.buttonForm ='Grabar';
-    this.elementForm.reset()
+    this.elementForm.reset();
+    this.elementForm.get('idProveedor')?.setValue(0);
   }
 
 }

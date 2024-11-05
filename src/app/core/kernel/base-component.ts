@@ -84,7 +84,7 @@ export class BaseComponent {
 
     }).then((result: any) => {
       if (result.isConfirmed) {
-        console.log('data to save', element);
+        console.log('data to save', objeto.elementForm.value);
         objeto.elementService.createOrUpdate(objeto.elementForm.value).subscribe({
           next: (resp: any) => {
             console.log('resp', resp)
@@ -95,7 +95,12 @@ export class BaseComponent {
           },
           error: (error: any) => {
             objeto.hideSpinner();
-            ToastDef.fire({ icon: "error", title: "No ha sido posible grabar la informacion" });
+            ToastDef.fire(
+              {
+                icon: "error",
+                title: (error.error.mensaje) ? error.error.mensaje :"No ha sido posible grabar la informacion"
+              }
+            );
 
           }
         })

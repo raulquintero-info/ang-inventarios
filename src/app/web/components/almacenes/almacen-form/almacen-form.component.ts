@@ -46,6 +46,8 @@ export class AlmacenFormComponent extends BaseComponent {
     this.titleForm = 'Agregar';
     this.buttonForm ='Grabar';
     this.elementForm.reset()
+    this.elementForm.get('idAlmacen')?.setValue(0);
+    this.elementForm.untouched;
   }
 
 }

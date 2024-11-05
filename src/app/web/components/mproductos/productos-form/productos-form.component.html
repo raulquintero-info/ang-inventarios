@@ -46,7 +46,7 @@
       Unidad de Medida
       <div class="flex-grow-1">
         <select formControlName="unidadMedida" class="form-select form-select-sm mb-3" aria-label=".form-select-sm example">
-          <option *ngFor="let item of unidadesMedida" [value]="item.idUnidadMedida">{{item.unidadMedida}}</option>
+          <option *ngFor="let item of unidadesMedida" [value]="item">{{item.unidadMedida}}</option>
         </select>
       </div>
 
@@ -63,20 +63,21 @@
       Proveedor
       <div class="flex-grow-1">
         <select  formControlName="proveedor" class="form-select form-select-sm mb-3" aria-label=".form-select-sm example">
-          <option *ngFor="let item of proveedores" [value]="item.idProveedor">{{item.nombreProveedor}}</option>
+          <option *ngFor="let item of proveedores" [value]="item">{{item.nombreProveedor}}</option>
 
         </select>
       </div>
       Marca
       <div class="flex-grow-1">
         <select  formControlName="marca" class="form-select form-select-sm mb-3" aria-label=".form-select-sm example">
-          <option *ngFor="let marca of marcas" [value]="marca.idMarca">{{marca.marca}}</option>
+          <option *ngFor="let marca of marcas" [value]="marca">{{marca.marca}}</option>
+          <option value="0" selected>Seleccionar</option>
         </select>
       </div>
 
       Tipo de Producto
       <select  formControlName="tipoProducto" class="form-select form-select-sm mb-3" aria-label=".form-select-sm example">
-        <option *ngFor="let item of tiposProducto" [value]="item.idTipoProducto">{{item.tipoProducto}}</option>
+        <option *ngFor="let item of tiposProducto" [value]="item">{{item.tipoProducto}}</option>
 
       </select>
       Color

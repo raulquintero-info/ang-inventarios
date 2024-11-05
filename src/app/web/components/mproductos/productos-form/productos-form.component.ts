@@ -1,4 +1,4 @@
-import { Component, Input, NgZone, OnInit, inject } from '@angular/core';
+import { Component, EventEmitter, Input, NgZone, OnInit, Output, inject } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { Categoria } from 'src/app/core/interfaces/categoria.interface';
@@ -6,50 +6,59 @@ import { Marca } from 'src/app/core/interfaces/marca.interface';
 import { Proveedor } from 'src/app/core/interfaces/proveedor.interface';
 import { TipoProducto } from 'src/app/core/interfaces/tipo-producto.interface';
 import { UnidadMedida } from 'src/app/core/interfaces/unidades-medida';
+import { BaseComponent } from 'src/app/core/kernel/base-component';
 import { MarcasService } from 'src/app/core/services/marcas.service';
+import { ProductosService } from 'src/app/core/services/productos.services';
 import { ProveedoresService } from 'src/app/core/services/proveedores.service';
 import { TiposProductoService } from 'src/app/core/services/tiposProducto.service';
 import { UnidadesMedidaService } from 'src/app/core/services/unidades-medida.service';
-import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-productos-form',
   templateUrl: './productos-form.component.html',
   styleUrls: ['./productos-form.component.css']
 })
-export class ProductosFormComponent implements OnInit {
+export class ProductosFormComponent extends BaseComponent implements OnInit {
   unidadesMedida: UnidadMedida[] = [];
   proveedores: Proveedor[] = [];
   marcas: Marca[] =[];
   tiposProducto: TipoProducto[] = [];
-
+  spinnerForm:boolean = false;
 
   public activeModal = inject(NgbActiveModal);
   private formBuilder = inject(FormBuilder);
   private ngZone = inject(NgZone);
+  private elementService = inject(ProductosService);
   private unidadesMedidaService = inject(UnidadesMedidaService);
   private proveedoresService = inject(ProveedoresService);
   private marcasService = inject(MarcasService);
   private tiposProductoService = inject(TiposProductoService);
 
-  @Input() categoryIdSelected: number | null = 0;
+
+  @Input() titleForm   ='Agregar';
+  @Input() buttonForm  = 'Grabar';
+
+  @Input()  title: string             = '';
+  @Output() temp: any                 = new EventEmitter<any>();
+
+  @Input() categoryIdSelected: number = 0;
 
   @Input() elementForm = this.formBuilder.group({
-    idProducto:[ 0, [Validators.required]],
-    nombreProducto:  [ '', [Validators.required]],
+    idProducto:           [ 0, [Validators.required]],
+    nombreProducto:       [ '', [Validators.required]],
     descripcionProducto:  [ '', [Validators.required]],
-    sku:  [ '', [Validators.required]],
-    precio:  [ '', [Validators.required]],
-    cantidad:  [ '', [Validators.required]],
-    minimo:  [ '', [Validators.required]],
-    maximo:  [ '', [Validators.required]],
-    unidadMedida:  [ {} as UnidadMedida, [Validators.required]],
-    proveedor:  [ {} as Proveedor, [Validators.required]],
-    marca:  [ {} as Marca, [Validators.required]],
-    tipoProducto:  [ {} as TipoProducto, [Validators.required]],
-    fechaCreacion:  [ '', [Validators.required]],
-    fechaActualizacion:  [ '', [Validators.required]],
-    categoria:  [ {} as Categoria, [Validators.required]],
+    sku:                  [ '', [Validators.required]],
+    precio:               [ 0, [Validators.required]],
+    cantidad:             [ 0, [Validators.required]],
+    minimo:               [ 0, [Validators.required]],
+    maximo:               [ 0, [Validators.required]],
+    unidadMedida:         [ {idUnidadMedida:0} as UnidadMedida, [Validators.required]],
+    proveedor:            [ {idProveedor:0} as Proveedor, [Validators.required]],
+    marca:                [ {idMarca:0} as Marca, [Validators.required]],
+    tipoProducto:         [ {idTipoProducto:0} as TipoProducto, [Validators.required]],
+    fechaCreacion:        [ '', [Validators.required]],
+    fechaActualizacion:   [ '', [Validators.required]],
+    categoria:            [ {idCategoria:0} as Categoria, [Validators.required]],
   })
 
   get idProducto(){ return this.elementForm.controls.idProducto; }
@@ -80,40 +89,29 @@ export class ProductosFormComponent implements OnInit {
     })
   }
 
-  onGenerar() {
-    const Toast = Swal.mixin({
-      toast: true,
-      position: "bottom-end",
-      showConfirmButton: false,
-      timer: 3000,
-      timerProgressBar: true,
-      didOpen: (toast) => {
-        toast.onmouseenter = Swal.stopTimer;
-        toast.onmouseleave = Swal.resumeTimer;
-      }
-    });
 
-    Swal.fire({
-      title: "Desea Continuar?",
-      text: "LA informacion del Producto sera Actualiazada",
-      // icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "Si, continuar!"
-    }).then((result) => {
-      if (result.isConfirmed) {
-        Toast.fire({
-          icon: "success",
-          title: "Producto Actualizado!"
-        });
-        this.viewOrden();
-      }
-    });
+
+  onGenerar() {
+    this.elementForm.get('tipoProducto')?.setValue({idTipoProducto:1} as TipoProducto)
+    // this.elementForm.get('categoria')?.setValue({idCategoria:3} as Categoria)
+    // this.elementForm.get('unidadMedida')?.setValue({idUnidadMedida:1} as UnidadMedida)
+    // this.elementForm.get('marca')?.setValue({idMarca:1} as Marca)
+    this.sweetConfirmCreateOrUpdate(this, 'titleConfirmDialog');
 
   }
 
   viewOrden() {
     this.activeModal.close('Close click')
+  }
+
+  showSpinner(){ this.spinnerForm =true; }
+  hideSpinner(){ this.spinnerForm = false; }
+  getAll(){  }
+  onReset(){
+    this.viewOrden();
+    // didOpen: (toast) => {
+    //   toast.onmouseenter = Swal.stopTimer;
+    //   toast.onmouseleave = Swal.resumeTimer;
+    // }
   }
 }
