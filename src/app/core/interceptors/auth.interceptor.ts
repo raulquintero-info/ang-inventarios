@@ -31,7 +31,7 @@ export class AuthInterceptor implements HttpInterceptor {
           console.log(_error)
           console.log(">>",this.router.url, _error.status)
           //cerrar sesion al expirar el token
-          if(this.router.url!='/login' && _error.status == 0){
+          if(this.router.url!='/login' && _error.status == 401){
             // localStorage.clear();
             this.loginService.logout();
             this.router.navigateByUrl("expired-session")//, {skipLocationChange: true})
