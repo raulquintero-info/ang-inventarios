@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { SettingsUsuariosListComponent } from './settings-usuarios-list/settings-usuarios-list.component';
+import { adminGuard } from 'src/app/core/guards/admin.guard';
 
 
 
@@ -11,7 +12,7 @@ const routes: Routes = [
   {
     path: '',
     children: [
-      {path: 'usuarios', component: SettingsUsuariosListComponent},
+      {path: 'usuarios', component: SettingsUsuariosListComponent, canActivate: [ adminGuard ] },
 
       // {
       //   path: 'recepcion',

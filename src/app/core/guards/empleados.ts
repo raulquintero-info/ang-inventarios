@@ -4,19 +4,19 @@ import { tap } from 'rxjs';
 import { SecurityService } from '../auth/services/security.service';
 
 
-export const normalGuard: CanActivateFn = (route: ActivatedRouteSnapshot, state: RouterStateSnapshot) => {
+export const empleadosGuard: CanActivateFn = (route: ActivatedRouteSnapshot, state: RouterStateSnapshot) => {
   const router = inject(Router)
   const securityService = inject(SecurityService);
   let role: string =""
 
-  console.log('normalGuard')
+  console.log('empleadosGuard')
       // securityService.checkStatus().subscribe();
       securityService.user.subscribe(
         currentUser=>{
           role = currentUser.role;
         }
       );
-      if(role=="EMPLEADO" || role=="ADMIN"){
+      if(role=="EMPLEADO"){
         return true;
       }
 

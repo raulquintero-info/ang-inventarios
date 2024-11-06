@@ -54,12 +54,13 @@
   </div>
   <div *ngIf="!isLoading" class='box-info' [style.left]="infoSize">
     <button (click)="closeLoginInfo();" class='b b-info i i-left' title='Back to Sign In'></button>
-    <h3>Necesitas Ayuda?</h3>
+    <h3>Iniciar Sesion Como ...</h3>
     <div class='line-wh'></div>
     <div *ngIf="error" class="alert alert-danger" role="alert">
       {{errorMessage}}
     </div>
-    <button onclick="" *ngIf="!error" class='b-support' title='Forgot Password?'> Olvidaste tu Contraseña?</button>
+    <button (click)="loginAs('admin@server.com', '1234')" *ngIf="!error"  class='b-support' title='Forgot Password?'> Administrador</button>
+    <button (click)="loginAs('empleado@server.com', '1234')" *ngIf="!error" class='b-support' title='Forgot Password?'> Empleado</button>
   </div>
 </div>
 

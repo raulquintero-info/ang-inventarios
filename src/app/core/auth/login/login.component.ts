@@ -34,8 +34,8 @@ export class LoginComponent implements OnInit{
   }
 
   loginForm = this.formBuilder.group({
-    username:['admin@server.com',[Validators.required, Validators.email]],
-    password:['1234', Validators.required]
+    username:['',[Validators.required, Validators.email]],
+    password:['', Validators.required]
   })
 
   get username(){
@@ -43,6 +43,14 @@ export class LoginComponent implements OnInit{
   }
   get password(){
     return this.loginForm.controls.password;
+  }
+
+  loginAs( user: string, pass:string){
+    this.loginForm.patchValue({
+      username: user,
+      password: pass
+    });
+    this.onLogin()
   }
 
   onLogin(){

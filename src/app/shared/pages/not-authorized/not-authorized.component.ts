@@ -10,7 +10,7 @@ export class NotAuthorizedComponent {
 
   private router = inject(Router);
 
-  login(){
+  gotoLogin(){
     localStorage.clear();
     this.router.navigateByUrl("auth/login");
   }

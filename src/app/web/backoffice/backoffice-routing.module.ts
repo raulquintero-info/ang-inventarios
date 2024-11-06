@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { DashboardBackComponent } from './dashboard-back/dashboard-back.component';
 import { normalGuard } from 'src/app/core/guards/normal.guard';
 import { adminGuard } from 'src/app/core/guards/admin.guard';
+import { empleadosGuard } from 'src/app/core/guards/empleados';
 
 
 
@@ -11,7 +12,7 @@ const routes: Routes = [
     path: '',
     children: [
 
-      {path: "dashboard", component: DashboardBackComponent, canActivate: [adminGuard] },
+      {path: "dashboard", component: DashboardBackComponent, canActivate: [ normalGuard ]},
       {
         path: 'entradas',
         loadChildren: ()=>import('./opt/entradas/entradas.module').then(m => m.EntradasModule)

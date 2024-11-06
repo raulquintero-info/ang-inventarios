@@ -31,11 +31,21 @@ export class AuthInterceptor implements HttpInterceptor {
           console.log(_error)
           console.log(">>",this.router.url, _error.status)
           //cerrar sesion al expirar el token
-          if(this.router.url!='/login' && _error.status == 401){
+          if(this.router.url!='/login' && _error.error.message == "401" ){
             // localStorage.clear();
+            console.log('jwt invalido');
+            console.log(_error.error);
             this.loginService.logout();
             this.router.navigateByUrl("expired-session")//, {skipLocationChange: true})
           }
+
+          // if(_error.status==500 && _error.error.message != "401"){
+          //   console.log('error 500')
+          //   console.log(_error.error);
+
+          //   this.router.navigateByUrl("expired-session")//, {skipLocationChange: true})
+
+          // }
           // if(_error.status==401){
           //   this.router.navigateByUrl("not-authorized", {skipLocationChange: true})
 
@@ -57,6 +67,14 @@ export class AuthInterceptor implements HttpInterceptor {
       })
     );
   }
+
+
+  // 400 Bad Request
+  // 401 Unauthorized
+  // 402 Payment Required
+  // 403 Forbidden
+  // 404 Not Found
+  // 405 Method Not Allowed
 
 
 } export const AuthInterceptorProviders = [
