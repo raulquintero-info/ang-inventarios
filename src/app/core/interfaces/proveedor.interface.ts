@@ -5,4 +5,5 @@ export interface Proveedor {
   responsableProveedor: string;
   telefonoProveedor: string;
   emailProveedor: string;
+  deleted: boolean;
 }

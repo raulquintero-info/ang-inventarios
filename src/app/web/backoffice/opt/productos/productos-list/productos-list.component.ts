@@ -56,6 +56,7 @@ export class ProductosListComponent {
   private itemsService = inject(ItemsService);
   private categoriesService = inject(CategoriesService);
 
+  private productosService = inject(ProductosService);
 
   constructor() {
   }
@@ -64,6 +65,8 @@ export class ProductosListComponent {
   ngOnInit() {
     this.categorias = CATEGORIAS;
     this.getCategories();
+
+
 
     // console.log(this.categorias.lenght)
     this.windowPTablaHeight = window.innerHeight - this.offset + 'px';

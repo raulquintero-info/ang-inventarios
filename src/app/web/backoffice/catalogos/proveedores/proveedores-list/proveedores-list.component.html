@@ -25,6 +25,7 @@
             <th>Direccion</th>
             <th>Telefono</th>
             <th>Email</th>
+            <th>Deleted</th>
             <th></th>
           </tr>
         </thead>
@@ -35,6 +36,7 @@
             <td (click)="onRow(item.idProveedor)" class="clickable">{{item.direccionProveedor}}</td>
             <td (click)="onRow(item.idProveedor)" class="clickable">{{item.telefonoProveedor}}</td>
             <td (click)="onRow(item.idProveedor)" class="clickable">{{item.emailProveedor}}</td>
+            <td (click)="onRow(item.idProveedor)" class="clickable">{{item.deleted}}</td>
             <td>
               <i class="bi bi-trash3 clickable  text-danger me-2" (click)="onDelete(item.idProveedor)"></i>
               <i class="bi bi-pencil-square clickable" (click)="onEdit(item)"></i>
