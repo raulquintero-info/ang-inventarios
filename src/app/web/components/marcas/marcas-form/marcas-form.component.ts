@@ -11,10 +11,9 @@ import { MarcasService } from 'src/app/core/services/marcas.service';
 })
 export class MarcasFormComponent extends BaseComponent {
   spinnerForm: boolean = false;
-  @Input() titleForm   ='Agregar';
-  @Input() buttonForm  = 'Grabar';
 
-  @Input()  title: string             = '';
+
+   title: string             = '';
   @Output() temp: any                 = new EventEmitter<any>();
 
 
@@ -35,19 +34,15 @@ export class MarcasFormComponent extends BaseComponent {
   getAll(){ this.temp.emit(null); }
 
   onSubmit(){
-    let titleConfirmDialog = (this.elementForm.value.idMarca ? 'Editar Marca' : 'Crear Marca Nueva');
-    if(this.elementForm.valid){
-      this.sweetConfirmCreateOrUpdate(this, titleConfirmDialog);
-    } else {
-      this.elementForm.markAllAsTouched();
-    }
-   }
+
+    let temp = this.elementForm.controls.idMarca.getRawValue() ? true : false ;
+    let titleDialog = (temp) ? 'Deseas Editar la Marca?' : 'Deseas Crear una Marca Nueva?';
+    this.sweetConfirmCreateOrUpdate(this, titleDialog);
+  }
+
+  // onSubmit(){ this.sweetConfirmCreateOrUpdate(this); }
 
   onReset(){
-    this.elementForm.get('idMarca')?.setValue(0);
-    this.elementForm.get('marca')?.setValue('');
-    this.titleForm = 'Agregar';
-    this.buttonForm ='Grabar';
     this.elementForm.reset();
     this.elementForm.get('idMarca')?.setValue(0);
 

@@ -11,13 +11,13 @@ import { ToastDef } from 'src/app/core/utils/sweetalert/sweetalert';
   styleUrls: ['./unidades-medida-list.component.css']
 })
 export class UnidadesMedidaListComponent  extends BaseComponent implements OnInit {
-  titleForm: string = 'Agregar';
-  buttonForm: string = 'Grabar';
+
+
   message: string = 'Procesando '
   title                   = 'unidad de medida';
   elements: UnidadMedida []      = [];
   element: UnidadMedida          = {unidadMedida: '' } as UnidadMedida;
-  elementSelected: UnidadMedida  = {idUnidadMedida: 0, unidadMedida: '' } as UnidadMedida;
+  // elementSelected: UnidadMedida  = {idUnidadMedida: 0, unidadMedida: '' } as UnidadMedida;
   spinnerTable: boolean   = false
 
 
@@ -36,10 +36,15 @@ export class UnidadesMedidaListComponent  extends BaseComponent implements OnIni
   }
 
   onRow(id: number){ console.log('elementId', id) }
-  onDelete(id:number){ this.sweetConfirmDelete(this,'Eliminar ' + this.title, id); }
+  onDelete(id:number){ this.sweetConfirmDelete(this,'Desea borrar esta ' + this.title, id); }
   updateElements(temp: any){ this.getAll() } //actualiza la lista desde la forma
   hideSpinner(){ this.spinnerTable = false }
   showSpinner(){ this.spinnerTable = true }
+
+  onEdit(element: UnidadMedida){
+    this.elementForm.get('idUnidadMedida')?.setValue(element.idUnidadMedida);
+    this.elementForm.get('unidadMedida')?.setValue(element.unidadMedida);
+  }
 
   getAll(){
     this.showSpinner();
@@ -54,11 +59,5 @@ export class UnidadesMedidaListComponent  extends BaseComponent implements OnIni
     });
   }
 
-  onEdit(element: UnidadMedida){
-    this.titleForm     = 'editar';
-    this.buttonForm    = 'Actualizar';
-    this.elementForm.get('idUnidadMedida')?.setValue(element.idUnidadMedida);
-    this.elementForm.get('unidadMedida')?.setValue(element.unidadMedida);
-  }
 
 }

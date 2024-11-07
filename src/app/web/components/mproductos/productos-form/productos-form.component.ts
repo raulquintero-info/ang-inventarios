@@ -35,10 +35,9 @@ export class ProductosFormComponent extends BaseComponent implements OnInit {
   private tiposProductoService = inject(TiposProductoService);
 
 
-  @Input() titleForm   ='Agregar';
-  @Input() buttonForm  = 'Grabar';
 
-  @Input()  title: string             = '';
+
+   title: string             = '';
   @Output() temp: any                 = new EventEmitter<any>();
 
   @Input() categoryIdSelected: number = 0;

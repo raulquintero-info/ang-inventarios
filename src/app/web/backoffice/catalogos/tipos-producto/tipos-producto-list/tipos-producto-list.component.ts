@@ -10,8 +10,8 @@ import { TiposProductoService } from 'src/app/core/services/tiposProducto.servic
   styleUrls: ['./tipos-producto-list.component.css']
 })
 export class TiposProductoListComponent extends BaseComponent implements OnInit {
-  titleForm: string = 'Agregar';
-  buttonForm: string = 'Grabar';
+
+
   message: string = 'Procesando '
   title                   = 'Tipo Producto';
   elements: TipoProducto []      = [];
@@ -41,27 +41,23 @@ export class TiposProductoListComponent extends BaseComponent implements OnInit 
     this.getAll();
   }
 
-  onEdit(element: TipoProducto){
-    this.titleForm     = 'editar';
-    this.buttonForm    = 'Actualizar';
-    this.elementForm.get('idTipoProducto')?.setValue(element.idTipoProducto);
-    this.elementForm.get('tipoProducto')?.setValue(element.tipoProducto);
-    this.elementForm.get('status')?.setValue(element.status);
-
-  }
-
   onRow(id: number){ console.log('elementId', id) }
-  onDelete(id:number){ this.sweetConfirmDelete(this,'',id); }
+  onDelete(id:number){ this.sweetConfirmDelete(this, 'Desea borrar este ' + this.title, id); }
   updateElements(temp: any){ this.getAll() } //actualiza la lista desde el form
   hideSpinner(){ this.spinnerTable = false }
   showSpinner(){ this.spinnerTable = true }
+
+  onEdit(element: TipoProducto){
+    this.elementForm.get('idTipoProducto')?.setValue(element.idTipoProducto);
+    this.elementForm.get('tipoProducto')?.setValue(element.tipoProducto);
+    this.elementForm.get('status')?.setValue(element.status);
+  }
 
   getAll(){
     this.showSpinner();
     this.elementService.getAll().subscribe({
       next: resp=>{ this.elements = resp; this.hideSpinner()},
       error: error=>{
-
         this.handleError(error);
         this.hideSpinner();
       }

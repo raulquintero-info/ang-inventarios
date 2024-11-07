@@ -14,7 +14,7 @@ export class UnidadesMedidaFormComponent extends BaseComponent {
   @Input() titleForm                        ='Agregar';
   @Input() buttonForm                       = 'Grabar';
 
-  @Input()  title: string                   = '';
+   title: string                   = '';
   @Output() temp: any                       = new EventEmitter<any>();
 
   private elementService = inject(UnidadesMedidaService);
@@ -28,16 +28,18 @@ export class UnidadesMedidaFormComponent extends BaseComponent {
   get idUnidadMedida(){ return this.elementForm.controls.idUnidadMedida; }
   get unidadMedida(){ return this.elementForm.controls.unidadMedida; }
 
-
-  onSubmit(){ this.sweetConfirmCreateOrUpdate(this,'Crear Unidad de Medida Nueva'); }
   showSpinner(){ this.spinnerForm = true; }
   hideSpinner(){ this.spinnerForm = false; }
   getAll(){ this.temp.emit(null); }
 
+  onSubmit(){
+    let temp = this.elementForm.controls.idUnidadMedida.getRawValue() ? true : false ;
+    let titleDialog = (temp) ? 'Deseas Editar la Unidad de Medida?' : 'Deseas Crear una Unidad de Medida Nueva?';
+    this.sweetConfirmCreateOrUpdate(this, titleDialog );
+  }
+
   onReset(){
     this.elementForm.reset();
-    this.titleForm = 'Agregar';
-    this.buttonForm ='Grabar';
     this.elementForm.reset();
     this.elementForm.get('idUnidadMedida')?.setValue(0);
   }

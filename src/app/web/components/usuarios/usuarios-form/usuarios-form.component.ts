@@ -11,10 +11,9 @@ import { UsuariosService } from 'src/app/core/services/usuarios.service';
 })
 export class UsuariosFormComponent extends BaseComponent {
   spinnerForm: boolean = false;
-  @Input() titleForm   ='Agregar';
-  @Input() buttonForm  = 'Grabar';
 
-  @Input()  title: string             = 'User';
+
+   title: string             = 'User';
   @Input()  elementSelected:  User  = {} as User;
   @Output() temp: any                 = new EventEmitter<any>();
 
@@ -25,28 +24,27 @@ export class UsuariosFormComponent extends BaseComponent {
   @Input() elementForm = this.formBuilder.group({
     idUsuario:[ 0, [Validators.required]],
     username:  [ '', [Validators.required]],
-    password:  [ '', [Validators.required]],
-    // productoId:  [ '', [Validators.required]],
+    password:  [ ''],
   })
 
   get idUsuario(){ return this.elementForm.controls.idUsuario; }
   get username(){ return this.elementForm.controls.username; }
   get password(){ return this.elementForm.controls.password; }
-  // get productoId(){ return this.elementForm.controls.productoId; }
 
 
-  onSubmit(){ this.sweetConfirmCreateOrUpdate(this, this.titleForm + ' ' + this.title, this.elementSelected); }
   showSpinner(){ this.spinnerForm = true; }
   hideSpinner(){ this.spinnerForm = false; }
   getAll(){ this.temp.emit(null); }
 
+  onSubmit(){
+    let temp = this.elementForm.controls.idUsuario.getRawValue() ? true : false ;
+    let titleDialog = (temp) ? 'Deseas Editar el Usuario?' : 'Deseas Crear un Usuario Nuevo?';
+    this.sweetConfirmCreateOrUpdate(this, titleDialog);
+  }
+
   onReset(){
-    this.titleForm = 'Agregar';
-    this.buttonForm ='Grabar';
     this.elementForm.reset()
     this.elementForm.get('idUsuario')?.setValue(0);
-    this.elementForm.get('username')?.setValue('');
-    this.elementForm.get('password')?.setValue('');
   }
 
 }

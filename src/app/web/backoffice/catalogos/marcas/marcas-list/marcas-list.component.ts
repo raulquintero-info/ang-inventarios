@@ -10,8 +10,8 @@ import { MarcasService } from 'src/app/core/services/marcas.service';
   styleUrls: ['./marcas-list.component.css']
 })
 export class MarcasListComponent extends BaseComponent implements OnInit {
-  titleForm: string = 'Agregar';
-  buttonForm: string = 'Grabar';
+
+
   message: string = 'Procesando '
   title                   = 'marcas';
   elements: Marca []      = [];
@@ -33,19 +33,16 @@ export class MarcasListComponent extends BaseComponent implements OnInit {
     this.getAll();
   }
 
-  onEdit(element: Marca){
-    this.titleForm     = 'editar';
-    this.buttonForm    = 'Actualizar';
-    this.elementForm.get('idMarca')?.setValue(element.idMarca);
-    this.elementForm.get('marca')?.setValue(element.marca);
-
-  }
-
   onRow(id: number){ console.log('elementId', id) }
-  onDelete(id:number){ this.sweetConfirmDelete(this,'',id); }
+  onDelete(id:number){ this.sweetConfirmDelete(this,'Desea borrar esta ' + this.title,id); }
   updateElements(temp: any){ this.getAll() } //actualiza la lista desde el form
   hideSpinner(){ this.spinnerTable = false }
   showSpinner(){ this.spinnerTable = true }
+
+  onEdit(element: Marca){
+    this.elementForm.get('idMarca')?.setValue(element.idMarca);
+    this.elementForm.get('marca')?.setValue(element.marca);
+  }
 
   getAll(){
     this.showSpinner();

@@ -11,10 +11,9 @@ import { TiposProductoService } from 'src/app/core/services/tiposProducto.servic
 })
 export class TipoProductoFormComponent extends BaseComponent {
   spinnerForm: boolean = false;
-  @Input() titleForm   ='Agregar';
-  @Input() buttonForm  = 'Grabar';
 
-  @Input()  title: string             = 'TipoProducto';
+
+   title: string             = 'TipoProducto';
   @Input()  elementSelected: TipoProducto   = {} as TipoProducto;
   @Output() temp: any                 = new EventEmitter<any>();
 
@@ -33,15 +32,18 @@ export class TipoProductoFormComponent extends BaseComponent {
   get status(){ return this.elementForm.controls.status; }
 
 
-  onSubmit(){ this.sweetConfirmCreateOrUpdate(this, this.titleForm + ' ' + this.title, this.elementSelected); }
   showSpinner(){ this.spinnerForm = true; }
   hideSpinner(){ this.spinnerForm = false; }
   getAll(){ this.temp.emit(null); }
 
+  onSubmit(){
+    let temp = this.elementForm.controls.idTipoProducto.getRawValue() ? true : false ;
+    let titleDialog = (temp) ? 'Deseas Editar el Tipo de Producto?' : 'Deseas Crear un Tipo de Producto Nuevo?';
+    this.sweetConfirmCreateOrUpdate(this, titleDialog);
+  }
+
   onReset(){
     this.elementSelected = {idTipoProducto:0} as TipoProducto;
-    this.titleForm = 'Agregar';
-    this.buttonForm ='Grabar';
     this.elementForm.reset();
     this.elementForm.get('idTipoProducto')?.setValue(0);
 

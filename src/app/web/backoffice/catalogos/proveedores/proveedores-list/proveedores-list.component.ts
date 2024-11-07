@@ -10,15 +10,12 @@ import { ProveedoresService } from 'src/app/core/services/proveedores.service';
   styleUrls: ['./proveedores-list.component.css']
 })
 export class ProveedoresListComponent  extends BaseComponent implements OnInit {
-  titleForm: string = 'Agregar';
-  buttonForm: string = 'Grabar';
+
   message: string = 'Procesando '
   title                   = 'proveedor';
   elements: Proveedor []      = [];
   element: Proveedor          = {nombreProveedor: '' } as Proveedor;
-  elementSelected: Proveedor  = {idProveedor: 0, nombreProveedor: '' } as Proveedor;
   spinnerTable: boolean   = false
-
 
   private elementService  = inject(ProveedoresService);
   private formBuilder = inject(FormBuilder);
@@ -39,10 +36,17 @@ export class ProveedoresListComponent  extends BaseComponent implements OnInit {
 
   onRow(id: number){ console.log('elementId', id) }
   onDelete(id:number){ this.sweetConfirmDelete(this,'Desea borrar este ' + this.title,id); }
-  onSubmit(element: any){ this.elementSelected = element; }
   updateElements(temp: any){ this.getAll() }
   hideSpinner(){ this.spinnerTable = false }
   showSpinner(){ this.spinnerTable = true }
+
+  onEdit(element: Proveedor){
+    this.elementForm.get('idProveedor')?.setValue(element.idProveedor);
+    this.elementForm.get('nombreProveedor')?.setValue(element.nombreProveedor);
+    this.elementForm.get('direccionProveedor')?.setValue(element.direccionProveedor);
+    this.elementForm.get('telefonoProveedor')?.setValue(element.telefonoProveedor);
+    this.elementForm.get('emailProveedor')?.setValue(element.emailProveedor);
+  }
 
   getAll(){
     this.showSpinner();
@@ -58,15 +62,6 @@ export class ProveedoresListComponent  extends BaseComponent implements OnInit {
     })
   }
 
-  onEdit(element: Proveedor){
-    this.titleForm     = 'editar';
-    this.buttonForm    = 'Actualizar';
-    this.elementForm.get('idProveedor')?.setValue(element.idProveedor);
-    this.elementForm.get('nombreProveedor')?.setValue(element.nombreProveedor);
-    this.elementForm.get('direccionProveedor')?.setValue(element.direccionProveedor);
-    this.elementForm.get('telefonoProveedor')?.setValue(element.telefonoProveedor);
-    this.elementForm.get('emailProveedor')?.setValue(element.emailProveedor);
-  }
 
 
 }

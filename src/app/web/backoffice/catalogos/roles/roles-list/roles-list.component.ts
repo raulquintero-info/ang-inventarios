@@ -10,31 +10,23 @@ import { RolesService } from 'src/app/core/services/roles.service';
   styleUrls: ['./roles-list.component.css']
 })
 export class RolesListComponent extends BaseComponent implements OnInit {
-  titleForm: string = 'Agregar';
-  buttonForm: string = 'Grabar';
+
   message: string = 'Procesando '
   title                   = 'atributo';
   elements: Rol []      = [];
   element: Rol          = {nombre: '' } as Rol;
   spinnerTable: boolean   = false
 
-
   private elementService  = inject(RolesService);
   private formBuilder = inject(FormBuilder);
-
 
   @Input() elementForm = this.formBuilder.group({
     idRol:[ 0, [Validators.required]],
     nombre:  [ '', [Validators.required]],
-    // valorRol:  [ '', [Validators.required]],
-    // productoId:  [ '', [Validators.required]],
   })
 
   get idRol(){ return this.elementForm.controls.idRol; }
   get nombre(){ return this.elementForm.controls.nombre; }
-  // get valorRol(){ return this.elementForm.controls.valorRol; }
-  // get productoId(){ return this.elementForm.controls.productoId; }
-
 
   constructor(){ super(); }
 
@@ -42,19 +34,16 @@ export class RolesListComponent extends BaseComponent implements OnInit {
     this.getAll();
   }
 
-  onEdit(element: Rol){
-    this.titleForm     = 'editar';
-    this.buttonForm    = 'Actualizar';
-    this.elementForm.get('idRol')?.setValue(element.idRol);
-    this.elementForm.get('nombre')?.setValue(element.nombre);
-
-  }
-
   onRow(id: number){ console.log('elementId', id) }
-  onDelete(id:number){ this.sweetConfirmDelete(this,'',id); }
+  onDelete(id:number){ this.sweetConfirmDelete(this, 'Desea borrar este ' + this.title, id); }
   updateElements(temp: any){ this.getAll() } //actualiza la lista desde el form
   hideSpinner(){ this.spinnerTable = false }
   showSpinner(){ this.spinnerTable = true }
+
+  onEdit(element: Rol){
+    this.elementForm.get('idRol')?.setValue(element.idRol);
+    this.elementForm.get('nombre')?.setValue(element.nombre);
+  }
 
   getAll(){
     this.showSpinner();

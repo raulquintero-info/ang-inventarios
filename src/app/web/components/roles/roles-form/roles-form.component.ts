@@ -11,11 +11,10 @@ import { RolesService } from 'src/app/core/services/roles.service';
 })
 export class RolesFormComponent extends BaseComponent {
   spinnerForm: boolean = false;
-  @Input() titleForm   ='Agregar';
-  @Input() buttonForm  = 'Grabar';
 
-  @Input()  title: string             = 'Rol';
-  @Input()  elementSelected: Rol   = {} as Rol;
+
+   title: string             = 'Rol';
+  // @Input()  elementSelected: Rol   = {} as Rol;
   @Output() temp: any                 = new EventEmitter<any>();
 
 
@@ -35,17 +34,19 @@ export class RolesFormComponent extends BaseComponent {
   // get productoId(){ return this.elementForm.controls.productoId; }
 
 
-  onSubmit(){ this.sweetConfirmCreateOrUpdate(this, this.titleForm + ' ' + this.title, this.elementSelected); }
   showSpinner(){ this.spinnerForm = true; }
   hideSpinner(){ this.spinnerForm = false; }
   getAll(){ this.temp.emit(null); }
 
+  onSubmit(){
+    let temp = this.elementForm.controls.idRol.getRawValue() ? true : false ;
+    let titleDialog = (temp) ? 'Deseas Editar el Rol?' : 'Deseas Crear un Rol Nuevo?';
+    this.sweetConfirmCreateOrUpdate(this, titleDialog);
+  }
+
   onReset(){
-    this.titleForm = 'Agregar';
-    this.buttonForm ='Grabar';
     this.elementForm.reset()
     this.elementForm.get('idRol')?.setValue(0);
-    this.elementForm.get('nombre')?.setValue('');
   }
 
 }

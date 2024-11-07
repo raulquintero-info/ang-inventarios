@@ -39,6 +39,7 @@ import { UsuariosFormComponent } from './usuarios/usuarios-form/usuarios-form.co
     AtributosFormComponent,
     TipoProductoFormComponent,
     RolesFormComponent,
+    UsuariosFormComponent,
 
   ]
 })

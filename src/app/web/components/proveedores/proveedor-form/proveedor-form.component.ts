@@ -11,11 +11,10 @@ import { ProveedoresService } from 'src/app/core/services/proveedores.service';
 })
 export class ProveedorFormComponent extends BaseComponent {
   spinnerForm: boolean = false;
-  @Input() titleForm   ='Agregar';
-  @Input() buttonForm  = 'Grabar';
 
-  @Input()  title: string             = 'Proveedor';
-  @Input()  elementSelected: Proveedor    = {} as Proveedor;
+
+   title: string             = 'Proveedor';
+  // @Input()  elementSelected: Proveedor    = {} as Proveedor;
   @Output() temp: any                 = new EventEmitter<any>();
 
 
@@ -37,15 +36,18 @@ export class ProveedorFormComponent extends BaseComponent {
   get emailProveedor(){ return this.elementForm.controls.emailProveedor; }
 
 
-  onSubmit(){ this.sweetConfirmCreateOrUpdate(this, this.titleForm + ' ' + this.title, this.elementSelected); }
   showSpinner(){ this.spinnerForm = true; }
   hideSpinner(){ this.spinnerForm = false; }
   getAll(){ this.temp.emit(null); }
 
+  onSubmit(){
+    let temp = this.elementForm.controls.idProveedor.getRawValue() ? true : false ;
+    let titleDialog = (temp) ? 'Deseas Editar el Proveedor?' : 'Deseas Crear un Proveedor Nuevo?';
+    this.sweetConfirmCreateOrUpdate(this, titleDialog);
+  }
+
   onReset(){
-    this.elementSelected = {idProveedor:0} as Proveedor;
-    this.titleForm = 'Agregar';
-    this.buttonForm ='Grabar';
+    // this.elementSelected = {idProveedor:0} as Proveedor;
     this.elementForm.reset();
     this.elementForm.get('idProveedor')?.setValue(0);
   }

@@ -1,5 +1,7 @@
 <div style="border:1px solid gray; min-width: 300px">
-  <div style="background-color: #631231; color: white; padding:4px 4px 4px 4px"> <strong>{{titleForm | titlecase}}
+  <div style="background-color: #631231; color: white; padding:4px 4px 4px 4px"> <strong>
+    <span *ngIf="elementForm.value.idUsuario; else agregar">Editar</span>
+      <ng-template #agregar>Agregar</ng-template>
     {{ title | titlecase}} [{{elementForm.value.idUsuario}}]</strong></div>
   <form class="  p-3 ">
     <div class="row">
@@ -16,8 +18,8 @@
       <form [formGroup]="elementForm">
 
         <div class='field'>
-          <label for='proveedor'>Rol</label>
-          <input class="form-control" type='text' formControlName="nombre" id='Rol' autocomplete="off" name='Rol' />
+          <label for='proveedor'>Username</label>
+          <input class="form-control" type='text' formControlName="username" id='Rol' autocomplete="off" name='Rol' />
           <div class="text-danger text-end fs-6 fst-italic" *ngIf="username.invalid && (username.dirty || username.touched)">
             <span *ngIf="username.errors?.['required']">
               - Campo Obligatorio
@@ -25,8 +27,8 @@
           </div>
         </div>
         <div class='field'>
-          <label for='proveedor'>Direccion</label>
-          <input class="form-control" type='text' formControlName="valorRol" id='valorRol' autocomplete="off" name='valorRol' />
+          <label for='proveedor'>Password</label>
+          <input class="form-control" type='text' formControlName="password" id='valorRol' autocomplete="off" name='valorRol' />
           <div class="text-danger text-end fs-6 fst-italic" *ngIf="password.invalid && (password.dirty || password.touched)">
             <span *ngIf="password.errors?.['required']">
               - Campo Obligatorio
@@ -37,7 +39,9 @@
     </div>
 
     <div class="col-auto mt-3 text-end">
-      <button (click)="onSubmit()" [disabled]="elementForm.invalid" class="btn btn-guinda mb-3 me-2">{{buttonForm}}
+      <button (click)="onSubmit()" [disabled]="elementForm.invalid" class="btn btn-guinda mb-3 me-2">
+        <span *ngIf="elementForm.value.idUsuario; else agregar">Actualizar</span>
+          <ng-template #agregar>Grabar</ng-template>
         <div class="spinner-border spinner-border-sm" *ngIf="spinnerForm" role="status"></div>
       </button>
       <button (click)="onReset()" [disabled]="elementForm.invalid" class="btn btn-secondary mb-3 me-3 ">Limpiar</button>
@@ -45,7 +49,7 @@
   </form>
 </div>
 <pre>
-  <!-- {{elementForm.value | json}} -->
+  {{elementForm.value | json}}
 </pre>
 <!-- <div class="list-group">
   <a href="#" class="list-group-item list-group-item-action active"

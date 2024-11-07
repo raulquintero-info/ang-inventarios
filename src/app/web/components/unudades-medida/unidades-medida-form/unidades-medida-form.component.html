@@ -1,5 +1,8 @@
 <div style="border:1px solid gray; min-width: 300px">
-  <div style="background-color: #631231; color: white; padding:4px 4px 4px 4px"> <strong>{{titleForm | titlecase}}  {{ title | titlecase}} [{{elementForm.value.idUnidadMedida}}]</strong></div>
+  <div style="background-color: #631231; color: white; padding:4px 4px 4px 4px"> <strong>
+    <span *ngIf="elementForm.value.idUnidadMedida; else agregar">Editar</span>
+      <ng-template #agregar>Agregar</ng-template>
+    {{ title | titlecase}} [{{elementForm.value.idUnidadMedida}}]</strong></div>
   <form class="  p-3 ">
     <div class="row">
 
@@ -31,7 +34,9 @@
     </div>
 
     <div class="col-auto mt-3 text-end">
-      <button (click)="onSubmit()" [disabled]="!elementForm.value.unidadMedida" class="btn btn-guinda mb-3 me-2">{{buttonForm}}
+      <button (click)="onSubmit()" [disabled]="!elementForm.value.unidadMedida" class="btn btn-guinda mb-3 me-2">
+        <span *ngIf="elementForm.value.idUnidadMedida; else agregar">Actualizar</span>
+          <ng-template #agregar>Grabar</ng-template>
         <div class="spinner-border spinner-border-sm" *ngIf="spinnerForm" role="status"></div>
       </button>
       <button (click)="onReset()" [disabled]="!elementForm.value.unidadMedida" class="btn btn-secondary mb-3 me-3 ">Limpiar</button>

@@ -11,10 +11,8 @@ import { AlmacenesService } from 'src/app/core/services/almacenes.service';
 })
 export class AlmacenFormComponent extends BaseComponent {
   spinnerForm: boolean = false;
-  @Input() titleForm   ='Agregar';
-  @Input() buttonForm  = 'Grabar';
+  title: string             = 'Almacen';
 
-  @Input()  title: string             = 'Almacen';
   @Input()  elementSelected: Almacen    = {} as Almacen;
   @Output() temp: any                 = new EventEmitter<any>();
 
@@ -37,20 +35,21 @@ export class AlmacenFormComponent extends BaseComponent {
   get responsableAlmacen(){ return this.elementForm.controls.responsableAlmacen; }
 
 
-  onSubmit(){ this.sweetConfirmCreateOrUpdate(this, this.titleForm + ' ' + this.title, this.elementSelected); }
   showSpinner(){ this.spinnerForm = true; }
   hideSpinner(){ this.spinnerForm = false; }
   getAll(){ this.temp.emit(null); }
 
+  onSubmit(){
+    let temp = this.elementForm.controls.idAlmacen.getRawValue() ? true : false ;
+    let titleDialog = (temp) ? 'Deseas Editar el Almacen?' : 'Deseas Crear un Almacen Nuevo?';
+    this.sweetConfirmCreateOrUpdate(this, titleDialog);
+  }
+
   onReset(){
-    this.titleForm = 'Agregar';
-    this.buttonForm ='Grabar';
     this.elementForm.reset()
     this.elementForm.get('idAlmacen')?.setValue(0);
     this.elementForm.untouched;
   }
 
-}
-{
 
 }

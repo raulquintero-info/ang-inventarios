@@ -11,10 +11,9 @@ import { AtributosService } from 'src/app/core/services/atributos.service';
 })
 export class AtributosFormComponent extends BaseComponent {
   spinnerForm: boolean = false;
-  @Input() titleForm   ='Agregar';
-  @Input() buttonForm  = 'Grabar';
 
-  @Input()  title: string             = 'Atributo';
+
+  title: string             = 'Atributo';
   @Input()  elementSelected: Atributo   = {} as Atributo;
   @Output() temp: any                 = new EventEmitter<any>();
 
@@ -35,14 +34,17 @@ export class AtributosFormComponent extends BaseComponent {
   get productoId(){ return this.elementForm.controls.productoId; }
 
 
-  onSubmit(){ this.sweetConfirmCreateOrUpdate(this, this.titleForm + ' ' + this.title, this.elementSelected); }
   showSpinner(){ this.spinnerForm = true; }
   hideSpinner(){ this.spinnerForm = false; }
   getAll(){ this.temp.emit(null); }
 
+  onSubmit(){
+    let temp = this.elementForm.controls.idAtributo.getRawValue() ? true : false ;
+    let titleDialog = (temp) ? 'Deseas Editar el atributo?' : 'Deseas Crear un Atributo Nuevo?';
+    this.sweetConfirmCreateOrUpdate(this, titleDialog);
+  }
+
   onReset(){
-    this.titleForm = 'Agregar';
-    this.buttonForm ='Grabar';
     this.elementForm.reset()
     this.elementForm.get('idAtributo')?.setValue(0);
     this.elementForm.get('nombreAtributo')?.setValue('');

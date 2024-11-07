@@ -7,6 +7,8 @@ import { AlmacenesListComponent } from './almacenes/almacenes-list/almacenes-lis
 import { AtributosListComponent } from './atributos/atributos-list/atributos-list.component';
 import { TiposProductoListComponent } from './tipos-producto/tipos-producto-list/tipos-producto-list.component';
 import { RolesListComponent } from './roles/roles-list/roles-list.component';
+import { UsuariosListComponent } from './usuarios/usuarios-list/usuarios-list.component';
+import { adminGuard } from 'src/app/core/guards/admin.guard';
 
 
 const routes: Routes = [
@@ -20,6 +22,7 @@ const routes: Routes = [
       {path: 'atributos', component: AtributosListComponent},
       {path: 'tipos-producto', component: TiposProductoListComponent},
       {path: 'roles', component: RolesListComponent},
+      {path: 'usuarios', component: UsuariosListComponent, canActivate: [ adminGuard ] },
 
 
     ]

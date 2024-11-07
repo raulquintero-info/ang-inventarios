@@ -10,15 +10,12 @@ import { AlmacenesService } from 'src/app/core/services/almacenes.service';
   styleUrls: ['./almacenes-list.component.css']
 })
 export class AlmacenesListComponent  extends BaseComponent implements OnInit {
-  titleForm: string = 'Agregar';
-  buttonForm: string = 'Grabar';
+
   message: string = 'Procesando '
   title                   = 'proveedor';
   elements: Almacen []      = [];
   element: Almacen          = {nombreAlmacen: '' } as Almacen;
-  elementSelected: Almacen  = {idAlmacen: 0, nombreAlmacen: '' } as Almacen;
   spinnerTable: boolean   = false
-
 
   private elementService  = inject(AlmacenesService);
   private formBuilder = inject(FormBuilder);
@@ -39,10 +36,17 @@ export class AlmacenesListComponent  extends BaseComponent implements OnInit {
 
   onRow(id: number){ console.log('elementId', id) }
   onDelete(id:number){ this.sweetConfirmDelete(this,'Desea borrar este ' + this.title,id); }
-  onSubmit(element: any){ this.elementSelected = element; }
   updateElements(temp: any){ this.getAll() }
   hideSpinner(){ this.spinnerTable = false }
   showSpinner(){ this.spinnerTable = true }
+
+  onEdit(element: Almacen){
+    this.elementForm.get('idAlmacen')?.setValue(element.idAlmacen);
+    this.elementForm.get('nombreAlmacen')?.setValue(element.nombreAlmacen);
+    this.elementForm.get('direccionAlmacen')?.setValue(element.direccionAlmacen);
+    this.elementForm.get('telefonoAlmacen')?.setValue(element.telefonoAlmacen);
+    this.elementForm.get('responsableAlmacen')?.setValue(element.responsableAlmacen);
+  }
 
   getAll(){
     this.showSpinner();
@@ -58,18 +62,6 @@ export class AlmacenesListComponent  extends BaseComponent implements OnInit {
     })
   }
 
-  onEdit(element: Almacen){
-    this.titleForm     = 'editar';
-    this.buttonForm    = 'Actualizar';
-    this.elementForm.get('idAlmacen')?.setValue(element.idAlmacen);
-    this.elementForm.get('nombreAlmacen')?.setValue(element.nombreAlmacen);
-    this.elementForm.get('direccionAlmacen')?.setValue(element.direccionAlmacen);
-    this.elementForm.get('telefonoAlmacen')?.setValue(element.telefonoAlmacen);
-    this.elementForm.get('responsableAlmacen')?.setValue(element.responsableAlmacen);
-  }
 
-
-}
-{
 
 }
