@@ -13,6 +13,8 @@ import { CategoriesService } from 'src/app/core/services/categories.service';
 import { Categoria } from 'src/app/core/interfaces/categoria.interface';
 import Swal from 'sweetalert2';
 import { ProductosService } from '../../../../../core/services/productos.service';
+import { Almacen } from 'src/app/core/interfaces/almacen.interface';
+import { AlmacenesService } from 'src/app/core/services/almacenes.service';
 
 @Component({
   selector: 'app-productos-list',
@@ -39,6 +41,7 @@ export class ProductosListComponent {
   preventSingleClick = false;
   windowHeight: number = 0;
   timer: any;
+  almacenSelected: Almacen = {} as Almacen;
   // delay: Number = 0;
 
   // contextMenu
@@ -55,16 +58,14 @@ export class ProductosListComponent {
   private currentWindowSize = inject(CurrentWindowSize);
   private itemsService = inject(ItemsService);
   private categoriesService = inject(CategoriesService);
-
+  private almacenesService = inject(AlmacenesService);
   private productosService = inject(ProductosService);
-
-  constructor() {
-  }
 
 
   ngOnInit() {
     this.categorias = CATEGORIAS;
     this.getCategories();
+    this.almacenesService.currentAlmacen.subscribe(resp=>{this.almacenSelected = resp;});
 
 
 
@@ -93,6 +94,7 @@ export class ProductosListComponent {
   onAgregarProducto() {
     const modalRefEditar = this.modalService.open(ProductosFormComponent, {windowClass:  "generic-modal"});
     modalRefEditar.componentInstance.categoryIdSelected = this.categoryIdSelected;
+    modalRefEditar.componentInstance.almacenSelected = this.almacenSelected;
     window.scrollTo(0, 0);
   }
 
@@ -158,6 +160,7 @@ export class ProductosListComponent {
 
     const modalRefEditar = this.modalService.open(ProductosFormComponent, {windowClass:  "generic-modal"});
     modalRefEditar.componentInstance.categoryIdSelected = this.categoryIdSelected;
+    modalRefEditar.componentInstance.almacenSelected = this.almacenSelected;
 
   }
 

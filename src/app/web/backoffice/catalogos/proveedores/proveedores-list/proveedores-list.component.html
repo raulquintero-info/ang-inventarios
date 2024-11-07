@@ -23,6 +23,7 @@
             <th scope="col">#</th>
             <th scope="col">{{ title | titlecase}}</th>
             <th>Direccion</th>
+            <th>Responsable</th>
             <th>Telefono</th>
             <th>Email</th>
             <th>Deleted</th>
@@ -34,6 +35,7 @@
             <td scope="row">{{item.idProveedor}}</td>
             <td (click)="onRow(item.idProveedor)" class="clickable">{{item.nombreProveedor}}</td>
             <td (click)="onRow(item.idProveedor)" class="clickable">{{item.direccionProveedor}}</td>
+            <td (click)="onRow(item.idProveedor)" class="clickable">{{item.responsableProveedor}}</td>
             <td (click)="onRow(item.idProveedor)" class="clickable">{{item.telefonoProveedor}}</td>
             <td (click)="onRow(item.idProveedor)" class="clickable">{{item.emailProveedor}}</td>
             <td (click)="onRow(item.idProveedor)" class="clickable">{{item.deleted}}</td>
@@ -49,6 +51,11 @@
     </div>
 
     <div class="col-md-4 ps-3 pe-3">
+      <div style="background-color: #631231; color: white; padding:4px 4px 4px 4px"> <strong>
+        <span *ngIf="elementForm.value.idProveedor; else agregar">Editar</span>
+          <ng-template #agregar>Agregar</ng-template>
+        {{ title | titlecase}} [{{elementForm.value.idProveedor}}]</strong>
+      </div>
       <app-proveedor-form
         [elementForm]="elementForm"
         (temp)="updateElements($event)">

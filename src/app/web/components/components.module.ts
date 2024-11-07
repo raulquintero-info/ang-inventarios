@@ -10,6 +10,8 @@ import { AtributosFormComponent } from './atributos/atributos-form/atributos-for
 import { TipoProductoFormComponent } from './tipos-producto/tipo-producto-form/tipo-producto-form.component';
 import { RolesFormComponent } from './roles/roles-form/roles-form.component';
 import { UsuariosFormComponent } from './usuarios/usuarios-form/usuarios-form.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { ProveedorModalComponent } from './proveedores/proveedor-modal/proveedor-modal.component';
 
 
 
@@ -23,12 +25,14 @@ import { UsuariosFormComponent } from './usuarios/usuarios-form/usuarios-form.co
     TipoProductoFormComponent,
     RolesFormComponent,
     UsuariosFormComponent,
+    ProveedorModalComponent,
   ],
   imports: [
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
     ProductosModule,
+    NgbModule
   ],
   exports:[
     ProductosModule,

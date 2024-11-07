@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, NgZone, OnInit, Output, inject } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { Almacen } from 'src/app/core/interfaces/almacen.interface';
 import { Categoria } from 'src/app/core/interfaces/categoria.interface';
 import { Marca } from 'src/app/core/interfaces/marca.interface';
 import { Proveedor } from 'src/app/core/interfaces/proveedor.interface';
@@ -41,6 +42,7 @@ export class ProductosFormComponent extends BaseComponent implements OnInit {
   @Output() temp: any                 = new EventEmitter<any>();
 
   @Input() categoryIdSelected: number = 0;
+  @Input() almacenSelected: Almacen = {} as Almacen;
 
   @Input() elementForm = this.formBuilder.group({
     idProducto:           [ 0, [Validators.required]],
@@ -82,13 +84,14 @@ export class ProductosFormComponent extends BaseComponent implements OnInit {
     this.unidadesMedidaService.getAll().subscribe( resp=>{ this.unidadesMedida = resp })
     this.proveedoresService.getAll().subscribe( resp=>{ this.proveedores = resp })
     this.marcasService.getAll().subscribe( resp=>{ this.marcas = resp; } )
-    this.tiposProductoService.getAll().subscribe({
-      next: resp=>{ this.tiposProducto = resp;
-      }
-    })
+    this.tiposProductoService.getAll().subscribe( resp=>{ this.tiposProducto = resp; })
   }
 
 
+  showSpinner(){ this.spinnerForm =true; }
+  hideSpinner(){ this.spinnerForm = false; }
+  getAll(){ /*TODO: actualizar listado de productos*/ }
+  onReset(){ /*TODO: limpiar forma*/ }
 
   onGenerar() {
     this.elementForm.get('tipoProducto')?.setValue({idTipoProducto:1} as TipoProducto)
@@ -99,18 +102,18 @@ export class ProductosFormComponent extends BaseComponent implements OnInit {
 
   }
 
-  viewOrden() {
+  submitted() {
+    this.onReset()
+    this.getAll();
+    this.hideSpinner();
     this.activeModal.close('Close click')
   }
 
-  showSpinner(){ this.spinnerForm =true; }
-  hideSpinner(){ this.spinnerForm = false; }
-  getAll(){  }
-  onReset(){
-    this.viewOrden();
+
+
+
     // didOpen: (toast) => {
     //   toast.onmouseenter = Swal.stopTimer;
     //   toast.onmouseleave = Swal.resumeTimer;
     // }
-  }
 }

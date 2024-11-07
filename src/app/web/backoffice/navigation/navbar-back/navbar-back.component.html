@@ -37,9 +37,8 @@
         <li class="nav-item dropdown">
           <a class="nav-link btn-gris dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-bs-toggle="dropdown">Salidas</a>
           <ul class="dropdown-menu">
-            <li><a [routerLink]="'/'" class="dropdown-item">Pedidos &raquo;</a></li>
-            <li><a [routerLink]="'/'" class="dropdown-item">Clientes <i class="bi bi-bookmark-fill text-warning"></i> </a> </li>
-            <li><a [routerLink]="'/'" class="dropdown-item">Departamentos &raquo;</a></li>
+            <li><a [routerLink]="'/salidas/pedidos'" class="dropdown-item">Pedidos &raquo;</a></li>
+            <li><a [routerLink]="'/salidas/departamentos'" class="dropdown-item">Departamentos <i class="bi bi-bookmark-fill text-warning"></i></a></li>
           </ul>
         </li>
 
@@ -120,19 +119,4 @@
   </div>
 
 </nav>
-<div class=" sticky-top sub-bar" >
 
-  <div class="container p-1" style="border-right: 1px solid #00000029;">
-
-
-
-
-    <span class="sub-menu ms-1" >
-      <i class="bi bi-plus-circle"></i> Cliente Nuevo
-    </span>
-    <span class="sub-menu ms-1" data-bs-toggle="modal" data-bs-target="#exampleModal">
-      <i class="bi bi-search"></i> Buscar Cliente
-    </span>
-
-  </div>
-</div>

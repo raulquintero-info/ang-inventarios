@@ -1,8 +1,9 @@
 <div style="border:1px solid gray; min-width: 300px">
-  <div style="background-color: #631231; color: white; padding:4px 4px 4px 4px"> <strong>
+  <!-- <div style="background-color: #631231; color: white; padding:4px 4px 4px 4px"> <strong>
     <span *ngIf="elementForm.value.idProveedor; else agregar">Editar</span>
       <ng-template #agregar>Agregar</ng-template>
-    {{ title | titlecase}} [{{elementForm.value.idProveedor}}]</strong></div>
+    {{ title | titlecase}} [{{elementForm.value.idProveedor}}]</strong>
+  </div> -->
   <form class="  p-3 ">
     <div class="row">
 
@@ -31,6 +32,15 @@
           <input class="form-control" type='text' formControlName="direccionProveedor" id='direccionProveedor' autocomplete="off" name='direccionProveedor' />
           <div class="text-danger text-end fs-6 fst-italic" *ngIf="direccionProveedor.invalid && (direccionProveedor.dirty || direccionProveedor.touched)">
             <span *ngIf="direccionProveedor.errors?.['required']">
+              - Campo Obligatorio
+            </span>
+          </div>
+        </div>
+        <div class='field'>
+          <label for='proveedor'>Responsable</label>
+          <input class="form-control" type='text' formControlName="responsableProveedor" id='responsableProveedor' autocomplete="off" name='responsableProveedor' />
+          <div class="text-danger text-end fs-6 fst-italic" *ngIf="responsableProveedor.invalid && (responsableProveedor.dirty || responsableProveedor.touched)">
+            <span *ngIf="responsableProveedor.errors?.['required']">
               - Campo Obligatorio
             </span>
           </div>
@@ -80,4 +90,3 @@
   >Disabled item</a
   >
 </div> -->
-<br><br><br>

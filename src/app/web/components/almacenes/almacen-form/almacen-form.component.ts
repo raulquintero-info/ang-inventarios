@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, Output, inject } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { Almacen } from 'src/app/core/interfaces/almacen.interface';
 import { BaseComponent } from 'src/app/core/kernel/base-component';
 import { AlmacenesService } from 'src/app/core/services/almacenes.service';
@@ -16,7 +17,7 @@ export class AlmacenFormComponent extends BaseComponent {
   @Input()  elementSelected: Almacen    = {} as Almacen;
   @Output() temp: any                 = new EventEmitter<any>();
 
-
+  // public activeModal = inject(NgbActiveModal);
   private elementService = inject(AlmacenesService);
   private formBuilder = inject(FormBuilder);
 
@@ -51,5 +52,10 @@ export class AlmacenFormComponent extends BaseComponent {
     this.elementForm.untouched;
   }
 
-
+  submitted(){
+    this.onReset()
+    this.getAll();
+    this.hideSpinner();
+    // this.activeModal.close('Close click')
+  }
 }

@@ -1,0 +1,203 @@
+<div class="m-3">
+  <div class="text-end">
+    <ul class="nav nav-tabs">
+      <li class="nav-item" >
+        <a class="nav-link active"
+          style="background-color: #f9e4eb; --bs-nav-tabs-link-active-border-color: #dee2e6 var(--bs-border-color) #fae4eb;"
+          aria-current="page" data-bs-target="#home-tab-pane"><strong> <i class="bi bi-plus-circle"></i> Orden Nueva</strong></a>
+      </li>
+      <!-- <li class="nav-item">
+        <h4 class="ms-3 mt-1"> <i class="bi bi-1-circle text-primary "></i> Proceso - Orden de Compra</h4>
+      </li> -->
+
+      <!-- <li class="nav-item">
+        <button class=" ms-3 btn btn-secondary" [routerLink]="'/entradas/orden-nueva'">Grabar</button>
+      </li> -->
+
+    </ul>
+  </div>
+
+
+
+
+
+
+  <!-- tab 1 -->
+  <div class="contenido-pestaña">
+    <div class="p-2" style="background: linear-gradient(344deg, rgba(255,241,245,1) 35%, rgba(250,228,235,1) 100%); border-left: 1px solid #dee2e6;">
+
+      <div class="d-flex">
+        <div class="flex-grow-1">
+          <div class="row g-3 pt-3">
+            <div class="col-md-12">
+
+              <div style="max-width: 300px">
+                <label for="inputEmail4" class="form-label">Proveedor</label>
+                <div class="row">
+                  <div class="col-sm-10 col-form-label">
+                    <select class="form-select" aria-label="Default select example" #selectProveedor
+                      (change)="setProveedor( selectProveedor.selectedIndex)">
+                      <option selected value="0">Seleccione Proveedor</option>
+                      <option *ngFor="let item of proveedores" [ngValue]="item.idProveedor">{{ item.nombreProveedor }}</option>
+                    </select>
+                  </div>
+                  <div class="col-sm-1">
+                    <button class="btn btn-secondary mb-2 btn-end-right" (click)="onAddProveedor()">+</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-4">
+              <label for="inputAddress" class="form-label">Domicilio: </label> <strong> {{proveedorSelected.direccionProveedor}}</strong>
+              <!-- <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St"> -->
+            </div>
+            <div class="col-md-4">
+              <label for="inputCity" class="form-label">Ciudad: </label> <strong> {{proveedorSelected.deleted}}</strong>
+              <!-- <input type="text" class="form-control" id="inputCity"> -->
+            </div>
+            <div class="col-4">
+              <label for="inputAddress2" class="form-label">Responsable:</label> <strong> {{proveedorSelected.responsableProveedor}}</strong>
+              <!-- <input type="text" class="form-control" id="inputAddress2" placeholder="Apartment, studio, or floor"> -->
+            </div>
+            <div class="col-md-4">
+              <label for="inputCity" class="form-label">Ciudad: </label> <strong> {{proveedorSelected.deleted}}</strong>
+              <!-- <input type="text" class="form-control" id="inputCity"> -->
+            </div>
+            <div class="col-md-4">
+              <label for="inputState" class="form-label">Estado: </label> <strong> {{proveedorSelected.deleted}}</strong>
+              <!-- <select id="inputState" class="form-select">
+                      <option selected>Choose...</option>
+                      <option>...</option>
+                    </select> -->
+            </div>
+            <div class="col-md-4">
+              <label for="inputZip" class="form-label">C. P.: </label> <strong> {{proveedorSelected.deleted}}</strong>
+              <!-- <input type="text" class="form-control" id="inputZip"> -->
+            </div>
+
+
+
+
+          </div>
+
+        </div>
+        <div>
+          <div class="text-end" style="display: block; top: 1px; right: 1px;  min-width:200px;  ">
+            <div class="text-center">Fecha: <strong>04-Abr-2024</strong></div>
+            <div class="text-center" style="padding: 10px; color: white; background-color:#641330">
+              <h3>{{total | currency}}</h3>
+            </div>
+            <div style="font-size: 12px; font-weight: bold; text-align: center; background-color: gray; color: white;">TOTAL</div>
+          </div>
+          <div class="mt-2 mb-2">
+            <button class="btn btn-verde" [disabled]="!proveedorSelected" (click)="onGenerar()">Grabar Orden <i
+                class="bi bi-send"></i></button>
+          </div>
+        </div>
+      </div>
+
+
+
+    </div>
+
+    <div>
+      <table class="table table-striped table-bordered table-hover tbl-data">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Producto</th>
+            <th scope="col">Unidad</th>
+            <th scope="col">Cantidad</th>
+            <th scope="col" style="text-align: right;">Precio</th>
+            <th scope="col" style="text-align: right;">Total</th>
+          </tr>
+        </thead>
+        <tbody>
+
+          <tr class="clickable" *ngFor="let item of carrito" (click)="onEditProduct(item.idProducto)">
+            <td scope="row">{{item.idProducto}}</td>
+            <td>{{item.nombreProducto}}</td>
+            <td>{{item.unidadMedida.unidadMedida}}</td>
+            <td>{{item.cantidad}}</td>
+            <td  style="text-align: right;">{{item.precio}} </td>
+            <td  style="text-align: right;">{{item.precio * item.precio}} </td>
+          </tr>
+          <tr><td colspan="5" class="text-end">Total:</td><td class="text-end"><strong>{{total | currency}}</strong></td></tr>
+
+
+
+
+        </tbody>
+      </table>
+
+    </div>
+
+
+
+  </div>
+
+
+
+</div>
+
+
+<nav class="navbar fixed-bottom navbar-light  ps-2" [ngStyle]="{height: bottomBarSize}" style="height: 100px; border-top:2px solid #808080 ;background-color: #d9dadf;">
+  <i class="arrow-up" *ngIf="!isMaximized" (click)="maximize()" style="position: absolute; top:-1px; left: 50dvw;" > </i>
+  <i class="arrow-down" *ngIf="isMaximized" (click)="minimize()" style="position: absolute; top:-1px; left: 50dvw;" > </i>
+  <table style="width: 100%; ">
+    <tr>
+        <td class="pb-2"><input type="text" placeholder="SKU, nombre de producto" name="" id="" style="width:100%"  (keyup.enter)="maximize()" ></td>
+        <td class="pb-2" style="width:85px"><button class="btn btn-secondary btn-sm"  (click)="maximize()" >Buscar <i class="bi bi-search"></i></button></td>
+    </tr>
+  </table>
+  <div style="width:100%">
+
+    <div class="d-flex tbl-data mt-3 ps-2">
+      <!-- <div style="width: 250px">
+
+       <strong>Precio</strong>
+       <div class=" mt-2">
+        <input style="width:80px" type="number" name="" id="">- <input style="width:80px" type="number" name="" id="">
+       </div>
+       <div class="mt-2">
+       <strong> Inventario</strong>
+          <div class="mt-2"><span class="bg-danger text-light p-1">Por debajo del Minimo</span> : <input type="checkbox" id="cbox1" value="first_checkbox" /></div>
+          <div class="mt-2"><span class="bg-warning p-1">Cercas del Minimo </span> : <input type="checkbox" id="cbox1" value="first_checkbox" /></div>
+          <div class="mt-2 clickable" style="color: blue">[ Todos ] </div>
+
+       </div>
+
+      </div> -->
+      <div class="flex-grow-1 " >
+        <div  style="overflow-y: scroll; width: 100%; height:26dvh">
+        <table class="table table-striped table-bordered table-hover tbl-data tbl-verde" style="width: 100%">
+          <thead>
+            <tr>
+            <th scope="col">#</th>
+            <th scope="col">Producto</th>
+            <th scope="col">Unidad</th>
+            <th scope="col">Precio</th>
+            <th class="text-center">Existencia</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr  *ngFor="let item of items" (click)="onAddProduct(item.idProducto)">
+            <td scope="row">1</td><td>{{item.nombreProducto}}</td><td>{{item.unidadMedida.unidadMedida}}</td>
+            <td  style="text-align: right;">{{item.precio}} </td>
+            <td class="text-center" [ngClass]="{'bg-danger text-light': item.cantidad<1}">{{item.cantidad}}</td>
+          </tr>
+
+
+
+
+
+        </tbody>
+      </table>
+        </div>
+
+      </div>
+    </div>
+
+</div>
+
+</nav>

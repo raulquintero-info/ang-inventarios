@@ -3,6 +3,7 @@ import { UnidadMedida } from 'src/app/core/interfaces/unidades-medida';
 import { BaseComponent } from 'src/app/core/kernel/base-component';
 import { UnidadesMedidaService } from 'src/app/core/services/unidades-medida.service';
 import { FormBuilder, Validators } from '@angular/forms';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-unidades-medida-form',
@@ -17,6 +18,7 @@ export class UnidadesMedidaFormComponent extends BaseComponent {
    title: string                   = '';
   @Output() temp: any                       = new EventEmitter<any>();
 
+  public activeModal = inject(NgbActiveModal);
   private elementService = inject(UnidadesMedidaService);
   private formBuilder = inject(FormBuilder);
 
@@ -44,5 +46,12 @@ export class UnidadesMedidaFormComponent extends BaseComponent {
     this.elementForm.get('idUnidadMedida')?.setValue(0);
   }
 
+
+  submitted(){
+    this.onReset()
+    this.getAll();
+    this.hideSpinner();
+    this.activeModal.close('Close click')
+  }
 
 }

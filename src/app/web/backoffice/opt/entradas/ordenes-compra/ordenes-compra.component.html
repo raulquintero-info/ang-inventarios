@@ -1,1 +1,95 @@
-<p>ordenes-compra works!</p>
+<div class="mt-3 ms-3 me-3">
+  <div class="text-end">
+    <ul class="nav nav-tabs">
+      <li class="nav-item">
+        <a class="nav-link active" aria-current="page"><strong>Ordenes de Compras</strong></a>
+      </li>
+      <li class="nav-item">
+        <button class=" ms-3 btn btn-verde" [routerLink]="'/entradas/orden-nueva'"><i class="bi bi-plus-circle"></i> Orden Nueva </button>
+      </li>
+      <!-- <li class="nav-item">
+        <h4 class="ms-3 mt-1"> <i class="bi bi-1-circle text-primary "></i> Proceso - Oden de Compra</h4>
+      </li> -->
+    </ul>
+  </div>
+
+  <table class="table table-responsive table-striped table-hover tbl-data">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Proveedor</th>
+        <th scope="col">Contacto</th>
+        <th>Items</th>
+        <th scope="col">Status</th>
+        <th scope="col">Total</th>
+      </tr>
+    </thead>
+    <tbody>
+
+      <tr [routerLink]="['/entradas/orden-detalle',orden.id]" *ngFor="let orden of listaOrdenes">
+        <td scope="row">{{orden.id}}</td>
+        <td>{{orden.proveedor.nombre|titlecase}}</td>
+        <td>{{orden.proveedor.responsable|titlecase}}</td>
+        <td>{{orden.items.length}}</td>
+        <td>{{orden.status}}</td>
+        <td>{{orden.total| currency}}</td>
+      </tr>
+
+
+    </tbody>
+
+  </table>
+
+  <div class="text-center mt-5">
+    <img src="/assets/procesos/procesoOrdenes.png" alt="" srcset="">
+  </div>
+
+
+</div>
+
+
+
+
+<nav class="navbar fixed-bottom navbar-light   " [ngStyle]="{height: bottomBarSize}"
+  style="height: 100px; border-top:1px solid #afb0b4 ;background-color: #d9dadf;">
+
+  <div
+    style="border-bottom:1px solid #afb0b4; width: 100%; position:absolute;top: 0px; height:12px; background-color: #cbcbcb;">
+    <i class="arrow-up" *ngIf="!isMaximized" (click)="maximize()"
+      style="position:absolute ; top: -1px;  left: 50dvw;"></i>
+    <i class="arrow-down" *ngIf="isMaximized" (click)="minimize()" style="position: absolute;top: -1px;  left: 50dvw;">
+    </i>
+  </div>
+
+
+  <table style="width: 100%; height: 180px">
+    <tr>
+      <td class="pb-2 ps-2 pt-2 "><input type="text" name="" id="" placeholder="ej. Mevalza" style="width:100%"
+          (keyup.enter)="maximize()"></td>
+      <td class="pb-2 pt-2" style="width:85px"><button class="btn btn-verde btn-sm">Buscar <i
+            class="bi bi-search"></i></button></td>
+    </tr>
+    <tr style="border-top: 1px solid #afb0b4;">
+      <td>
+        <h4>Filtros</h4>
+      </td>
+    </tr>
+    <tr>
+      <td style="height:110px; vertical-align: top;">
+        <div class="p-3">
+
+          Status
+          <select class="form-select" aria-label="Default select example" style="width: 250px">
+            <option selected>Seleccione</option>
+            <option value="1">Nuevo</option>
+            <option value="2">Procesado</option>
+            <option value="3">En Camino</option>
+            <option value="4">Recibido</option>
+          </select>
+        </div>
+      </td>
+    </tr>
+  </table>
+
+
+</nav>

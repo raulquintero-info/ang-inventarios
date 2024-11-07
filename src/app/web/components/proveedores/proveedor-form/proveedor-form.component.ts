@@ -12,11 +12,8 @@ import { ProveedoresService } from 'src/app/core/services/proveedores.service';
 export class ProveedorFormComponent extends BaseComponent {
   spinnerForm: boolean = false;
 
-
-   title: string             = 'Proveedor';
-  // @Input()  elementSelected: Proveedor    = {} as Proveedor;
-  @Output() temp: any                 = new EventEmitter<any>();
-
+   title: string       = 'Proveedor';
+  @Output() temp: any  = new EventEmitter<any>();
 
   private elementService = inject(ProveedoresService);
   private formBuilder = inject(FormBuilder);
@@ -25,6 +22,7 @@ export class ProveedorFormComponent extends BaseComponent {
     idProveedor:[ 0, [Validators.required]],
     nombreProveedor:  [ '', [Validators.required]],
     direccionProveedor:  [ '', [Validators.required]],
+    responsableProveedor: ['', [Validators.required]],
     telefonoProveedor:  [ '', [Validators.required]],
     emailProveedor:  [ '', [Validators.required]],
   })
@@ -32,6 +30,7 @@ export class ProveedorFormComponent extends BaseComponent {
   get idProveedor(){ return this.elementForm.controls.idProveedor; }
   get nombreProveedor(){ return this.elementForm.controls.nombreProveedor; }
   get direccionProveedor(){ return this.elementForm.controls.direccionProveedor; }
+  get responsableProveedor(){ return this.elementForm.controls.responsableProveedor}
   get telefonoProveedor(){ return this.elementForm.controls.telefonoProveedor; }
   get emailProveedor(){ return this.elementForm.controls.emailProveedor; }
 
@@ -47,9 +46,15 @@ export class ProveedorFormComponent extends BaseComponent {
   }
 
   onReset(){
-    // this.elementSelected = {idProveedor:0} as Proveedor;
     this.elementForm.reset();
     this.elementForm.get('idProveedor')?.setValue(0);
   }
+
+  submitted(){
+    this.onReset();
+    this.getAll();
+    this.hideSpinner();
+  }
+
 
 }

@@ -128,7 +128,7 @@
         </table>
       </div>
 
-      <div class="container-table" [ngStyle]="{'height':windowPTablaHeight}">
+      <div class="container-table" [ngStyle]="{'height':windowPTablaHeight,  transition: '0.4s'}">
 
 
         <app-file-list [items]="items" (categoryId)="singleClick($event)"

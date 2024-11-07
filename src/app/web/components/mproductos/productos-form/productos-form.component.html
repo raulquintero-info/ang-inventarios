@@ -1,12 +1,12 @@
 <div class="modal-title">
-  <h2>Agregar / Editar [{{categoryIdSelected}}]</h2>
+  <h2>Agregar / Editar [{{categoryIdSelected}}] {{almacenSelected.nombreAlmacen}}</h2>
 </div>
 <form [formGroup]="elementForm">
 <div class="row  m-3">
 
     <div class="input-group mb-3">
       <span class="input-group-text" id="nombre">Nombre Producto</span>
-      <input type="text"  formControlName="nombreProducto" name="nombreProducto" id="nombreProducto" class="form-control">
+      <input type="text"  formControlName="nombreProducto" name="nombreProducto" autocomplete="off" id="nombreProducto" class="form-control">
     </div>
 
     <div class=" mb-3">

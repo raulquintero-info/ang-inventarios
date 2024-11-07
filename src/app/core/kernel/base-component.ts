@@ -1,5 +1,5 @@
-import { Input } from "@angular/core";
 import Swal from "sweetalert2";
+import { iBaseComponente } from "./i-base-component.interface";
 
 export const confirmColor = '#641330';
 export const cancelColor = '#949597';
@@ -20,7 +20,12 @@ export const ToastDef = Swal.mixin({
   }
 });
 
-export class BaseComponent {
+/**
+   * @ngdoc class
+   * @name BaseComponent
+   * @description Es una clase con metodos comunes para los formularios de catalogos
+   */
+export class BaseComponent implements iBaseComponente {
   public isMaximized: boolean = false;
   public sizeMinimized: string = '48px';
   // si quiere cambiar el tamaño de la ventana,sobreescriba este atributo
@@ -28,20 +33,11 @@ export class BaseComponent {
   public sizeMaximized: string = "200px"
   public bottomBarSize: string = this.sizeMinimized;
 
+
   maximize() { this.bottomBarSize = this.sizeMaximized; this.isMaximized = true; }
   minimize() { this.bottomBarSize = this.sizeMinimized; this.isMaximized = false; }
 
-/**
-   * @ngdoc method
-   * @name sweetConfirmCreateOrUpdate
-   * @description Metodo Generico para eliminar un elemento de un catalogo
-   * @param {any=} objeto (this) Objeto desde donde es llamado
-   * @param {string=} titleDialog Titulo de la ventana sweetalert
-   * @param {number=} id id del elemento a eliminar
-   * @param {string=} confirmCol Color del Boton de Confirmacion [opcional]
-   * @param {string=} cancelColColor del Boton de Cancelacion [opcional]
-   * @returns {void} void
-   */
+
   public sweetConfirmDelete( objeto: any, titleDialog: string, id: number, confirmCol: string = confirmColor, cancelCol: string = cancelColor ) {
 
     console.log('showSpinner');
@@ -73,16 +69,6 @@ export class BaseComponent {
 
   }
 
-  /**
-   * @ngdoc method
-   * @name sweetConfirmCreateOrUpdate
-   * @description Metodo Generico para eliminar un elemento de un catalogo
-   * @param {any=} objeto (this) Objeto desde donde es llamado
-   * @param {string=} titleDialog Titulo de la ventana sweetalert
-   * @param {string=} confirmCol Color del Boton de Confirmacion [opcional]
-   * @param {string=} cancelCol Color del Boton de Cancelacion [opcional]
-   * @returns {void} void
-   */
   public sweetConfirmCreateOrUpdate( objeto: any, titleDialog: string = 'Crear o Editar Campo',confirmCol: string = confirmColor, cancelCol: string = cancelColor ) {
     objeto.showSpinner();
     Swal.fire({
@@ -99,9 +85,7 @@ export class BaseComponent {
         objeto.elementService.createOrUpdate(objeto.elementForm.value).subscribe({
           next: (resp: any) => {
             console.log('resp', resp)
-            objeto.onReset();
-            objeto.getAll();
-            objeto.hideSpinner();
+            objeto.submitted();
             ToastDef.fire({ icon: "success", title: resp.mensaje });
           },
           error: (error: any) => {
@@ -118,6 +102,7 @@ export class BaseComponent {
     switch(error.status){
       case 401: ToastDef.fire({ icon: "error", title: error.status + ". Notienes autorizacion para ver este contenido" });break;
       case 405: ToastDef.fire({ icon: "error", title: error.status + ". Metodo No permitido" }); console.log('>>handle>>',error);break;
+      case 500: ToastDef.fire({ icon: "error", title: error.status + ". " + error.error.mensaje }); console.log('>>handle>>',error);break;
       default: ToastDef.fire({ icon: "error", title: error.status + ". Ha ocurrido un problema" }); break;
     }
   }

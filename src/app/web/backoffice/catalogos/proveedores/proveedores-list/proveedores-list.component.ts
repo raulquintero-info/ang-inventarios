@@ -24,6 +24,7 @@ export class ProveedoresListComponent  extends BaseComponent implements OnInit {
     idProveedor:[ 0, [Validators.required]],
     nombreProveedor:  [ '', [Validators.required]],
     direccionProveedor:  [ '', [Validators.required]],
+    responsableProveedor:  [ '', [Validators.required]],
     telefonoProveedor:  [ '', [Validators.required]],
     emailProveedor:  [ '', [Validators.required]],
   })
@@ -44,6 +45,7 @@ export class ProveedoresListComponent  extends BaseComponent implements OnInit {
     this.elementForm.get('idProveedor')?.setValue(element.idProveedor);
     this.elementForm.get('nombreProveedor')?.setValue(element.nombreProveedor);
     this.elementForm.get('direccionProveedor')?.setValue(element.direccionProveedor);
+    this.elementForm.get('responsableProveedor')?.setValue(element.responsableProveedor);
     this.elementForm.get('telefonoProveedor')?.setValue(element.telefonoProveedor);
     this.elementForm.get('emailProveedor')?.setValue(element.emailProveedor);
   }
