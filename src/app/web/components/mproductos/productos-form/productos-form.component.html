@@ -43,16 +43,14 @@
           aria-describedby="basic-addon1">
       </div>
 
-      Unidad de Medida
-      <div class="flex-grow-1">
-        <select formControlName="unidadMedida" class="form-select form-select-sm mb-3" aria-label=".form-select-sm example">
-          <option *ngFor="let item of unidadesMedida" [value]="item">{{item.unidadMedida}}</option>
-        </select>
+      <div class="input-group mb-3">
+        <span  class="input-group-text" id="cretaedAt">Fecha de Actualizacion</span>
+        <input formControlName="fechaActualizacion" type="date" class="form-control"  placeholder="dd-mm-yyyy" data-date-format="DD MMMM YYYY">
       </div>
 
       <div class="input-group mb-3">
         <span class="input-group-text" id="cretaedAt">Fecha de Registro</span>
-        <input type="text"  formControlName="fechaCreacion" class="form-control" placeholder="10-08-2023" aria-label="Username"
+        <input type="date"  formControlName="fechaCreacion" class="form-control" placeholder="dd-mm-yyyy" min="1997-01-01" max="2030-12-31"
           aria-describedby="basic-addon1">
       </div>
 
@@ -74,7 +72,12 @@
           <option value="0" selected>Seleccionar</option>
         </select>
       </div>
-
+      Unidad de Medida
+      <div class="flex-grow-1">
+        <select formControlName="unidadMedida" class="form-select form-select-sm mb-3" aria-label=".form-select-sm example">
+          <option *ngFor="let item of unidadesMedida" [value]="item">{{item.unidadMedida}}</option>
+        </select>
+      </div>
       Tipo de Producto
       <select  formControlName="tipoProducto" class="form-select form-select-sm mb-3" aria-label=".form-select-sm example">
         <option *ngFor="let item of tiposProducto" [value]="item">{{item.tipoProducto}}</option>
@@ -96,10 +99,7 @@
       </select>
 
 
-      <div class="input-group mb-3">
-        <span  class="input-group-text" id="cretaedAt">Fecha de Actualizacion</span>
-        <input formControlName="fechaActualizacion" type="text" class="form-control" placeholder="10-08-2023" aria-label="Username" >
-      </div>
+
 
 
 

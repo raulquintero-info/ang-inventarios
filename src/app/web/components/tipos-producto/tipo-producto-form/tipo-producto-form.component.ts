@@ -1,6 +1,5 @@
 import { Component, EventEmitter, Input, Output, inject } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { TipoProducto } from 'src/app/core/interfaces/tipo-producto.interface';
 import { BaseComponent } from 'src/app/core/kernel/base-component';
 import { TiposProductoService } from 'src/app/core/services/tiposProducto.service';
@@ -19,7 +18,6 @@ export class TipoProductoFormComponent extends BaseComponent {
   @Output() temp: any                 = new EventEmitter<any>();
 
 
-  public activeModal = inject(NgbActiveModal);
   private elementService = inject(TiposProductoService);
   private formBuilder = inject(FormBuilder);
 
@@ -55,7 +53,6 @@ export class TipoProductoFormComponent extends BaseComponent {
     this.onReset()
     this.getAll();
     this.hideSpinner();
-    this.activeModal.close('Close click')
   }
 
 }

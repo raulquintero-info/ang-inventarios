@@ -25,6 +25,9 @@ export class ProductosFormComponent extends BaseComponent implements OnInit {
   marcas: Marca[] =[];
   tiposProducto: TipoProducto[] = [];
   spinnerForm:boolean = false;
+  title: string             = '';
+  date: Date = new Date();
+  today = new Date().toJSON().slice(0, 10);
 
   public activeModal = inject(NgbActiveModal);
   private formBuilder = inject(FormBuilder);
@@ -35,10 +38,6 @@ export class ProductosFormComponent extends BaseComponent implements OnInit {
   private marcasService = inject(MarcasService);
   private tiposProductoService = inject(TiposProductoService);
 
-
-
-
-   title: string             = '';
   @Output() temp: any                 = new EventEmitter<any>();
 
   @Input() categoryIdSelected: number = 0;
@@ -57,8 +56,8 @@ export class ProductosFormComponent extends BaseComponent implements OnInit {
     proveedor:            [ {idProveedor:0} as Proveedor, [Validators.required]],
     marca:                [ {idMarca:0} as Marca, [Validators.required]],
     tipoProducto:         [ {idTipoProducto:0} as TipoProducto, [Validators.required]],
-    fechaCreacion:        [ '', [Validators.required]],
-    fechaActualizacion:   [ '', [Validators.required]],
+    fechaCreacion:        [ this.today, [Validators.required]],
+    fechaActualizacion:   [ this.today, [Validators.required]],
     categoria:            [ {idCategoria:0} as Categoria, [Validators.required]],
   })
 
@@ -79,7 +78,7 @@ export class ProductosFormComponent extends BaseComponent implements OnInit {
 
 
   ngOnInit() {
-
+console.log('------today',this.today)
     this.tiposProductoService.getAll().subscribe( resp=>{ this.tiposProducto = resp})
     this.unidadesMedidaService.getAll().subscribe( resp=>{ this.unidadesMedida = resp })
     this.proveedoresService.getAll().subscribe( resp=>{ this.proveedores = resp })
