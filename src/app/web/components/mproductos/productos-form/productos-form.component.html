@@ -1,12 +1,46 @@
 <div class="modal-title">
   <h2>Agregar / Editar [{{categoryIdSelected}}] {{almacenSelected.nombreAlmacen}}</h2>
 </div>
+<div class="input-group mt-1 mb-1">
+  <span class="input-group-text clickable btn-guinda" id="nombreGrupo" (click)="gotoGrupos()" >Nombre del Grupo</span>
+  <input type="text"  formControlName="categoria" name="nombreGrupo" *ngIf="!grupoSelected.nombre; else grupoSeleccionado"
+    (keyup.enter)="showModalGrupo()" autocomplete="off" id="nombreGrupo" class="form-control">
+    <ng-template #grupoSeleccionado >
+      <span class="grupo-selected mt-2 ms-3 me-5">{{ grupoSelected.nombre |titlecase}}</span>
+      <button class="btn btn-secondary" (click)="removeGrupo()">Cambiar</button>
+    </ng-template>
+  <div class="result-grupos p-2" *ngIf="isVisibleModalGrupo">
+    <table class="table table-striped table-hover tbl-data">
+      <thead><tr><th>Nomber del grupo</th></tr></thead>
+      <tbody >
+        <tr class="clickable" (click)="setGrupo('lapiz bic')"><td>Lapiz Bic</td></tr>
+        <tr class="clickable" (click)="setGrupo('lapiz dixon ticonderoga')"><td>lapiz Dixon Ticonderoga</td></tr>
+      </tbody>
+    </table>
+    <div class="text-end">
+      <button class="btn btn-secondary btn-sm" (click)="hideModalGrupo()">Cerrar</button>
+    </div>
+
+  </div>
+</div>
+<div class="input-group">
+  <span class="input-group-text" id="categoria">Categoria</span>
+  <button class="btn btn-guinda" (click)="showModalCategoria()" *ngIf="!categoryIdSelected; else categoriaSeleccionada"> Seleccionar Categoria</button>
+  <ng-template #categoriaSeleccionada>
+    <span class="grupo-selected mt-2 ms-3 me-5" >{{ categoryIdSelected }}</span>
+      <button class="btn btn-secondary" (click)="changeCategory()">Cambiar</button>
+  </ng-template>
+  <div class="result-categorias p-2" *ngIf="isVisibleModalCategory">
+    <app-tree-directory oncontextmenu="return false;" [categorias]="categorias"
+    (categoryId)="onCategory($event)"></app-tree-directory>
+  </div>
+</div>
 <form [formGroup]="elementForm">
 <div class="row  m-3">
 
-    <div class="input-group mb-3">
+    <div class="input-group">
       <span class="input-group-text" id="nombre">Nombre Producto</span>
-      <input type="text"  formControlName="nombreProducto" name="nombreProducto" autocomplete="off" id="nombreProducto" class="form-control">
+      <input type="text"  formControlName="nombreProducto" name="nombreProducto"  autocomplete="off" id="nombreProducto" class="form-control">
     </div>
 
     <div class=" mb-3">
@@ -58,12 +92,19 @@
 
     <div class="col-md-6">
 
-      Proveedor
-      <div class="flex-grow-1">
-        <select  formControlName="proveedor" class="form-select form-select-sm mb-3" aria-label=".form-select-sm example">
-          <option *ngFor="let item of proveedores" [value]="item">{{item.nombreProveedor}}</option>
-
-        </select>
+      <div>
+        <!-- <label for="color" class="form-label">Proveedor</label> -->
+        Proveedor
+        <div class="row">
+          <div class="col-sm-11 col-form-label">
+            <select formControlName="proveedor" class="form-select mb-3" aria-label=".form-select-sm example">
+              <option *ngFor="let item of proveedores" [value]="item">{{item.nombreProveedor}}</option>
+            </select>
+          </div>
+          <div class="col-sm-1">
+            <button class="btn btn-secondary  mb-2 btn-end-right" (click)="onAddProveedor()" style="top:7px; right: 26px">+</button>
+          </div>
+        </div>
       </div>
       Marca
       <div class="flex-grow-1">
@@ -78,19 +119,33 @@
           <option *ngFor="let item of unidadesMedida" [value]="item">{{item.unidadMedida}}</option>
         </select>
       </div>
-      Tipo de Producto
+      <!-- Tipo de Producto
       <select  formControlName="tipoProducto" class="form-select form-select-sm mb-3" aria-label=".form-select-sm example">
         <option *ngFor="let item of tiposProducto" [value]="item">{{item.tipoProducto}}</option>
 
-      </select>
-      Color
-      <select   class="form-select form-select-sm mb-3" aria-label=".form-select-sm example">
-        <option selected>Seleccione un un color</option>
-        <option value="1">Rojo</option>
-        <option value="2">Azul</option>
-        <option value="3">Negro</option>
-        <option value="3">Verde</option>
-      </select>
+      </select> -->
+
+      <div *ngIf="grupoSelected.nombre">
+        <h6>Atributos</h6>
+        <div>
+        <!-- <label for="color" class="form-label">Proveedor</label> -->
+        Color
+        <div class="row">
+          <div class="col-sm-11 col-form-label">
+
+            <select class="form-select mb-3" name="color" id="color" aria-label=".form-select-sm example">
+              <option selected>Seleccione un un color</option>
+              <option value="1">Rojo</option>
+              <option value="2">Azul</option>
+              <option value="3">Negro</option>
+              <option value="3">Verde</option>
+            </select>
+          </div>
+          <div class="col-sm-1">
+            <button class="btn btn-secondary  mb-2 btn-end-right" style="top:7px; right: 26px">+</button>
+          </div>
+        </div>
+      </div>
       Punto
       <select class="form-select form-select-sm mb-3" aria-label=".form-select-sm example">
         <option selected>Seleccione un punto</option>
@@ -99,6 +154,7 @@
       </select>
 
 
+      </div>
 
 
 

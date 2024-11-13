@@ -11,7 +11,7 @@
           <a class="nav-link btn-gris dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-bs-toggle="dropdown">Productos</a>
           <ul class="dropdown-menu">
             <li><a [routerLink]="'/productos'" class="dropdown-item">Lista de Productos &raquo;</a></li>
-            <li><a [routerLink]="'/'" class="dropdown-item">Productos Inactivos &raquo;</a></li>
+            <li><a [routerLink]="'/catalogos/productos-grupos'" class="dropdown-item">Grupos de Productos &raquo;</a></li>
             <li><a [routerLink]="'/catalogos/marcas'" class="dropdown-item"> Marcas&raquo;</a></li>
             <li><a [routerLink]="'/catalogos/unidades-medida'" class="dropdown-item"> Unidades de Medida&raquo;</a></li>
           </ul>
@@ -73,7 +73,7 @@
             <button ngbDropdownItem [routerLink]="'catalogos/unidades-medida'"><i class="bi bi-plus-circle text-primary"></i> Unidad de Medida</button>
             <button ngbDropdownItem [routerLink]="'catalogos/roles'"><i class="bi bi-plus-circle text-primary"></i> Roles</button>
             <button ngbDropdownItem [routerLink]="'catalogos/atributos'"><i class="bi bi-plus-circle"></i> Atributos</button>
-            <button ngbDropdownItem [routerLink]="'catalogos/tipos-producto'"><i class="bi bi-plus-circle"></i> Tipo de Producto</button>
+            <button ngbDropdownItem [routerLink]="'/catalogos/productos-grupos'"><i class="bi bi-plus-circle"></i> Grupos de Producto</button>
           </div>
         </li>
 

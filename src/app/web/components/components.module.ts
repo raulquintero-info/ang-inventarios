@@ -12,6 +12,7 @@ import { RolesFormComponent } from './roles/roles-form/roles-form.component';
 import { UsuariosFormComponent } from './usuarios/usuarios-form/usuarios-form.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ProveedorModalComponent } from './proveedores/proveedor-modal/proveedor-modal.component';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 
 
@@ -32,7 +33,8 @@ import { ProveedorModalComponent } from './proveedores/proveedor-modal/proveedor
     FormsModule,
     ReactiveFormsModule,
     ProductosModule,
-    NgbModule
+    NgbModule,
+    NgxSpinnerModule,
   ],
   exports:[
     ProductosModule,

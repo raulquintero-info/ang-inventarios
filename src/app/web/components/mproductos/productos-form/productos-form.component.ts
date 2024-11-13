@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, NgZone, OnInit, Output, inject } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Almacen } from 'src/app/core/interfaces/almacen.interface';
 import { Categoria } from 'src/app/core/interfaces/categoria.interface';
 import { Marca } from 'src/app/core/interfaces/marca.interface';
@@ -13,6 +13,11 @@ import { ProductosService } from 'src/app/core/services/productos.service';
 import { ProveedoresService } from 'src/app/core/services/proveedores.service';
 import { TiposProductoService } from 'src/app/core/services/tiposProducto.service';
 import { UnidadesMedidaService } from 'src/app/core/services/unidades-medida.service';
+import { ProveedorModalComponent } from '../../proveedores/proveedor-modal/proveedor-modal.component';
+import { Producto } from 'src/app/core/interfaces/producto.interface';
+import { Item } from 'src/app/core/models/Item';
+import { CategoriesService } from 'src/app/core/services/categories.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-productos-form',
@@ -28,42 +33,52 @@ export class ProductosFormComponent extends BaseComponent implements OnInit {
   title: string             = '';
   date: Date = new Date();
   today = new Date().toJSON().slice(0, 10);
+  isVisibleModalGrupo: boolean = false;
+  grupoSelected: any={id:0, nombre: null};
+  isVisibleModalCategory: boolean = false;
+  categorias: Categoria[] = [];
 
   public activeModal = inject(NgbActiveModal);
+  private router = inject(Router);
+  private modalService = inject(NgbModal);
   private formBuilder = inject(FormBuilder);
   private ngZone = inject(NgZone);
   private elementService = inject(ProductosService);
   private unidadesMedidaService = inject(UnidadesMedidaService);
   private proveedoresService = inject(ProveedoresService);
   private marcasService = inject(MarcasService);
-  private tiposProductoService = inject(TiposProductoService);
+  // private tiposProductoService = inject(TiposProductoService);
+  private categoriesService = inject(CategoriesService);
 
   @Output() temp: any                 = new EventEmitter<any>();
 
-  @Input() categoryIdSelected: number = 0;
+  @Input() categoryIdSelected: number|null = 0;
   @Input() almacenSelected: Almacen = {} as Almacen;
+  @Input() elementSelected: Item = {} as Item;
 
   @Input() elementForm = this.formBuilder.group({
     idProducto:           [ 0, [Validators.required]],
     nombreProducto:       [ '', [Validators.required]],
     descripcionProducto:  [ '', [Validators.required]],
+    nombreGrupo:          [ {idNombreGrupo: 1}],
     sku:                  [ '', [Validators.required]],
     precio:               [ 0, [Validators.required]],
     cantidad:             [ 0, [Validators.required]],
     minimo:               [ 0, [Validators.required]],
     maximo:               [ 0, [Validators.required]],
-    unidadMedida:         [ {idUnidadMedida:0} as UnidadMedida, [Validators.required]],
-    proveedor:            [ {idProveedor:0} as Proveedor, [Validators.required]],
-    marca:                [ {idMarca:0} as Marca, [Validators.required]],
-    tipoProducto:         [ {idTipoProducto:0} as TipoProducto, [Validators.required]],
+    unidadMedida:         [ {idUnidadMedida:1} as UnidadMedida, [Validators.required]],
+    proveedor:            [ {idProveedor:3} as Proveedor, [Validators.required]],
+    marca:                [ {idMarca:1} as Marca, [Validators.required]],
+    tipoProducto:         [ {idTipoProducto:1} as TipoProducto, [Validators.required]],
     fechaCreacion:        [ this.today, [Validators.required]],
     fechaActualizacion:   [ this.today, [Validators.required]],
-    categoria:            [ {idCategoria:0} as Categoria, [Validators.required]],
+    categoria:            [ {idCategoria:4} as Categoria, [Validators.required]],
   })
 
   get idProducto(){ return this.elementForm.controls.idProducto; }
   get nombreProducto(){ return this.elementForm.controls.nombreProducto; }
   get descripcionProducto(){ return this.elementForm.controls.descripcionProducto; }
+
   get sku(){ return this.elementForm.controls.sku; }
   get precio(){ return this.elementForm.controls.precio; }
   get cantidad(){ return this.elementForm.controls.cantidad; }
@@ -78,12 +93,21 @@ export class ProductosFormComponent extends BaseComponent implements OnInit {
 
 
   ngOnInit() {
-console.log('------today',this.today)
-    this.tiposProductoService.getAll().subscribe( resp=>{ this.tiposProducto = resp})
     this.unidadesMedidaService.getAll().subscribe( resp=>{ this.unidadesMedida = resp })
     this.proveedoresService.getAll().subscribe( resp=>{ this.proveedores = resp })
     this.marcasService.getAll().subscribe( resp=>{ this.marcas = resp; } )
-    this.tiposProductoService.getAll().subscribe( resp=>{ this.tiposProducto = resp; })
+    // this.tiposProductoService.getAll().subscribe( resp=>{ this.tiposProducto = resp; })
+    console.log('-------------x---',this.elementSelected.nombre);
+
+    this.elementToForm();
+    this.getCategories();
+  }
+
+
+
+  elementToForm(){
+    console.log('-------------x---',this.elementSelected.nombre);
+    this.elementForm.get('nombreProducto')?.setValue(this.elementSelected.nombre);
   }
 
 
@@ -99,6 +123,44 @@ console.log('------today',this.today)
     // this.elementForm.get('marca')?.setValue({idMarca:1} as Marca)
     this.sweetConfirmCreateOrUpdate(this, 'titleConfirmDialog');
 
+  }
+
+  gotoGrupos(){
+    this.activeModal.close('Close click')
+    this.router.navigateByUrl('/catalogos/productos-grupos');
+  }
+
+  getCategories(){
+    this.categoriesService.getAll().subscribe(
+      cat=>{ this.categorias = cat
+      console.log(this.categorias)
+      }
+    )
+  }
+
+  onCategory(categoryId: number|null) {
+    this.categoryIdSelected = categoryId;
+    this.hideModalCategoria()
+  }
+
+  showModalGrupo(){ this.isVisibleModalGrupo = true; }
+  hideModalGrupo(){ this.isVisibleModalGrupo = false; }
+  showModalCategoria(){ this.isVisibleModalCategory = true}
+  hideModalCategoria(){ this.isVisibleModalCategory = false}
+  removeGrupo(){ this.grupoSelected = {idGrupoProducto:1, nombre: null}; }
+  changeCategory(){ this.showModalCategoria()}
+
+  setGrupo(nombreGrupo: string){
+    this.hideModalGrupo();
+    this.grupoSelected = {idGrupoProducto:1, nombre: nombreGrupo};
+  }
+
+
+  onAddProveedor(){
+    const modalRefEditar = this.modalService.open(ProveedorModalComponent, {windowClass:  "generic-small-modal"});
+    modalRefEditar.componentInstance.categoryIdSelected = this.categoryIdSelected;
+    modalRefEditar.componentInstance.almacenSelected = this.almacenSelected;
+    window.scrollTo(0, 0);
   }
 
   submitted() {

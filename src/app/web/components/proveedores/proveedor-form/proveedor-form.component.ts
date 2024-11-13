@@ -51,6 +51,7 @@ export class ProveedorFormComponent extends BaseComponent {
   }
 
   submitted(){
+    console.log('<<<<<< submitted-closeMOdal')
     this.onReset();
     this.getAll();
     this.hideSpinner();

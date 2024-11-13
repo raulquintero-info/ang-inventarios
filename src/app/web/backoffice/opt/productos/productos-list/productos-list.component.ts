@@ -22,6 +22,7 @@ import { AlmacenesService } from 'src/app/core/services/almacenes.service';
   styleUrls: ['./productos-list.component.css']
 })
 export class ProductosListComponent {
+  isLoadingProducts: boolean = false;
   displayStyle: string = 'none';
   displayStyleNewCategory: string = 'none';
   displayStyleNewItem: string = 'none';
@@ -41,7 +42,7 @@ export class ProductosListComponent {
   preventSingleClick = false;
   windowHeight: number = 0;
   timer: any;
-  almacenSelected: Almacen = {} as Almacen;
+  almacenSelected: Almacen = {nombreAlmacen: 'mexicali'} as Almacen;
   // delay: Number = 0;
 
   // contextMenu
@@ -65,9 +66,15 @@ export class ProductosListComponent {
   ngOnInit() {
     this.categorias = CATEGORIAS;
     this.getCategories();
-    this.almacenesService.currentAlmacen.subscribe(resp=>{this.almacenSelected = resp;});
+    this.almacenesService.currentAlmacen.subscribe(resp=>{
+      this.almacenSelected = resp;
+      console.log('almacen ha cambiado');
+      this.showSpinnerProducts();
+      setTimeout(() => {
 
-
+        this.hideSpinnerProducts()
+      },600)
+    });
 
     // console.log(this.categorias.lenght)
     this.windowPTablaHeight = window.innerHeight - this.offset + 'px';
@@ -76,12 +83,12 @@ export class ProductosListComponent {
         this.windowHeight = height;
         this.setWindowSize();
         console.log(this.offset, this.windowPTablaHeight)
-      }
-
-    )
-
+      });
 
   }
+
+  showSpinnerProducts(){ this.isLoadingProducts = true }
+  hideSpinnerProducts(){ this.isLoadingProducts = false }
 
   getCategories(){
     this.categoriesService.getAll().subscribe(
@@ -109,22 +116,21 @@ export class ProductosListComponent {
   onCategory(categoryId: number|null) {
     this.items=[];
     this.categoryIdSelected = categoryId;
+    let temp;
 
+    this.categoryIdSelected = categoryId;
 
-    if (categoryId==0){
+    if(categoryId==null){
       this.items = ITEMS;
       return
     }
-    this.categoryIdSelected = categoryId;
-    if(!categoryId) return
-    let temp = PRODUCTOS.filter((x: any)=>{
+    temp = PRODUCTOS.filter((x: any)=>{
       if(x.id==categoryId)
       return x;
     })
     this.items = temp[0].content;
     // this.categoriaTitulo = categoria;
 
-    // this.items = PRODUCTOS;
   }
 
 
@@ -157,10 +163,14 @@ export class ProductosListComponent {
     clearTimeout(this.timer);
     // alert('No es posible mostar el Modal para editar el articulo')
     console.log("No es posible mostar el Modal para editar el articulo");
+    this.itemSelected = this.allProducts[itemId];
 
     const modalRefEditar = this.modalService.open(ProductosFormComponent, {windowClass:  "generic-modal"});
     modalRefEditar.componentInstance.categoryIdSelected = this.categoryIdSelected;
     modalRefEditar.componentInstance.almacenSelected = this.almacenSelected;
+
+    modalRefEditar.componentInstance.elementSelected = this.itemSelected;
+
 
   }
 

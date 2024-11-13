@@ -11,10 +11,9 @@ export class ProveedorModalComponent {
   public activeModal = inject(NgbActiveModal);
 
   @Output() temp: any  = new EventEmitter<any>();
+  // @Output() closeModal: any = new EventEmitter<any>();
 
-
-  onClose(){
-    this.activeModal.close('Close click')
-  }
+  onClose(){ this.activeModal.close('Close click'); }
+  getAll(){ this.temp.emit(null); }
 
 }

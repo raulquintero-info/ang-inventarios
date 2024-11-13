@@ -1,4 +1,5 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, inject } from '@angular/core';
+import { Almacen } from 'src/app/core/interfaces/almacen.interface';
 import { Categoria } from 'src/app/core/interfaces/categoria.interface';
 import { Item } from 'src/app/core/models/Item';
 import { PRODUCTOS } from 'src/app/data/productos';
@@ -10,6 +11,7 @@ import { PRODUCTOS } from 'src/app/data/productos';
 })
 export class TreeDirectoryComponent implements OnInit {
   rightPanelStyle: any;
+  isLoading: boolean = false;
 
   @Input() categorias: any [] = [];
   @Output() categoryId = new EventEmitter<number>();
@@ -23,9 +25,10 @@ export class TreeDirectoryComponent implements OnInit {
   contextmenuX = 0;
   contextmenuY = 0;
 
-  ngOnInit(): void {
+  ngOnInit(): void { }
 
-  }
+  showSpinner(){this.isLoading = true}
+  hideSpinner(){this.isLoading = false}
 
   onCategory(id: number) {
     console.log('onCate', id)

@@ -26,12 +26,10 @@
       </div>
 
       <div class="directory ms-2" style="border-right: 1px solid #bdb8b8">
-        <ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="default" color="#fff" type="pacman" [fullScreen]="true">
-          <p style="color: white"> Loading... </p>
-        </ngx-spinner>
 
 
-        <span class="clickable" (click)="onCategory(null)"><i class="bi bi-folder2"></i> Root1</span><br>
+
+        <span class="clickable" (click)="onCategory(null)"><i class="bi bi-folder2"></i> {{ almacenSelected.nombreAlmacen |uppercase}}</span><br>
         <!-- TODO: arbol de categorias -->
 
         <div style="width: max-content">
@@ -68,7 +66,7 @@
 
             <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
               <ol class="breadcrumb" style="margin-bottom:0;">
-                <li class="breadcrumb-item  ">Root</li>
+                <li class="breadcrumb-item  ">{{ almacenSelected.nombreAlmacen | titlecase}}</li>
                 <li class="breadcrumb-item " aria-current="page">Papeleria</li>
                 <li class="breadcrumb-item " aria-current="page">Oficina</li>
                 <li class="breadcrumb-item " aria-current="page">{{categoriaTitulo | titlecase}}</li>
@@ -131,8 +129,10 @@
       <div class="container-table" [ngStyle]="{'height':windowPTablaHeight,  transition: '0.4s'}">
 
 
-        <app-file-list [items]="items" (categoryId)="singleClick($event)"
+        <app-file-list [items]="items" (categoryId)="singleClick($event)" *ngIf="!isLoadingProducts; else spinnerProducts"
           (itemId)="doubleClick($event)"></app-file-list>
+          <ng-template #spinnerProducts ><div style="text-align: right; width: 100%;" class="p-3" > <div class="loader"></div> </div>
+          </ng-template>
 
       </div>
 
@@ -300,7 +300,7 @@
 <div id="contextmenu" class="contextmenu" [ngStyle]="rightPanelStyle" (clickOutside)="closeContextMenu()"
   (mouseleave)="onCloseContextMenuMouse()">
   <ul class="menu">
-    <li><a><i class="bi bi-plus-circle"></i> Agregar Producto</a></li>
+    <li  (click)="onAgregarProducto()"><a><i class="bi bi-plus-circle"></i> Agregar Producto</a></li>
     <div class="line"></div>
     <li><a><i class="bi bi-folder-plus"></i> Agregar Carpeta</a></li>
     <li class="activem"><a><i class="bi bi-pencil-square"></i> Edit</a></li>

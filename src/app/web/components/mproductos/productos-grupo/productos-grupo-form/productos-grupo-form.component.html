@@ -1,8 +1,8 @@
 <div style="border:1px solid gray; min-width: 300px">
   <div style="background-color: #631231; color: white; padding:4px 4px 4px 4px"> <strong>
-    <span *ngIf="elementForm.value.idUsuario; else agregar">Editar</span>
+    <span *ngIf="elementForm.value.idGrupoProducto; else agregar">Editar</span>
       <ng-template #agregar>Agregar</ng-template>
-    {{ title | titlecase}} [{{elementForm.value.idUsuario}}]</strong></div>
+    {{ title | titlecase}} [{{elementForm.value.idGrupoProducto}}]</strong></div>
   <form class="  p-3 ">
     <div class="row">
 
@@ -12,51 +12,38 @@
       </div>
       <div class="col-auto">
         <label for="inputPassword2" class="visually-hidden">label</label>
-        <input type="text" [(ngModel)]="elementSelected.nombre" class="form-control" name="{{title}}" id="{{title}}"
+        <input type="text" [(ngModel)]="elementSelected.nombreGrupoProducto" class="form-control" name="{{title}}" id="{{title}}"
           placeholder="">
       </div> -->
       <form [formGroup]="elementForm">
 
         <div class='field'>
-          <label for='proveedor'>Username</label>
-          <input class="form-control" type='text' formControlName="username" id='Rol' autocomplete="off" name='Rol' />
-          <div class="text-danger text-end fs-6 fst-italic" *ngIf="username.invalid && (username.dirty || username.touched)">
-            <span *ngIf="username.errors?.['required']">
+          <label for='proveedor'>{{ title | titlecase}}</label>
+          <input class="form-control" type='text' formControlName="nombreGrupoProducto" id='Atributo' autocomplete="off" name='Atributo' />
+          <div class="text-danger text-end fs-6 fst-italic" *ngIf="nombreGrupoProducto.invalid && (nombreGrupoProducto.dirty || nombreGrupoProducto.touched)">
+            <span *ngIf="nombreGrupoProducto.errors?.['required']">
               - Campo Obligatorio
             </span>
           </div>
         </div>
-        <div class='field' *ngIf="!elementForm.value.idUsuario; else btnPasswordNew">
-          <label for='proveedor'>Password</label>
-          <input class="form-control" type='text' formControlName="password" id='valorRol' autocomplete="off" name='valorRol' />
-          <div class="text-danger text-end fs-6 fst-italic" *ngIf="password.invalid && (password.dirty || password.touched)">
-            <span *ngIf="password.errors?.['required']">
-              - Campo Obligatorio
-            </span>
-          </div>
-        </div>
-        <ng-template #btnPasswordNew>
-          <div>
-            <button class="btn btn-primary">Cambiar Password</button>
-          </div>
-        </ng-template>
+
       </form>
     </div>
 
     <div class="col-auto mt-3 text-end">
       <button (click)="onSubmit()" [disabled]="elementForm.invalid" class="btn btn-guinda mb-3 me-2">
-        <span *ngIf="elementForm.value.idUsuario; else agregar">Actualizar</span>
-          <ng-template #agregar>Grabar</ng-template>
+        <span *ngIf="elementForm.value.idGrupoProducto; else agregar">Actualizar</span>
+      <ng-template #agregar>Grabar</ng-template>
         <div class="spinner-border spinner-border-sm" *ngIf="spinnerForm" role="status"></div>
       </button>
       <button (click)="onReset()" [disabled]="elementForm.invalid" class="btn btn-secondary mb-3 me-3 ">Limpiar</button>
     </div>
   </form>
 </div>
-<pre>
+ <pre>
   {{elementForm.value | json}}
 </pre>
-<!-- <div class="list-group">
+<!--<div class="list-group">
   <a href="#" class="list-group-item list-group-item-action active"
   >Active item</a
   >

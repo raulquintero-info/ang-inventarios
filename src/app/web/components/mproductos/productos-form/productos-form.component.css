@@ -1,0 +1,35 @@
+.result-grupos{
+  display: block;
+  position: absolute;
+  top: 37px;
+  left: 159px;
+  border: 1px solid #dee2e6;
+  background-color: white;
+  z-index: 3;
+  width: 300px;
+  min-width: 100px;
+
+}
+
+.grupo-selected{
+  font-weight: bold;
+  margin-left: 1rem;
+  margin-top: .5rem;
+  margin-right: 3rem;
+}
+
+.result-categorias{
+  display: block;
+  position: absolute;
+  top: 37px;
+  left: 94px;
+  border: 1px solid #dee2e6;
+  background-color: white;
+  z-index: 3;
+  width: 500px;
+  min-width: 100px;
+  height: 300px;
+  min-height: 100px;
+  overflow: scroll;
+
+}

@@ -2,7 +2,6 @@
 
 .generic-modal {
   text-align: left;
-  width:800;
 
   .modal-title{
     border-top-left-radius: 6px;
@@ -14,6 +13,24 @@
 
   .modal-dialog {
       max-width: 750px;
+  }
+
+}
+
+.generic-small-modal {
+  text-align: left;
+  width:800;
+
+  .modal-title{
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
+    background-color: #631231;
+    color: white;
+    padding: 6px;
+  }
+
+  .modal-dialog {
+      max-width: 500px;
   }
 
 }

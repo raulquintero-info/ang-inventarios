@@ -1,4 +1,5 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output, inject } from '@angular/core';
+import { NgxSpinnerService } from 'ngx-spinner';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -13,6 +14,8 @@ export class FileListComponent {
   @Output() categoryId = new EventEmitter<number>();
   @Output() itemId = new EventEmitter<number>();
 
+  private spinner = inject(NgxSpinnerService);
+
   markProducto(id: number){
     let element: any = document.getElementsByClassName('row-selected')[0];
     if (element) {
@@ -24,6 +27,7 @@ export class FileListComponent {
   }
 
   singleClick(id: number) {
+    this.spinner.show();
     this.categoryId.emit(id);
     console.log(id);
     this.markProducto(id)
