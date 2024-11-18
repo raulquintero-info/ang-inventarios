@@ -168,7 +168,6 @@ export class ProductosListComponent {
     const modalRefEditar = this.modalService.open(ProductosFormComponent, {windowClass:  "generic-modal"});
     modalRefEditar.componentInstance.categoryIdSelected = this.categoryIdSelected;
     modalRefEditar.componentInstance.almacenSelected = this.almacenSelected;
-
     modalRefEditar.componentInstance.elementSelected = this.itemSelected;
 
 

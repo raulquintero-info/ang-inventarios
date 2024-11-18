@@ -1,48 +1,89 @@
-<div style="border:1px solid gray; min-width: 300px">
+<!-- <div style="border:1px solid gray; min-width: 300px">
   <div style="background-color: #631231; color: white; padding:4px 4px 4px 4px"> <strong>
-    <span *ngIf="elementForm.value.idGrupoProducto; else agregar">Editar</span>
+    <span *ngIf="elementForm.value.idGrupo; else agregar">Editar</span>
       <ng-template #agregar>Agregar</ng-template>
-    {{ title | titlecase}} [{{elementForm.value.idGrupoProducto}}]</strong></div>
-  <form class="  p-3 ">
-    <div class="row">
+    {{ title | titlecase}} [{{elementForm.value.idGrupo}}]</strong></div>
+  <div class="  p-3 ">
+    <div class="row"> -->
 
       <!-- <div class="col-auto">
         <label for="staticEmail2" class="visually-hidden">label</label>
         <input type="text" readonly class="form-control-plaintext" id="staticCategoria" value="{{ title | titlecase}}">
       </div>
-      <div class="col-auto">
+      <div classs="col-auto">
         <label for="inputPassword2" class="visually-hidden">label</label>
-        <input type="text" [(ngModel)]="elementSelected.nombreGrupoProducto" class="form-control" name="{{title}}" id="{{title}}"
+        <input type="text" [(ngModel)]="elementSelected.nombreGrupo" class="form-control" name="{{title}}" id="{{title}}"
           placeholder="">
       </div> -->
       <form [formGroup]="elementForm">
 
-        <div class='field'>
-          <label for='proveedor'>{{ title | titlecase}}</label>
-          <input class="form-control" type='text' formControlName="nombreGrupoProducto" id='Atributo' autocomplete="off" name='Atributo' />
-          <div class="text-danger text-end fs-6 fst-italic" *ngIf="nombreGrupoProducto.invalid && (nombreGrupoProducto.dirty || nombreGrupoProducto.touched)">
-            <span *ngIf="nombreGrupoProducto.errors?.['required']">
+        <table style="width:100%; height: 45px " >
+          <tr>
+            <td style="padding-left:7px; vertical-align: top; padding-top:13px;">Nombre: </td>
+            <td  style="vertical-align: top; padding-top:11px;">
+              <input class1="form-control" type='text' formControlName="nombreGrupo" id='nombreGrupo' autocomplete="off"
+                name='Atributo' />
+              <div class="text-danger fst-italic" style="font-size: 11px;"
+                *ngIf="nombreGrupo.invalid && (nombreGrupo.dirty || nombreGrupo.touched)">
+                <span *ngIf="nombreGrupo.errors?.['required']">
+                  - Campo Obligatorio
+                </span>
+              </div>
+              <!-- <input type="text" style="width:100%"> -->
+            </td>
+            <td style="vertical-align: top; padding-top:11px;">
+              <input class="form-check-input" type="checkbox" formControlName="status" id="status" name="status" checked>
+              <div class="text-danger fst-italic" style="font-size: 11px;"
+              *ngIf="status.invalid && (status.dirty || status.touched)">
+                <span *ngIf="nombreGrupo.errors?.['required']">
+                  - Campo Obligatorio
+                </span>
+              </div>
+            </td>
+            <td class="text-end" style="padding-right: 7px; width:177; vertical-align: top; padding-top:6px;">
+              <!-- <i class="bi bi-floppy2-fill clickable buttons" (click)="onSubmit()" > Grabar</i> -->
+              <button class="btn btn-sm btn-guinda" (click)="onSubmit()" [disabled]="elementForm.invalid">
+                <i class="bi bi-floppy2-fill clickable"></i> Grabar
+              </button>
+            </td>
+          </tr>
+        </table>
+        <!-- <div class='field'>
+          <label for='proveedor'>Nombre</label>
+          <input class="form-control" type='text' formControlName="nombreGrupo" id='nombreGrupo' autocomplete="off" name='Atributo' />
+          <div class="text-danger text-end fs-6 fst-italic" *ngIf="nombreGrupo.invalid && (nombreGrupo.dirty || nombreGrupo.touched)">
+            <span *ngIf="nombreGrupo.errors?.['required']">
               - Campo Obligatorio
             </span>
           </div>
         </div>
+        <div class="form-check">
+          <label class="form-check-label" for="status" >Checked checkbox</label>
+          <input class="form-check-input" type="checkbox"  formControlName="status" id="status" name="status" checked >
+          <div class="text-danger text-end fs-6 fst-italic" *ngIf="status.invalid && (status.dirty || status.touched)">
+            <span *ngIf="nombreGrupo.errors?.['required']">
+              - Campo Obligatorio
+            </span>
+          </div>
+        </div> -->
 
       </form>
-    </div>
+    <!-- </div>
 
     <div class="col-auto mt-3 text-end">
       <button (click)="onSubmit()" [disabled]="elementForm.invalid" class="btn btn-guinda mb-3 me-2">
-        <span *ngIf="elementForm.value.idGrupoProducto; else agregar">Actualizar</span>
-      <ng-template #agregar>Grabar</ng-template>
+        <span *ngIf="elementForm.value.idGrupo; else agregar">Actualizar</span>
+          <ng-template #agregar>Grabar</ng-template>
         <div class="spinner-border spinner-border-sm" *ngIf="spinnerForm" role="status"></div>
       </button>
       <button (click)="onReset()" [disabled]="elementForm.invalid" class="btn btn-secondary mb-3 me-3 ">Limpiar</button>
     </div>
-  </form>
-</div>
- <pre>
-  {{elementForm.value | json}}
-</pre>
+  </div>
+</div> -->
+
+
+
+
 <!--<div class="list-group">
   <a href="#" class="list-group-item list-group-item-action active"
   >Active item</a
@@ -54,4 +95,3 @@
   >Disabled item</a
   >
 </div> -->
-<br><br><br><!-- Hover added -->

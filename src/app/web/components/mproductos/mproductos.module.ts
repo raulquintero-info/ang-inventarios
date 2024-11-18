@@ -28,6 +28,7 @@ import { RouterModule } from '@angular/router';
     TreeDirectoryComponent,
     FileListComponent,
     ProductosGrupoFormComponent,
+    ProductosFormComponent,
 
   ]
 })

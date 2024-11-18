@@ -5,27 +5,25 @@ import { BaseComponent, ToastDef } from 'src/app/core/kernel/base-component';
 import { GrupoProductosService } from 'src/app/core/services/grupo-productos.service';
 
 @Component({
-  selector: 'app-grupos-producto',
-  templateUrl: './grupos-producto.component.html',
-  styleUrls: ['./grupos-producto.component.css']
+  selector: 'app-grupos-productos-list',
+  templateUrl: './grupos-productos-list.component.html',
+  styleUrls: ['./grupos-productos-list.component.css']
 })
-export class GruposProductoComponent extends BaseComponent implements OnInit {
+export class GruposProductosListComponent extends BaseComponent implements OnInit {
 
   message: string = 'Procesando '
   title                   = 'Grupo de Productos';
   elements: GrupoProducto []      = [];
-  element: GrupoProducto          = {nombreGrupoProducto: '' } as GrupoProducto;
+  element: GrupoProducto          = {nombreGrupo: '' } as GrupoProducto;
   spinnerTable: boolean   = false
 
   private elementService  = inject(GrupoProductosService);
   private formBuilder = inject(FormBuilder);
 
   elementForm = this.formBuilder.group({
-    idGrupoProducto:[ 0, [Validators.required]],
-    nombreGrupoProducto:  [ '', [Validators.required]],
-    // direccionAlmacen:  [ '', [Validators.required]],
-    // telefonoAlmacen:  [ '', [Validators.required]],
-    // responsableAlmacen:  [ '', [Validators.required]],
+    idGrupo:[ 0, [Validators.required]],
+    nombreGrupo:  [ '', [Validators.required]],
+    status:  [ false, [Validators.required]],
   })
 
   constructor(){ super();
@@ -43,9 +41,10 @@ export class GruposProductoComponent extends BaseComponent implements OnInit {
   showSpinner(){ this.spinnerTable = true }
 
   onEdit(element: GrupoProducto){
-    this.elementForm.get('idGrupoProducto')?.setValue(element.idGrupoProducto);
-    this.elementForm.get('nombreGrupoProducto')?.setValue(element.nombreGrupoProducto);
-    // this.elementForm.get('direccionAlmacen')?.setValue(element.direccionAlmacen);
+    this.elementForm.get('idGrupo')?.setValue(element.idGrupo);
+    this.elementForm.get('nombreGrupo')?.setValue(element.nombreGrupo);
+    this.elementForm.get('status')?.setValue(element.status);
+    console.log('edit', this.elementForm)
     // this.elementForm.get('telefonoAlmacen')?.setValue(element.telefonoAlmacen);
     // this.elementForm.get('responsableAlmacen')?.setValue(element.responsableAlmacen);
   }

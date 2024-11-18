@@ -50,7 +50,7 @@ export class ProductosFormComponent extends BaseComponent implements OnInit {
   // private tiposProductoService = inject(TiposProductoService);
   private categoriesService = inject(CategoriesService);
 
-  @Output() temp: any                 = new EventEmitter<any>();
+  @Output() temp: any = new EventEmitter<any>();
 
   @Input() categoryIdSelected: number|null = 0;
   @Input() almacenSelected: Almacen = {} as Almacen;
@@ -127,7 +127,7 @@ export class ProductosFormComponent extends BaseComponent implements OnInit {
 
   gotoGrupos(){
     this.activeModal.close('Close click')
-    this.router.navigateByUrl('/catalogos/productos-grupos');
+    this.router.navigateByUrl('/catalogos/productos-grupos-content');
   }
 
   getCategories(){

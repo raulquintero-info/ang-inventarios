@@ -11,8 +11,9 @@ import { AtributosListComponent } from './atributos/atributos-list/atributos-lis
 import { TiposProductoListComponent } from './tipos-producto/tipos-producto-list/tipos-producto-list.component';
 import { RolesListComponent } from './roles/roles-list/roles-list.component';
 import { UsuariosListComponent } from './usuarios/usuarios-list/usuarios-list.component';
-import { GruposProductoComponent } from './grupos-producto/grupos-producto.component';
 import { MproductosModule } from '../../components/mproductos/mproductos.module';
+import { GruposProductosListComponent } from './grupos-producto/grupos-productos-list/grupos-productos-list.component';
+import { GruposProductosContentComponent } from './grupos-producto/grupos-productos-content/grupos-productos-content.component';
 
 
 
@@ -26,7 +27,8 @@ import { MproductosModule } from '../../components/mproductos/mproductos.module'
     TiposProductoListComponent,
     RolesListComponent,
     UsuariosListComponent,
-    GruposProductoComponent,
+    GruposProductosListComponent,
+    GruposProductosContentComponent,
   ],
   imports: [
     CommonModule,

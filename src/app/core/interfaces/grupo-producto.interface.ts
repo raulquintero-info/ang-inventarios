@@ -1,4 +1,6 @@
 export interface GrupoProducto{
-  idGrupoProducto: number;
-  nombreGrupoProducto: string;
+  idGrupo: number;
+  nombreGrupo: string;
+  status:boolean;
+
 }

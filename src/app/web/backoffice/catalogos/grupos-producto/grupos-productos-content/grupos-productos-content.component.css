@@ -1,0 +1,40 @@
+.accordion-button{
+  background-color: var(--bs-gray-200);
+}
+
+.accordion-button:not(.collapsed) {
+  background-color: var(--bs-gray-200) !important;
+}
+.accordion{
+  --bs-accordion-btn-padding-y: 0.5rem;
+}
+
+.edit-grupo-row{
+  background-color: #f9ebca;
+}
+.buttons{
+  border: 1px solid gray;
+  padding: 3px 10px 3px 10px;
+}
+
+.modal-grupo{
+  width: inherit;
+  position:unset;
+  top: 160px;
+  right: 100px;
+  background-color: white;
+  border: 1px solid black;
+
+  .modal-header{
+    background-color: maroon;
+    color: white;
+    padding: 6px;
+  }
+  .modal-body{
+    padding: 4px;
+  }
+  .modal-footer{
+    border-top: 1px solid  rgb(212, 211, 211);
+    padding: 5px
+  }
+}

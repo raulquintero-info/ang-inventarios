@@ -28,13 +28,13 @@
         </thead>
         <tbody>
           <tr *ngFor="let item of elements">
-            <td scope="row">{{item.idGrupoProducto}}</td>
-            <td (click)="onRow(item.idGrupoProducto)" class="clickable">{{item.nombreGrupoProducto}}</td>
+            <td scope="row">{{item.idGrupo}}</td>
+            <td (click)="onRow(item.idGrupo)" class="clickable">{{item.nombreGrupo}}</td>
             <!-- <td (click)="onRow(item.idGrupoProducto)" class="clickable">{{item.direccionAlmacen}}</td>
             <td (click)="onRow(item.idGrupoProducto)" class="clickable">{{item.telefonoAlmacen}}</td>
             <td (click)="onRow(item.idGrupoProducto)" class="clickable">{{item.responsableAlmacen}}</td> -->
             <td>
-              <i class="bi bi-trash3 clickable  text-danger me-2" (click)="onDelete(item.idGrupoProducto)"></i>
+              <i class="bi bi-trash3 clickable  text-danger me-2" (click)="onDelete(item.idGrupo)"></i>
               <i class="bi bi-pencil-square clickable" (click)="onEdit(item)"></i>
             </td>
           </tr>
@@ -69,7 +69,8 @@
       <td class="pb-2"><input type="text" name="" id="" placeholder="ej. lapiz bic" style="width:100%" (keyup.enter)="maximize()"></td>
       <td class="pb-2" style="width:85px"><button class="btn btn-secondary btn-sm">Buscar <i class="bi bi-search"></i></button></td>
     </tr>
-    <tr style="border-top: 1px solid #afb0b4;"> <td> <h4>Lapiz Bic ( 4 Productos ) <button class="btn btn-primary">Ver productos de este grupo <i class="bi bi-arrow-right"></i></button></h4> </td> </tr>
+    <tr style="border-top: 1px solid #afb0b4;"> <td> <h4>Lapiz Bic ( 4 Productos )
+      <button class="btn btn-primary" [routerLink]="'/catalogos/productos-grupos-content'">Ver productos de este grupo <i class="bi bi-arrow-right"></i></button></h4> </td> </tr>
     <tr style="border-top: 1px solid #afb0b4;"> <td class="ms-3"> <h5>Atributos (2)</h5> </td> </tr>
     <tr>
       <td style="height:301px; vertical-align: top;">

@@ -9,7 +9,8 @@ import { TiposProductoListComponent } from './tipos-producto/tipos-producto-list
 import { RolesListComponent } from './roles/roles-list/roles-list.component';
 import { UsuariosListComponent } from './usuarios/usuarios-list/usuarios-list.component';
 import { adminGuard } from 'src/app/core/guards/admin.guard';
-import { GruposProductoComponent } from './grupos-producto/grupos-producto.component';
+import { GruposProductosListComponent } from './grupos-producto/grupos-productos-list/grupos-productos-list.component';
+import { GruposProductosContentComponent } from './grupos-producto/grupos-productos-content/grupos-productos-content.component';
 
 
 const routes: Routes = [
@@ -22,11 +23,10 @@ const routes: Routes = [
       {path: 'almacenes', component: AlmacenesListComponent},
       {path: 'atributos', component: AtributosListComponent},
       {path: 'tipos-producto', component: TiposProductoListComponent},
-      {path: 'productos-grupos', component: GruposProductoComponent},
+      {path: 'productos-grupos', component: GruposProductosListComponent},
+      {path: 'productos-grupos-content', component: GruposProductosContentComponent},
       {path: 'roles', component: RolesListComponent},
       {path: 'usuarios', component: UsuariosListComponent, canActivate: [ adminGuard ] },
-
-
     ]
   }
 ]
